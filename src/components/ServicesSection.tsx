@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import Galaxy from "./Galaxy";
 import consultationImg from "@/assets/services/consultation.jpg";
 import designPlanningImg from "@/assets/services/design-planning.jpg";
 import spaceOptImg from "@/assets/services/space-optimization.jpg";
@@ -19,8 +20,25 @@ export const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-20 md:py-28">
-      <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
+    <section id="services" className="py-20 md:py-28 relative overflow-hidden">
+      {/* Galaxy background */}
+      <div className="absolute inset-0 z-0">
+        <Galaxy
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.3}
+          saturation={0}
+          hueShift={140}
+          twinkleIntensity={0.3}
+          rotationSpeed={0.1}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
+        />
+      </div>
+      <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
         {/* Header */}
         <motion.div
           className="text-center mb-14"
