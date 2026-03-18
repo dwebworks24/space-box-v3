@@ -1,11 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
-
-@font-face {
-  font-family: 'Akzidenz-Grotesk Next';
-  src: local('Akzidenz-Grotesk Next');
-  font-weight: 600;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,82 +6,52 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    /* ── IDEO-inspired dark navy + neon lime ── */
+    --background: 220 30% 7%;
+    --foreground: 210 10% 92%;
 
-    --card: 0 0% 97%;
-    --card-foreground: 0 0% 0%;
+    --card: 220 25% 10%;
+    --card-foreground: 210 10% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 220 25% 10%;
+    --popover-foreground: 210 10% 92%;
 
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 220 30% 7%;
 
-    --secondary: 3 76% 53%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 72 100% 50%;
+    --secondary-foreground: 220 30% 7%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 220 20% 12%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 3 76% 53%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 72 100% 50%;
+    --accent-foreground: 220 30% 7%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 3 76% 53%;
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 72 100% 50%;
 
-    --radius: 0.25rem;
+    --radius: 0rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 20%;
-    --sidebar-primary: 0 0% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 10%;
-    --sidebar-border: 0 0% 91%;
-    --sidebar-ring: 3 76% 53%;
+    --sidebar-background: 220 25% 8%;
+    --sidebar-foreground: 210 10% 85%;
+    --sidebar-primary: 72 100% 50%;
+    --sidebar-primary-foreground: 220 30% 7%;
+    --sidebar-accent: 220 20% 14%;
+    --sidebar-accent-foreground: 210 10% 90%;
+    --sidebar-border: 220 15% 16%;
+    --sidebar-ring: 72 100% 50%;
 
     --font-display: 'Plus Jakarta Sans', sans-serif;
-    --font-body: 'Akzidenz-Grotesk Next', 'Inter', sans-serif;
-    --font-serif: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
 
-    --gold: 33 52% 57%;
-    --gold-foreground: 0 0% 100%;
-    --warm-bg: 30 33% 97%;
-  }
-
-  .dark {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 3 76% 53%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 3 76% 53%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 3 76% 53%;
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 3 76% 53%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 15%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 3 76% 53%;
+    --gold: 72 100% 50%;
+    --gold-foreground: 220 30% 7%;
+    --warm-bg: 220 20% 9%;
   }
 }
 
@@ -100,12 +63,12 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
-    font-weight: 600;
+    font-weight: 400;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
   }
 }
 
