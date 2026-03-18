@@ -1,44 +1,107 @@
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import heroVideo from "@/assets/hero-video.mp4";
-import heroImg from "@/assets/hero-office.jpg";
+
+// Hero composite images
+import bgImage from "@/assets/hero/sofa-main-bg.webp";
+import pillarImage from "@/assets/hero/sofa-pillar.webp";
+import rackImage from "@/assets/hero/sofa-rack.webp";
+import lightImage from "@/assets/hero/sofa-light.webp";
+import sofaImage from "@/assets/hero/sofa-main.webp";
+import table1Image from "@/assets/hero/sofa-table1.webp";
+import table2Image from "@/assets/hero/sofa-table2.webp";
+import chairImage from "@/assets/hero/sofa-chair.webp";
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const containerVariants = {
+const heroParts = [
+  {
+    src: bgImage,
+    alt: "Night sky background",
+    className: "absolute inset-0 w-full h-full object-cover",
+    initial: { opacity: 0, scale: 1.3 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 1.8, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+  {
+    src: pillarImage,
+    alt: "Architectural pillars",
+    className: "absolute inset-0 w-full h-full object-cover object-center",
+    initial: { opacity: 0, y: -120 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 1.4, delay: 0.3, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+  {
+    src: rackImage,
+    alt: "Bookshelf rack",
+    className: "absolute left-0 top-[8%] h-[75%] w-auto max-w-[35%] object-contain object-left",
+    initial: { opacity: 0, x: -200, rotate: -5 },
+    animate: { opacity: 1, x: 0, rotate: 0 },
+    transition: { duration: 1.3, delay: 0.6, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+  {
+    src: lightImage,
+    alt: "Pendant lights",
+    className: "absolute top-0 left-[30%] right-[10%] h-[45%] object-contain object-top",
+    initial: { opacity: 0, y: -180 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 1.5, delay: 0.5, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+  {
+    src: sofaImage,
+    alt: "Green sofa",
+    className: "absolute bottom-[2%] left-[15%] right-[10%] h-[38%] object-contain object-bottom",
+    initial: { opacity: 0, y: 150 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 1.4, delay: 0.8, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+  {
+    src: table1Image,
+    alt: "Coffee tables",
+    className: "absolute bottom-[5%] right-[8%] h-[25%] w-auto object-contain",
+    initial: { opacity: 0, x: 180, y: 60 },
+    animate: { opacity: 1, x: 0, y: 0 },
+    transition: { duration: 1.3, delay: 1.0, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+  {
+    src: table2Image,
+    alt: "Side table",
+    className: "absolute bottom-[10%] left-[2%] h-[30%] w-auto object-contain",
+    initial: { opacity: 0, x: -150, y: 80 },
+    animate: { opacity: 1, x: 0, y: 0 },
+    transition: { duration: 1.2, delay: 1.1, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+  {
+    src: chairImage,
+    alt: "Accent chair",
+    className: "absolute bottom-[5%] right-[0%] h-[35%] w-auto object-contain",
+    initial: { opacity: 0, x: 200 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 1.3, delay: 0.9, ease: easeOut },
+    style: {} as React.CSSProperties,
+  },
+];
+
+const textContainerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.18, delayChildren: 0.3 } },
+  visible: { transition: { staggerChildren: 0.15, delayChildren: 1.6 } },
 };
 
 const fadeBlurUp = {
-  hidden: { opacity: 0, y: 60, filter: "blur(12px)" },
+  hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 1, ease: easeOut },
+    transition: { duration: 0.9, ease: easeOut },
   },
-};
-
-const slideInLeft = {
-  hidden: { opacity: 0, x: -80, filter: "blur(6px)" },
-  visible: {
-    opacity: 1,
-    x: 0,
-    filter: "blur(0px)",
-    transition: { duration: 1, ease: easeOut },
-  },
-};
-
-const charReveal = {
-  hidden: { opacity: 0, y: 40, rotateX: -90 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transition: { duration: 0.6, delay: 0.4 + i * 0.03, ease: easeOut },
-  }),
 };
 
 const HeroSection = () => {
@@ -47,82 +110,80 @@ const HeroSection = () => {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
-  const title = "Introducing Custom Interior Solutions in Telangana";
-  const words = title.split(" ");
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   return (
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-[75vh] sm:min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-[75vh] sm:min-h-screen flex items-center overflow-hidden bg-primary"
     >
-      <motion.video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        poster={heroImg}
-        className="absolute inset-0 w-full h-full object-cover"
-        initial={{ scale: 1.2 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 2.5, ease: easeOut }}
-      >
-        <source src={heroVideo} type="video/mp4" />
-      </motion.video>
-
+      {/* Composite image layers */}
       <motion.div
-        className="absolute inset-0 bg-primary"
-        style={{ opacity: overlayOpacity }}
+        className="absolute inset-0"
+        style={{ y: parallaxY }}
+      >
+        {heroParts.map((part, i) => (
+          <motion.img
+            key={i}
+            src={part.src}
+            alt={part.alt}
+            className={part.className}
+            style={part.style}
+            initial={part.initial}
+            animate={part.animate}
+            transition={part.transition}
+          />
+        ))}
+      </motion.div>
+
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent" />
+
+      {/* Noise texture */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        }}
       />
 
-      {/* Animated grain/noise texture overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-      }} />
-
+      {/* Text content */}
       <div className="relative z-10 flex items-center min-h-[75vh] sm:min-h-screen container mx-auto px-4 sm:px-8 md:px-16">
         <motion.div
           className="max-w-2xl pt-20 sm:pt-24 pb-16 sm:pb-0"
           style={{ y: textY, opacity: textOpacity }}
         >
           <motion.div
-            variants={containerVariants}
+            variants={textContainerVariants}
             initial="hidden"
             animate="visible"
           >
-            {/* Word-by-word reveal with 3D flip */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight text-primary-foreground" style={{ perspective: "600px" }}>
-              {words.map((word, i) => (
-                <motion.span
-                  key={i}
-                  custom={i}
-                  variants={charReveal}
-                  className="inline-block mr-[0.3em]"
-                  style={{ transformOrigin: "bottom" }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </h1>
-
             <motion.p
-              variants={slideInLeft}
-              className="mt-6 text-primary-foreground/80 max-w-md text-sm sm:text-lg leading-relaxed font-body text-justify"
+              variants={fadeBlurUp}
+              className="text-primary-foreground/70 text-sm sm:text-base tracking-[0.3em] uppercase font-body mb-3"
             >
-              Not out of the box. We think within your space.
+              Make your home
             </motion.p>
 
-            <motion.div variants={fadeBlurUp}>
+            <motion.h1
+              variants={fadeBlurUp}
+              className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight text-primary-foreground"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              A Reflection Of{" "}
+              <span className="text-secondary">YOU</span>
+            </motion.h1>
+
+            <motion.div variants={fadeBlurUp} className="mt-8">
               <Link
-                to="/projects"
-                className="mt-8 inline-flex px-8 py-3.5 rounded-lg bg-secondary text-secondary-foreground font-semibold shadow-lg hover:shadow-2xl hover:scale-[1.03] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 ease-out shimmer"
+                to="/start-project"
+                className="inline-flex px-8 py-3.5 rounded-sm border border-primary-foreground/60 text-primary-foreground font-semibold tracking-widest uppercase text-sm hover:bg-primary-foreground hover:text-primary transition-all duration-500 ease-out"
               >
-                Explore Projects
+                Start Your Journey
               </Link>
             </motion.div>
           </motion.div>
@@ -134,7 +195,7 @@ const HeroSection = () => {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
       >
         <motion.div
           className="w-5 h-8 rounded-full border-2 border-primary-foreground/40 flex justify-center pt-1.5"
