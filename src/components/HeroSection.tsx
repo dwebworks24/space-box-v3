@@ -12,14 +12,14 @@ import table1Image from "@/assets/hero/sofa-table1.webp";
 import table2Image from "@/assets/hero/sofa-table2.webp";
 import chairImage from "@/assets/hero/sofa-chair.webp";
 
-// Scene 2: Bedroom
-import bedroomBg from "@/assets/hero/bedroom-bg.webp";
-import bedroomBed from "@/assets/hero/bedroom-bed.png";
-import bedroomNightstand from "@/assets/hero/bedroom-nightstand.png";
-import bedroomLamp from "@/assets/hero/bedroom-lamp.png";
-import bedroomPlant from "@/assets/hero/bedroom-plant.png";
-import bedroomChair from "@/assets/hero/bedroom-chair.png";
-import bedroomArt from "@/assets/hero/bedroom-art.png";
+// Scene 2: Modern Living Room
+import livingBg from "@/assets/hero/living-bg.webp";
+import livingSofa from "@/assets/hero/living-sofa.png";
+import livingTable from "@/assets/hero/living-table.png";
+import livingLamp from "@/assets/hero/living-lamp.png";
+import livingPlant from "@/assets/hero/living-plant.png";
+import livingChair from "@/assets/hero/living-chair.png";
+import livingArt from "@/assets/hero/living-art.png";
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -101,58 +101,58 @@ const scene1Parts: HeroPart[] = [
 
 const scene2Parts: HeroPart[] = [
   {
-    src: bedroomBg,
-    alt: "Bedroom background",
+    src: livingBg,
+    alt: "Modern living room",
     className: "absolute inset-0 w-full h-full object-cover",
     initial: { opacity: 0, scale: 1.3 },
     animate: { opacity: 1, scale: 1 },
     transition: { duration: 1.8, ease: easeOut },
   },
   {
-    src: bedroomArt,
+    src: livingArt,
     alt: "Wall art",
-    className: "absolute top-[8%] left-[10%] h-[30%] w-auto object-contain",
+    className: "absolute top-[5%] right-[15%] h-[32%] w-auto object-contain",
     initial: { opacity: 0, y: -150 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.4, delay: 0.3, ease: easeOut },
   },
   {
-    src: bedroomLamp,
-    alt: "Pendant lamp",
-    className: "absolute top-0 right-[25%] h-[40%] w-auto object-contain",
-    initial: { opacity: 0, y: -200 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.5, delay: 0.4, ease: easeOut },
+    src: livingLamp,
+    alt: "Floor lamp",
+    className: "absolute bottom-[5%] left-[3%] h-[55%] w-auto object-contain",
+    initial: { opacity: 0, x: -180 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 1.5, delay: 0.5, ease: easeOut },
   },
   {
-    src: bedroomBed,
-    alt: "King bed",
-    className: "absolute bottom-[5%] left-[15%] right-[15%] h-[40%] object-contain object-bottom",
+    src: livingSofa,
+    alt: "Sectional sofa",
+    className: "absolute bottom-[3%] left-[18%] right-[10%] h-[35%] object-contain object-bottom",
     initial: { opacity: 0, y: 160 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.4, delay: 0.7, ease: easeOut },
   },
   {
-    src: bedroomNightstand,
-    alt: "Nightstand",
-    className: "absolute bottom-[8%] right-[5%] h-[28%] w-auto object-contain",
-    initial: { opacity: 0, x: 180 },
-    animate: { opacity: 1, x: 0 },
+    src: livingTable,
+    alt: "Coffee table",
+    className: "absolute bottom-[8%] left-[35%] h-[20%] w-auto object-contain",
+    initial: { opacity: 0, y: 100 },
+    animate: { opacity: 1, y: 0 },
     transition: { duration: 1.3, delay: 0.9, ease: easeOut },
   },
   {
-    src: bedroomPlant,
-    alt: "Indoor plant",
-    className: "absolute bottom-[5%] left-[2%] h-[35%] w-auto object-contain",
-    initial: { opacity: 0, x: -160 },
+    src: livingPlant,
+    alt: "Monstera plant",
+    className: "absolute bottom-[5%] right-[2%] h-[38%] w-auto object-contain",
+    initial: { opacity: 0, x: 180 },
     animate: { opacity: 1, x: 0 },
     transition: { duration: 1.2, delay: 1.0, ease: easeOut },
   },
   {
-    src: bedroomChair,
+    src: livingChair,
     alt: "Accent chair",
-    className: "absolute bottom-[8%] right-[0%] h-[30%] w-auto object-contain",
-    initial: { opacity: 0, x: 200 },
+    className: "absolute bottom-[8%] right-[12%] h-[28%] w-auto object-contain",
+    initial: { opacity: 0, x: 150 },
     animate: { opacity: 1, x: 0 },
     transition: { duration: 1.3, delay: 0.8, ease: easeOut },
   },
