@@ -40,7 +40,7 @@ const OurWorkSection = () => {
   const cardHeight = isMobile ? 240 : PROJECT_HEIGHT;
 
   // Total scroll height = enough to scroll through all projects
-  const totalScrollHeight = (projects.length) * (cardHeight + GAP);
+  const totalScrollHeight = (projects.length - 1) * (cardHeight + GAP);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
