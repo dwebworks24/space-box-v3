@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import FloatingButtons from './FloatingButtons';
+import MusicPlayer from './MusicPlayer';
 import PageTransition from './PageTransition';
 import ScrollToTop from './ScrollToTop';
 import { useLenis } from '@/hooks/useLenis';
