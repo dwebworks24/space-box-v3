@@ -1,21 +1,42 @@
-import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { Instagram, MapPin, Mail, Phone } from "lucide-react";
 import logo from "@/assets/logo.png";
 import footerBg from "@/assets/footer-bg-new.jpg";
 import footerLamps from "@/assets/footer-lamps.png";
 
+const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOut } },
+};
+
 const Footer = () => {
   return (
     <footer id="contact" className="relative overflow-hidden">
-      {/* Lamps hanging from the top edge of the footer */}
-      <img
+      {/* Lamps */}
+      <motion.img
         src={footerLamps}
         alt=""
         className="absolute top-0 left-2 md:left-10 w-[80px] md:w-[140px] z-20 pointer-events-none select-none"
+        initial={{ y: -60, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: easeOut, delay: 0.3 }}
       />
-      <img
+      <motion.img
         src={footerLamps}
         alt=""
         className="absolute top-0 right-2 md:right-10 w-[80px] md:w-[140px] z-20 pointer-events-none select-none scale-x-[-1]"
+        initial={{ y: -60, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: easeOut, delay: 0.5 }}
       />
 
       {/* Background image */}
@@ -27,18 +48,29 @@ const Footer = () => {
 
       {/* Main content */}
       <div className="relative z-10 pt-24 pb-8">
-        <div className="container mx-auto px-6 flex flex-col items-center text-center">
+        <motion.div
+          className="container mx-auto px-6 flex flex-col items-center text-center"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+        >
           {/* Logo */}
-          <img
+          <motion.img
+            variants={fadeUp}
             src={logo}
             alt="SpaceBox Concepts"
             className="h-36 md:h-48 w-auto brightness-0 invert mb-6"
           />
 
           {/* Contact Details Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 w-full max-w-4xl mb-12 items-start text-left">
+          <motion.div
+            variants={stagger}
+            className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 w-full max-w-4xl mb-12 items-start text-left"
+          >
             {/* Location */}
-            <a
+            <motion.a
+              variants={fadeUp}
               href="https://maps.google.com/?q=spacebox+concepts+Interior+Designer+Kondapur"
               target="_blank"
               rel="noopener noreferrer"
@@ -59,9 +91,10 @@ const Footer = () => {
                   Serilingampally - 500084
                 </p>
               </div>
-            </a>
+            </motion.a>
             {/* Email */}
-            <a
+            <motion.a
+              variants={fadeUp}
               href="mailto:spaceboxconcepts@gmail.com"
               className="flex items-center gap-3 group"
             >
@@ -76,18 +109,16 @@ const Footer = () => {
                   spaceboxconcepts@gmail.com
                 </p>
               </div>
-            </a>
+            </motion.a>
             {/* Phone */}
-            <div className="flex items-center gap-3">
+            <motion.div variants={fadeUp} className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center shrink-0">
                 <Phone size={20} className="text-secondary" />
               </div>
-
               <div className="text-left">
                 <p className="text-white/60 font-body text-xs uppercase tracking-wider mb-0.5">
                   Call us Anytime
                 </p>
-
                 <div className="flex flex-col">
                   <a
                     href="tel:+917799101433"
@@ -95,14 +126,13 @@ const Footer = () => {
                   >
                     +91 77991 01433
                   </a>
-
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Nav links */}
-          <nav className="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
+          <motion.nav variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
             {[
               { label: "Home", href: "/" },
               { label: "About", href: "/about" },
@@ -119,13 +149,19 @@ const Footer = () => {
                 {link.label}
               </a>
             ))}
-          </nav>
+          </motion.nav>
 
           {/* Divider */}
-          <div className="w-full max-w-5xl h-px bg-white/20 mb-6" />
+          <motion.div
+            variants={{
+              hidden: { scaleX: 0 },
+              visible: { scaleX: 1, transition: { duration: 0.8, ease: easeOut } },
+            }}
+            className="w-full max-w-5xl h-px bg-white/20 mb-6 origin-left"
+          />
 
           {/* Bottom row */}
-          <div className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <motion.div variants={fadeUp} className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Social icons */}
             <div className="flex gap-3">
               {[
@@ -134,15 +170,17 @@ const Footer = () => {
                   href: "https://www.instagram.com/spaceboxconcepts/",
                 },
               ].map(({ icon: Icon, href }, i) => (
-                <a
+                <motion.a
                   key={i}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full border border-white/40 flex items-center justify-center text-white/70 hover:text-secondary hover:border-secondary transition-colors"
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Icon size={16} />
-                </a>
+                </motion.a>
               ))}
             </div>
 
@@ -163,8 +201,8 @@ const Footer = () => {
               </a>
               .
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </footer>
   );
