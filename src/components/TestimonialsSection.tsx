@@ -153,7 +153,7 @@ const TestimonialsSection = () => {
 
                 <div className="flex items-center gap-4">
                   <div>
-                    <p className="text-foreground font-semibold text-lg">{t.name}</p>
+                    <p className="text-white font-semibold text-lg">{t.name}</p>
                   </div>
                 </div>
               </motion.div>
