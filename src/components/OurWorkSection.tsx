@@ -24,8 +24,9 @@ const projects = [
   { img: work9, title: "Kids Play Zone", category: "Commercial" },
 ];
 
-const PROJECT_HEIGHT = 420; // px per project visible area
+const PROJECT_HEIGHT = 420;
 const GAP = 24;
+const VISIBLE_CARDS = 2; // how many cards visible at once in the viewport
 
 const OurWorkSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -39,23 +40,24 @@ const OurWorkSection = () => {
 
   const cardHeight = isMobile ? 240 : PROJECT_HEIGHT;
 
-  // Total scroll height = enough to scroll through all projects
-  const totalScrollHeight = (projects.length - 1) * (cardHeight + GAP);
+  // Scroll height: one viewport + enough to scroll through remaining cards
+  const extraScroll = (projects.length - VISIBLE_CARDS) * (cardHeight + GAP);
+  const totalScrollHeight = window.innerHeight + extraScroll;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Translate the project list upward as user scrolls
-  const maxTranslate = (projects.length - 1) * (cardHeight + GAP);
+  // Translate only enough to reveal hidden cards
+  const maxTranslate = extraScroll;
   const translateY = useTransform(scrollYProgress, [0, 1], [0, -maxTranslate]);
 
   return (
     <section
       ref={sectionRef}
       className="relative bg-gradient-to-b from-[hsl(25,40%,95%)] to-[hsl(35,45%,93%)]"
-      style={{ height: `${totalScrollHeight + 100}px` }}
+      style={{ height: `${totalScrollHeight}px` }}
     >
       {/* Sticky container that stays in view */}
       <div className="sticky top-0 h-screen overflow-hidden flex items-center pt-32 lg:pt-0">
