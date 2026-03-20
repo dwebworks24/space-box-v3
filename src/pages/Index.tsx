@@ -54,10 +54,8 @@ const Index = () => {
       {/* Our Work - no parallax wrapper, it has its own scroll animation */}
       <OurWorkSection />
 
-      {/* Work Process */}
-      <ParallaxSection scaleAmount={0.06} translateAmount={-50}>
-        <WorkProcessSection />
-      </ParallaxSection>
+      {/* Work Process - has its own scroll animation */}
+      <WorkProcessSection />
 
       {/* Testimonials */}
       <ParallaxSection scaleAmount={0.05} translateAmount={-40} roundedReveal>
