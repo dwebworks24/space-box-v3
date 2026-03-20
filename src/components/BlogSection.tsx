@@ -60,7 +60,13 @@ const BlogSection = () => {
   const posts = allPosts.slice(0, 3);
 
   return (
-    <section className="py-24" style={{ background: 'linear-gradient(to bottom, hsl(220, 20%, 12%), hsl(200, 15%, 16%))' }}>
+    <section className="py-24 relative overflow-hidden bg-background">
+      {/* Dark background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80)' }}
+      />
+      <div className="absolute inset-0 bg-foreground/90" />
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         <motion.div
           className="flex items-end justify-between mb-16"

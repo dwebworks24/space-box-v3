@@ -55,7 +55,13 @@ const TestimonialsSection = () => {
   const prev = () => setActive((i) => (i - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(to bottom, hsl(30, 30%, 94%), hsl(25, 35%, 90%))' }}>
+    <section className="py-24 relative overflow-hidden bg-background">
+      {/* Dark background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80)' }}
+      />
+      <div className="absolute inset-0 bg-foreground/85" />
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[500px]">
           {/* Left - Floating avatar circles with continuous float */}
