@@ -184,7 +184,7 @@ const TestimonialsSection = () => {
                 whileHover={{ scale: 1.1, x: 2 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <ChevronRight className="w-4 h-4 text-foreground" />
+                <ChevronRight className="w-4 h-4 text-white" />
               </motion.button>
             </div>
           </div>
