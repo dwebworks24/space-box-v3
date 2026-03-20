@@ -51,6 +51,7 @@ export default function ParallaxSection({
           transformOrigin: "center center",
           overflow: "hidden",
           willChange: "transform, opacity",
+          boxShadow: "0 -8px 30px -5px rgba(0,0,0,0.12), 0 -2px 6px -2px rgba(0,0,0,0.06)",
         }}
       >
         {children}
