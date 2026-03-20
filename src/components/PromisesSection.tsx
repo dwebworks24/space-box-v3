@@ -78,7 +78,7 @@ const PromisesSection = () => {
             </p>
           </div>
           <motion.div
-            className="h-px w-full bg-border mt-10"
+            className="h-px w-full bg-white/15 mt-10"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
