@@ -4,26 +4,23 @@ import { useRef, ReactNode } from "react";
 interface ParallaxSectionProps {
   children: ReactNode;
   className?: string;
-  /** How much the section scales down as it scrolls away (0 = no scale, 0.08 = subtle) */
+  /** How much the section scales down as the next section covers it */
   scaleAmount?: number;
-  /** How much the section translates up as next section covers it */
-  translateAmount?: number;
   /** Whether this section sticks and gets covered by the next */
   sticky?: boolean;
-  /** Fade out as it scrolls away */
+  /** Fade out as it gets covered */
   fadeOut?: boolean;
-  /** Add a rounded reveal on the incoming section */
-  roundedReveal?: boolean;
+  /** z-index layer order (higher = on top) */
+  zIndex?: number;
 }
 
 export default function ParallaxSection({
   children,
   className = "",
-  scaleAmount = 0.06,
-  translateAmount = -60,
+  scaleAmount = 0.05,
   sticky = true,
   fadeOut = true,
-  roundedReveal = false,
+  zIndex = 1,
 }: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -32,32 +29,27 @@ export default function ParallaxSection({
     offset: ["start start", "end start"],
   });
 
+  // As this section scrolls away, it scales down and fades
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1 - scaleAmount]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, translateAmount]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, fadeOut ? 0.4 : 1]);
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    roundedReveal ? ["0px", "24px"] : ["0px", "0px"]
-  );
+  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, fadeOut ? 0.6 : 1]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.5], ["0px", "20px"]);
 
   if (!sticky) {
     return (
-      <div ref={ref} className={className}>
+      <div className={`relative ${className}`} style={{ zIndex }}>
         {children}
       </div>
     );
   }
 
   return (
-    <div ref={ref} className={`relative ${className}`} style={{ zIndex: 1 }}>
+    <div ref={ref} className={`sticky top-0 ${className}`} style={{ zIndex }}>
       <motion.div
         style={{
           scale,
-          y,
           opacity,
           borderRadius,
-          transformOrigin: "center top",
+          transformOrigin: "center center",
           overflow: "hidden",
         }}
       >

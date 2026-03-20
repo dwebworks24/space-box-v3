@@ -21,54 +21,50 @@ const Index = () => {
         keywords="interior design, custom interiors, Telangana, Hyderabad, residential interior, commercial interior, SpaceBox Concepts, home design, office design"
       />
 
-      {/* Hero scales down & fades as CategoryBar scrolls over */}
-      <ParallaxSection scaleAmount={0.08} translateAmount={-80} roundedReveal>
+      {/* Each section sticks in place, next section slides over it */}
+      <ParallaxSection zIndex={1} scaleAmount={0.06}>
         <HeroSection />
       </ParallaxSection>
 
-      {/* CategoryBar scales down as About covers it */}
-      <ParallaxSection scaleAmount={0.04} translateAmount={-40}>
+      <ParallaxSection zIndex={2} scaleAmount={0.04}>
         <CategoryBar />
       </ParallaxSection>
 
-      {/* About section with depth */}
-      <ParallaxSection scaleAmount={0.06} translateAmount={-50} roundedReveal>
+      <ParallaxSection zIndex={3} scaleAmount={0.05}>
         <AboutCompanySection />
       </ParallaxSection>
 
-      {/* Services - darker section covers about */}
-      <ParallaxSection scaleAmount={0.05} translateAmount={-40}>
+      <ParallaxSection zIndex={4} scaleAmount={0.05}>
         <ServicesSection />
       </ParallaxSection>
 
-      {/* Promises - stacks over services */}
-      <ParallaxSection scaleAmount={0.06} translateAmount={-60}>
+      <ParallaxSection zIndex={5} scaleAmount={0.05}>
         <PromisesSection />
       </ParallaxSection>
 
-      {/* Stats with parallax bg */}
-      <ParallaxSection scaleAmount={0.07} translateAmount={-50} roundedReveal>
+      <ParallaxSection zIndex={6} scaleAmount={0.06}>
         <StatsSection />
       </ParallaxSection>
 
-      {/* Our Work - no parallax wrapper, it has its own scroll animation */}
-      <OurWorkSection />
+      {/* These have their own scroll animations - still stack on top */}
+      <div className="relative" style={{ zIndex: 7 }}>
+        <OurWorkSection />
+      </div>
 
-      {/* Work Process - has its own scroll animation */}
-      <WorkProcessSection />
+      <div className="relative" style={{ zIndex: 8 }}>
+        <WorkProcessSection />
+      </div>
 
-      {/* Testimonials */}
-      <ParallaxSection scaleAmount={0.05} translateAmount={-40} roundedReveal>
+      <ParallaxSection zIndex={9} scaleAmount={0.04}>
         <TestimonialsSection />
       </ParallaxSection>
 
-      {/* Blog */}
-      <ParallaxSection scaleAmount={0.04} translateAmount={-30}>
+      <ParallaxSection zIndex={10} scaleAmount={0.04}>
         <BlogSection />
       </ParallaxSection>
 
-      {/* CTA - no parallax on last section */}
-      <ParallaxSection sticky={false}>
+      {/* Last section - no sticky needed */}
+      <ParallaxSection zIndex={11} sticky={false}>
         <CTAStrip />
       </ParallaxSection>
     </>
