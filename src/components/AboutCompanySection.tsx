@@ -114,8 +114,6 @@ const AboutCompanySection = () => {
               src={aboutImg}
               alt="SpaceBox Concepts – Modern office interior"
               className="w-full max-w-lg lg:max-w-none rounded-2xl object-cover shadow-xl"
-              loading="lazy"
-              style={{ y: imgY }}
             />
           </motion.div>
         </div>
