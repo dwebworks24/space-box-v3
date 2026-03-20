@@ -5,9 +5,13 @@ import { useIsMobile } from "@/hooks/use-mobile";
 interface ParallaxSectionProps {
   children: ReactNode;
   className?: string;
+  /** How much the section scales down as the next section covers it */
   scaleAmount?: number;
+  /** Whether this section sticks and gets covered by the next */
   sticky?: boolean;
+  /** Fade out as it gets covered */
   fadeOut?: boolean;
+  /** z-index layer order (higher = on top) */
   zIndex?: number;
 }
 
@@ -42,20 +46,23 @@ export default function ParallaxSection({
   }
 
   return (
-    <div ref={ref} className={`sticky top-0 ${className}`} style={{ zIndex }}>
-      <motion.div
-        style={{
-          scale,
-          opacity,
-          borderRadius,
-          transformOrigin: "center center",
-          overflow: "hidden",
-          willChange: "transform, opacity",
-          boxShadow: "0 -8px 30px -5px rgba(0,0,0,0.12), 0 -2px 6px -2px rgba(0,0,0,0.06)",
-        }}
-      >
-        {children}
-      </motion.div>
+    <div ref={ref} className={`relative ${className}`} style={{ zIndex }}>
+      {/* Sticky inner container that stays in view while parent scrolls */}
+      <div className="sticky top-0">
+        <motion.div
+          style={{
+            scale,
+            opacity,
+            borderRadius,
+            transformOrigin: "center center",
+            overflow: "hidden",
+            willChange: "transform, opacity",
+            boxShadow: "0 -8px 30px -5px rgba(0,0,0,0.12), 0 -2px 6px -2px rgba(0,0,0,0.06)",
+          }}
+        >
+          {children}
+        </motion.div>
+      </div>
     </div>
   );
 }
