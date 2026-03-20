@@ -91,11 +91,11 @@ const BlogSection = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[1, 2, 3].map((n) => (
               <div key={n} className="bg-white/10 border border-white/15 rounded-xl overflow-hidden animate-pulse">
-                <div className="w-full h-56 bg-muted" />
+                <div className="w-full h-56 bg-white/5" />
                 <div className="p-6 space-y-3">
-                  <div className="h-4 bg-muted rounded w-1/3" />
-                  <div className="h-5 bg-muted rounded w-2/3" />
-                  <div className="h-4 bg-muted rounded w-full" />
+                  <div className="h-4 bg-white/10 rounded w-1/3" />
+                  <div className="h-5 bg-white/10 rounded w-2/3" />
+                  <div className="h-4 bg-white/10 rounded w-full" />
                 </div>
               </div>
             ))}
