@@ -54,7 +54,7 @@ const cardVariant = {
 
 const PromisesSection = () => {
   return (
-    <section className="py-28 bg-background border-t border-border">
+    <section className="py-28 bg-[hsl(220,20%,12%)] border-t border-white/10">
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         {/* Header */}
         <motion.div
@@ -64,21 +64,21 @@ const PromisesSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: easeOut }}
         >
-          <p className="text-secondary text-xs uppercase tracking-[0.4em] mb-4 font-body">
+          <p className="text-secondary text-xs uppercase tracking-[0.4em] mb-4 font-body" style={{color: 'hsl(var(--secondary))'}}>
             Our Commitment
           </p>
           <div className="flex items-end justify-between gap-8 flex-wrap">
-            <h2 className="text-4xl md:text-5xl text-foreground leading-tight max-w-md">
+            <h2 className="text-4xl md:text-5xl text-white leading-tight max-w-md">
               Promises We
               <br />
               Stand By
             </h2>
-            <p className="text-muted-foreground font-body max-w-sm text-sm leading-relaxed pb-1">
+            <p className="text-white/60 font-body max-w-sm text-sm leading-relaxed pb-1">
               We deliver reliable interior design services across Telangana with accountability at every stage.
             </p>
           </div>
           <motion.div
-            className="h-px w-full bg-border mt-10"
+            className="h-px w-full bg-white/15 mt-10"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
@@ -108,7 +108,7 @@ const PromisesSection = () => {
             >
               <div className="flex items-start gap-5">
                 <motion.div
-                  className="flex-shrink-0 w-12 h-12 flex items-center justify-center border border-border group-hover:border-secondary group-hover:bg-secondary/10 transition-all duration-500"
+                  className="flex-shrink-0 w-12 h-12 flex items-center justify-center border border-white/20 group-hover:border-secondary group-hover:bg-secondary/10 transition-all duration-500"
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 >
@@ -118,10 +118,10 @@ const PromisesSection = () => {
                   />
                 </motion.div>
                 <div>
-                  <h3 className="text-base text-foreground mb-2 tracking-wide group-hover:text-secondary transition-colors duration-300">
+                  <h3 className="text-base text-white mb-2 tracking-wide group-hover:text-secondary transition-colors duration-300">
                     {p.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground font-body leading-relaxed">
+                  <p className="text-sm text-white/55 font-body leading-relaxed">
                     {p.desc}
                   </p>
                 </div>

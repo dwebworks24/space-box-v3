@@ -60,7 +60,7 @@ const BlogSection = () => {
   const posts = allPosts.slice(0, 3);
 
   return (
-    <section className="py-24">
+    <section className="py-24 bg-[hsl(220,20%,12%)]">
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         <motion.div
           className="flex items-end justify-between mb-16"
@@ -70,17 +70,17 @@ const BlogSection = () => {
           viewport={{ once: true, margin: "-80px" }}
         >
           <div>
-            <motion.p variants={fadeBlurUp} className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body">
+            <motion.p variants={fadeBlurUp} className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body" style={{color: 'hsl(var(--secondary))'}}>
               Insights
             </motion.p>
-            <motion.h2 variants={fadeBlurUp} className="text-4xl md:text-5xl text-foreground">
+            <motion.h2 variants={fadeBlurUp} className="text-4xl md:text-5xl text-white">
               Latest Blogs
             </motion.h2>
           </div>
           <motion.a
             variants={fadeBlurUp}
             href="/blog"
-            className="hidden md:inline-flex items-center gap-2 text-primary font-body font-medium hover:text-secondary transition-colors"
+            className="hidden md:inline-flex items-center gap-2 text-white font-body font-medium hover:text-secondary transition-colors"
             whileHover={{ x: 6 }}
           >
             View All <ArrowRight className="w-4 h-4" />
@@ -90,12 +90,12 @@ const BlogSection = () => {
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[1, 2, 3].map((n) => (
-              <div key={n} className="bg-card border border-border rounded-xl overflow-hidden animate-pulse">
-                <div className="w-full h-56 bg-muted" />
+              <div key={n} className="bg-white/10 border border-white/15 rounded-xl overflow-hidden animate-pulse">
+                <div className="w-full h-56 bg-white/5" />
                 <div className="p-6 space-y-3">
-                  <div className="h-4 bg-muted rounded w-1/3" />
-                  <div className="h-5 bg-muted rounded w-2/3" />
-                  <div className="h-4 bg-muted rounded w-full" />
+                  <div className="h-4 bg-white/10 rounded w-1/3" />
+                  <div className="h-5 bg-white/10 rounded w-2/3" />
+                  <div className="h-4 bg-white/10 rounded w-full" />
                 </div>
               </div>
             ))}
@@ -105,7 +105,7 @@ const BlogSection = () => {
             {posts.map((post, i) => (
               <motion.div
                 key={post.id}
-                className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-[0_16px_48px_hsl(var(--secondary)/0.15)] hover:border-secondary/30 transition-all duration-500"
+                className="group bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl overflow-hidden hover:shadow-[0_16px_48px_hsl(var(--secondary)/0.25)] hover:border-secondary/30 transition-all duration-500"
                 variants={cardVariant(i)}
                 initial="hidden"
                 whileInView="visible"
@@ -133,7 +133,7 @@ const BlogSection = () => {
                         {post.tags.split(",")[0]?.trim()}
                       </span>
                     )}
-                    <span className="flex items-center gap-1 text-muted-foreground text-xs font-body">
+                    <span className="flex items-center gap-1 text-white/50 text-xs font-body">
                       <Calendar className="w-3 h-3" />{" "}
                       {new Date(post.created_at).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -142,10 +142,10 @@ const BlogSection = () => {
                       })}
                     </span>
                   </motion.div>
-                  <motion.h3 variants={textSlideUp} className="text-xl text-foreground group-hover:text-primary transition-colors duration-300 mb-2">
+                  <motion.h3 variants={textSlideUp} className="text-xl text-white group-hover:text-secondary transition-colors duration-300 mb-2">
                     {post.title}
                   </motion.h3>
-                  <motion.p variants={textSlideUp} className="text-sm text-muted-foreground font-body leading-relaxed mb-5">
+                  <motion.p variants={textSlideUp} className="text-sm text-white/60 font-body leading-relaxed mb-5">
                     {post.short_description}
                   </motion.p>
                   <motion.div variants={textSlideUp}>
