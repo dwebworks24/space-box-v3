@@ -48,7 +48,7 @@ const WorkProcessSection = () => {
       style={{ height: `${stages.length * 55}vh` }}
     >
       {/* Sticky viewport */}
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col">
+      <div className="sticky top-16 sm:top-20 overflow-hidden flex flex-col" style={{ height: 'calc(100vh - 4rem)' }}>
         {/* Background */}
         <motion.div className="absolute inset-0 -top-[10%] -bottom-[10%]" style={{ y: bgY }}>
           <img src={ctaBg} alt="" className="w-full h-full object-cover" />
@@ -56,7 +56,7 @@ const WorkProcessSection = () => {
         <div className="absolute inset-0 bg-black/80" />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col h-full px-6 md:px-10 lg:px-20 pt-16 md:pt-20">
+        <div className="relative z-10 flex flex-col h-full px-6 md:px-10 lg:px-20 pt-8 md:pt-12">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
