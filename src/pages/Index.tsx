@@ -51,10 +51,8 @@ const Index = () => {
         <StatsSection />
       </ParallaxSection>
 
-      {/* Our Work */}
-      <ParallaxSection scaleAmount={0.05} translateAmount={-40}>
-        <OurWorkSection />
-      </ParallaxSection>
+      {/* Our Work - no parallax wrapper, it has its own scroll animation */}
+      <OurWorkSection />
 
       {/* Work Process */}
       <ParallaxSection scaleAmount={0.06} translateAmount={-50}>
