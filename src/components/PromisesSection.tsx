@@ -68,7 +68,7 @@ const PromisesSection = () => {
             Our Commitment
           </p>
           <div className="flex items-end justify-between gap-8 flex-wrap">
-            <h2 className="text-4xl md:text-5xl text-foreground leading-tight max-w-md">
+            <h2 className="text-4xl md:text-5xl text-white leading-tight max-w-md">
               Promises We
               <br />
               Stand By
