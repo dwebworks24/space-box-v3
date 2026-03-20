@@ -180,7 +180,7 @@ const TestimonialsSection = () => {
               </div>
               <motion.button
                 onClick={next}
-                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-secondary transition-colors"
+                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-secondary transition-colors"
                 whileHover={{ scale: 1.1, x: 2 }}
                 whileTap={{ scale: 0.9 }}
               >
