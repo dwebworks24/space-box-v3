@@ -62,7 +62,7 @@ const TestimonialsSection = () => {
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80)' }}
       />
       <div className="absolute inset-0 bg-foreground/85" />
-      <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
+      <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[500px]">
           {/* Left - Floating avatar circles with continuous float */}
           <div className="relative h-[400px] md:h-[500px] hidden md:block">
