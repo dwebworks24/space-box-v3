@@ -80,7 +80,7 @@ const BlogSection = () => {
           <motion.a
             variants={fadeBlurUp}
             href="/blog"
-            className="hidden md:inline-flex items-center gap-2 text-primary font-body font-medium hover:text-secondary transition-colors"
+            className="hidden md:inline-flex items-center gap-2 text-white font-body font-medium hover:text-secondary transition-colors"
             whileHover={{ x: 6 }}
           >
             View All <ArrowRight className="w-4 h-4" />
