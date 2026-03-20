@@ -55,7 +55,7 @@ const TestimonialsSection = () => {
   const prev = () => setActive((i) => (i - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-24 bg-muted">
+    <section className="py-24 bg-gradient-to-br from-[hsl(15,60%,94%)] via-[hsl(25,40%,95%)] to-[hsl(35,45%,93%)]">
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[500px]">
           {/* Left - Floating avatar circles with continuous float */}

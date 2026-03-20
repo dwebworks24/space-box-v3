@@ -59,7 +59,7 @@ const AboutCompanySection = () => {
   const imgY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section ref={sectionRef} className="relative py-12 md:py-16 lg:py-24 overflow-hidden bg-background">
+    <section ref={sectionRef} className="relative py-12 md:py-16 lg:py-24 overflow-hidden bg-[hsl(35,45%,93%)]">
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-center">
           {/* Content Column */}

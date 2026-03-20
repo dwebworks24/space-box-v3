@@ -133,7 +133,7 @@ const BlogSection = () => {
                         {post.tags.split(",")[0]?.trim()}
                       </span>
                     )}
-                    <span className="flex items-center gap-1 text-muted-foreground text-xs font-body">
+                    <span className="flex items-center gap-1 text-white/50 text-xs font-body">
                       <Calendar className="w-3 h-3" />{" "}
                       {new Date(post.created_at).toLocaleDateString("en-US", {
                         year: "numeric",

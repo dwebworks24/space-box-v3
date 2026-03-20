@@ -31,7 +31,7 @@ const itemVariants = {
 
 const CategoryBar = () => {
   return (
-    <section className="bg-card border-b border-border">
+    <section className="bg-gradient-to-r from-[hsl(25,40%,95%)] via-[hsl(35,45%,93%)] to-[hsl(15,60%,94%)] border-b border-secondary/10">
       <div className="container mx-auto px-4 sm:px-6 md:px-16">
         <motion.div
           className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-12 lg:gap-16 py-6 md:py-8"

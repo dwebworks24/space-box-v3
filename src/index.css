@@ -59,6 +59,12 @@
     --gold: 33 52% 57%;
     --gold-foreground: 0 0% 100%;
     --warm-bg: 30 33% 97%;
+
+    --section-warm: 25 40% 95%;
+    --section-cream: 35 45% 93%;
+    --section-dark: 220 20% 12%;
+    --section-charcoal: 200 15% 16%;
+    --section-warm-accent: 15 60% 94%;
   }
 
   .dark {

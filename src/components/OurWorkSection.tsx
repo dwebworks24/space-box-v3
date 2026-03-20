@@ -54,7 +54,7 @@ const OurWorkSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative"
+      className="relative bg-gradient-to-b from-[hsl(25,40%,95%)] to-[hsl(35,45%,93%)]"
       style={{ height: `${totalScrollHeight + 100}px` }}
     >
       {/* Sticky container that stays in view */}

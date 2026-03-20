@@ -118,10 +118,10 @@ const PromisesSection = () => {
                   />
                 </motion.div>
                 <div>
-                  <h3 className="text-base text-foreground mb-2 tracking-wide group-hover:text-secondary transition-colors duration-300">
+                  <h3 className="text-base text-white mb-2 tracking-wide group-hover:text-secondary transition-colors duration-300">
                     {p.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground font-body leading-relaxed">
+                  <p className="text-sm text-white/55 font-body leading-relaxed">
                     {p.desc}
                   </p>
                 </div>
