@@ -60,7 +60,7 @@ const BlogSection = () => {
   const posts = allPosts.slice(0, 3);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[hsl(220,20%,12%)] to-[hsl(200,15%,16%)]">
+    <section className="py-24" style={{ background: 'linear-gradient(to bottom, hsl(220, 20%, 12%), hsl(200, 15%, 16%))' }}>
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         <motion.div
           className="flex items-end justify-between mb-16"
