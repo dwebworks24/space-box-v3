@@ -145,7 +145,7 @@ const BlogSection = () => {
                   <motion.h3 variants={textSlideUp} className="text-xl text-white group-hover:text-secondary transition-colors duration-300 mb-2">
                     {post.title}
                   </motion.h3>
-                  <motion.p variants={textSlideUp} className="text-sm text-muted-foreground font-body leading-relaxed mb-5">
+                  <motion.p variants={textSlideUp} className="text-sm text-white/60 font-body leading-relaxed mb-5">
                     {post.short_description}
                   </motion.p>
                   <motion.div variants={textSlideUp}>
