@@ -51,12 +51,7 @@ const imageReveal = {
 };
 
 const AboutCompanySection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const imgY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  return (
 
   return (
     <section ref={sectionRef} className="relative py-12 md:py-16 lg:py-24 overflow-hidden bg-[hsl(35,45%,93%)]">
