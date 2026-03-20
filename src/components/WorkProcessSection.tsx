@@ -161,16 +161,26 @@ function StageCard({
   const segEnd = (index + 1) / total;
   const [isHovered, setIsHovered] = useState(false);
 
-  // Each card scales up and glows when it's the "active" one
+  // Each card slides in from right, scales up and glows when "active"
+  const cardTranslateX = useTransform(
+    scrollYProgress,
+    [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
+    [80, 0, 0, 80]
+  );
+  const cardRotateY = useTransform(
+    scrollYProgress,
+    [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
+    [6, 0, 0, 6]
+  );
   const cardScale = useTransform(
     scrollYProgress,
-    [segStart, segStart + 0.02, segEnd - 0.02, segEnd],
-    [0.92, 1, 1, 0.92]
+    [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
+    [0.85, 1, 1, 0.85]
   );
   const cardOpacity = useTransform(
     scrollYProgress,
-    [segStart, segStart + 0.02, segEnd - 0.02, segEnd],
-    [0.5, 1, 1, 0.5]
+    [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
+    [0.3, 1, 1, 0.3]
   );
   const borderOpacity = useTransform(
     scrollYProgress,
@@ -183,9 +193,13 @@ function StageCard({
   return (
     <motion.div
       style={{
+        x: isHovered ? 0 : cardTranslateX,
+        rotateY: isHovered ? 0 : cardRotateY,
         scale: isHovered ? 1 : cardScale,
         opacity: isHovered ? 1 : cardOpacity,
+        perspective: 800,
       }}
+      transition={{ type: "spring", stiffness: 200, damping: 25 }}
       className="w-[260px] md:w-[380px] min-w-[260px] md:min-w-[380px] h-[280px] md:h-[360px] group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
