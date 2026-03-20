@@ -64,7 +64,7 @@ const PromisesSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: easeOut }}
         >
-          <p className="text-secondary text-xs uppercase tracking-[0.4em] mb-4 font-body">
+          <p className="text-secondary text-xs uppercase tracking-[0.4em] mb-4 font-body" style={{color: 'hsl(var(--secondary))'}}>
             Our Commitment
           </p>
           <div className="flex items-end justify-between gap-8 flex-wrap">
