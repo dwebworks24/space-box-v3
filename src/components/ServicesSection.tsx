@@ -111,7 +111,7 @@ const ServicesSection = () => {
                 rotateY: -2,
                 transition: { type: "spring", stiffness: 300, damping: 20 },
               }}
-              style2={{ transformStyle: "preserve-3d" }}
+              style={{ y: colSpeeds[i], transformStyle: "preserve-3d" }}
             >
               <Link to={`/services/${s.slug}`} className="group block">
                 <div className="relative rounded-xl overflow-hidden border border-border bg-card h-[320px] transition-all duration-500 hover:shadow-[0_20px_60px_hsl(var(--secondary)/0.2)]" style={{ transformStyle: "preserve-3d" }}>
