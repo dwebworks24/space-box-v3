@@ -58,8 +58,8 @@ const ServicesSection = () => {
           </AnimatedTitle>
         </motion.div>
 
-        {/* Cards Grid — 6 columns side by side with right border dividers */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+        {/* Cards Grid — 5 columns side by side with right border dividers */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
           {services.map((s, i) => {
             const Icon = serviceIcons[i];
             const isLast = i === services.length - 1;
