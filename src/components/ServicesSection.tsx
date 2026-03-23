@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import AnimatedTitle from "./AnimatedTitle";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Galaxy from "./Galaxy";
