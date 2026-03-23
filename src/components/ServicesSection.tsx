@@ -42,38 +42,40 @@ const slideVariants = {
 const ServiceCard = forwardRef<HTMLDivElement, { s: typeof services[0]; i: number; isLast: boolean; showBorder?: boolean }>(({ s, i, isLast, showBorder = true }, ref) => {
   const Icon = serviceIcons[i];
   return (
-    <Link to={`/services/${s.slug}`} className="group block h-full">
-      <div
-        className={`relative h-full p-5 flex flex-col transition-all duration-500 hover:bg-white/[0.04] ${
-          showBorder && !isLast ? "border-r border-white/10" : ""
-        }`}
-      >
-        <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-4 group-hover:border-secondary/50 transition-colors duration-500">
-          <Icon className="w-5 h-5 text-secondary/70 group-hover:text-secondary transition-colors duration-300" strokeWidth={1.5} />
+    <div ref={ref}>
+      <Link to={`/services/${s.slug}`} className="group block h-full">
+        <div
+          className={`relative h-full p-5 flex flex-col transition-all duration-500 hover:bg-white/[0.04] ${
+            showBorder && !isLast ? "border-r border-white/10" : ""
+          }`}
+        >
+          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-4 group-hover:border-secondary/50 transition-colors duration-500">
+            <Icon className="w-5 h-5 text-secondary/70 group-hover:text-secondary transition-colors duration-300" strokeWidth={1.5} />
+          </div>
+          <h3 className="text-white text-xs md:text-xs text-sm font-bold uppercase tracking-wider leading-snug mb-4 min-h-[2rem]">
+            {s.title}
+          </h3>
+          <div className="relative rounded-lg overflow-hidden mb-4 aspect-[4/3]">
+            <img
+              src={s.image}
+              alt={s.title}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+          <p className="text-white/45 text-xs md:text-xs text-sm font-body leading-relaxed flex-1 mb-4">
+            {s.desc}
+          </p>
+          <div className="mt-auto">
+            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-white/15 group-hover:border-secondary group-hover:bg-secondary/10 transition-all duration-300">
+              <ArrowUpRight className="w-3.5 h-3.5 text-white/40 group-hover:text-secondary transition-colors duration-300" />
+            </span>
+          </div>
         </div>
-        <h3 className="text-white text-xs md:text-xs text-sm font-bold uppercase tracking-wider leading-snug mb-4 min-h-[2rem]">
-          {s.title}
-        </h3>
-        <div className="relative rounded-lg overflow-hidden mb-4 aspect-[4/3]">
-          <img
-            src={s.image}
-            alt={s.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            loading="lazy"
-          />
-        </div>
-        <p className="text-white/45 text-xs md:text-xs text-sm font-body leading-relaxed flex-1 mb-4">
-          {s.desc}
-        </p>
-        <div className="mt-auto">
-          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-white/15 group-hover:border-secondary group-hover:bg-secondary/10 transition-all duration-300">
-            <ArrowUpRight className="w-3.5 h-3.5 text-white/40 group-hover:text-secondary transition-colors duration-300" />
-          </span>
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
-};
+});
 
 const ServicesSection = () => {
   const isMobile = useIsMobile();
