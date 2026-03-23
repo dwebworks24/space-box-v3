@@ -80,9 +80,9 @@ const BlogSection = () => {
             <motion.p variants={fadeBlurUp} className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body" style={{color: 'hsl(var(--secondary))'}}>
               Insights
             </motion.p>
-            <motion.h2 variants={fadeBlurUp} className="text-4xl md:text-5xl text-white">
+            <AnimatedTitle className="text-4xl md:text-5xl text-white" delay={0.15}>
               Latest Blogs
-            </motion.h2>
+            </AnimatedTitle>
           </div>
           <motion.a
             variants={fadeBlurUp}

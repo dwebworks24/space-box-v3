@@ -117,15 +117,9 @@ const TestimonialsSection = () => {
 
           {/* Right - Testimonial content */}
           <div>
-            <motion.h2
-              className="text-4xl md:text-5xl text-white mb-8"
-              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: easeOut }}
-            >
+            <AnimatedTitle className="text-4xl md:text-5xl text-white mb-8">
               People Love Us
-            </motion.h2>
+            </AnimatedTitle>
 
             <AnimatePresence mode="wait">
               <motion.div
