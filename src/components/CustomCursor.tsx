@@ -12,6 +12,10 @@ interface Particle {
   life: number;
   maxLife: number;
   opacity: number;
+  wingPhase: number;
+  wingSpeed: number;
+  drift: number;
+  hue: number;
 }
 
 function SplashCanvas() {
