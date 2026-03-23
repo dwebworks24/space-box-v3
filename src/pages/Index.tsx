@@ -55,13 +55,13 @@ const Index = () => {
         <WorkProcessSection />
       </div>
 
-      <ParallaxSection zIndex={9} scaleAmount={0.05}>
+      <div className="relative" style={{ zIndex: 9 }}>
         <TestimonialsSection />
-      </ParallaxSection>
+      </div>
 
-      <ParallaxSection zIndex={10} scaleAmount={0.05}>
+      <div className="relative" style={{ zIndex: 10 }}>
         <BlogSection />
-      </ParallaxSection>
+      </div>
 
       {/* Last section - no sticky needed */}
       <ParallaxSection zIndex={11} sticky={false}>
