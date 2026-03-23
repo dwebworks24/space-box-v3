@@ -1,271 +1,107 @@
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Instagram, Facebook, Twitter } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 
-// Scene 1: Sofa/Living Room
-import bgImage from "@/assets/hero/sofa-main-bg.webp";
-import pillarImage from "@/assets/hero/sofa-pillar.webp";
-import rackImage from "@/assets/hero/sofa-rack.webp";
-import lightImage from "@/assets/hero/sofa-light.webp";
-import sofaImage from "@/assets/hero/sofa-main.webp";
-import table1Image from "@/assets/hero/sofa-table1.webp";
-import table2Image from "@/assets/hero/sofa-table2.webp";
-import chairImage from "@/assets/hero/sofa-chair.webp";
-
-// Scene 3: Living Room
-import scene3Bg from "@/assets/hero/scene3-bg.png";
-import scene3Sofa from "@/assets/hero/scene3-sofa.png";
-import scene3Carpet from "@/assets/hero/scene3-carpet.png";
-import scene3Lamp from "@/assets/hero/scene3-lamp.png";
-import scene3Plant from "@/assets/hero/scene3-plant.png";
-import scene3Table1 from "@/assets/hero/scene3-table1.png";
-import scene3Table2 from "@/assets/hero/scene3-table2.png";
-import scene3Cup from "@/assets/hero/scene3-cup.png";
-import scene3Book from "@/assets/hero/scene3-book.png";
-import scene3Vase from "@/assets/hero/scene3-vase.png";
+// Slide images — use full scene backgrounds
+import slideImg1 from "@/assets/hero/sofa-main-bg.webp";
+import slideImg2 from "@/assets/hero/scene3-bg.png";
+import slideImg3 from "@/assets/hero/bedroom-bg.webp";
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-interface HeroPart {
-  src: string;
-  alt: string;
-  className: string;
-  initial: Record<string, number>;
-  animate: Record<string, number>;
-  transition: { duration: number; delay?: number; ease: [number, number, number, number] };
-}
+const SLIDE_DURATION = 6000;
 
-const scene1Parts: HeroPart[] = [
+const slides = [
   {
-    src: bgImage,
-    alt: "Night sky background",
-    className: "absolute inset-0 w-full h-full object-cover",
-    initial: { opacity: 0, scale: 1.3 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { duration: 1.8, ease: easeOut },
+    image: slideImg1,
+    watermarkTop: "INTERIOR",
+    headline: "Stunning Interior\nDesign",
+    watermarkBottom: "DESIGN",
   },
   {
-    src: pillarImage,
-    alt: "Architectural pillars",
-    className: "absolute inset-0 w-full h-full object-cover object-center",
-    initial: { opacity: 0, y: -120 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.3, ease: easeOut },
+    image: slideImg2,
+    watermarkTop: "SPACEBOX",
+    headline: "Design Make\nDream",
+    watermarkBottom: "CONCEPTS",
   },
   {
-    src: rackImage,
-    alt: "Bookshelf rack",
-    className: "absolute left-0 top-[8%] h-[75%] w-auto max-w-[35%] object-contain object-left",
-    initial: { opacity: 0, x: -200 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.6, ease: easeOut },
-  },
-  {
-    src: lightImage,
-    alt: "Pendant lights",
-    className: "absolute top-0 left-[30%] right-[10%] h-[45%] object-contain object-top",
-    initial: { opacity: 0, y: -180 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.5, delay: 0.5, ease: easeOut },
-  },
-  {
-    src: sofaImage,
-    alt: "Green sofa",
-    className: "absolute bottom-[2%] left-[15%] right-[10%] h-[38%] object-contain object-bottom",
-    initial: { opacity: 0, y: 150 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.8, ease: easeOut },
-  },
-  {
-    src: table1Image,
-    alt: "Coffee tables",
-    className: "absolute bottom-[5%] right-[8%] h-[25%] w-auto object-contain",
-    initial: { opacity: 0, x: 180 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 1.0, ease: easeOut },
-  },
-  {
-    src: table2Image,
-    alt: "Side table",
-    className: "absolute bottom-[10%] left-[2%] h-[30%] w-auto object-contain",
-    initial: { opacity: 0, x: -150 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.2, delay: 1.1, ease: easeOut },
-  },
-  {
-    src: chairImage,
-    alt: "Accent chair",
-    className: "absolute bottom-[5%] right-[0%] h-[35%] w-auto object-contain",
-    initial: { opacity: 0, x: 200 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.9, ease: easeOut },
+    image: slideImg3,
+    watermarkTop: "INTERIOR",
+    headline: "Living Room\nDesign",
+    watermarkBottom: "DESIGN",
   },
 ];
 
-const scene3Parts: HeroPart[] = [
-  {
-    src: scene3Bg,
-    alt: "Dark room background",
-    className: "absolute inset-0 w-full h-full object-cover",
-    initial: { opacity: 0, scale: 1.3 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { duration: 1.8, ease: easeOut },
-  },
-  {
-    src: scene3Carpet,
-    alt: "Floor carpet",
-    className: "absolute bottom-[3%] left-[22%] right-[22%] h-[16%] object-contain object-bottom",
-    initial: { opacity: 0, y: 100 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.3, delay: 0.4, ease: easeOut },
-  },
-  {
-    src: scene3Lamp,
-    alt: "Pendant lamp",
-    className: "absolute top-[0%] left-[43%] h-[38%] w-auto object-contain",
-    initial: { opacity: 0, y: -200 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.5, delay: 0.3, ease: easeOut },
-  },
-  {
-    src: scene3Sofa,
-    alt: "Yellow sofa",
-    className: "absolute bottom-[8%] left-[16%] right-[16%] h-[45%] object-contain object-bottom",
-    initial: { opacity: 0, y: 150 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.7, ease: easeOut },
-  },
-  {
-    src: scene3Table1,
-    alt: "Gold coffee table",
-    className: "absolute bottom-[6%] left-[34%] h-[17%] w-auto object-contain",
-    initial: { opacity: 0, y: 120 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.3, delay: 0.9, ease: easeOut },
-  },
-  {
-    src: scene3Table2,
-    alt: "Gold side table",
-    className: "absolute bottom-[10%] right-[10%] h-[24%] w-auto object-contain",
-    initial: { opacity: 0, x: 150 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.2, delay: 1.0, ease: easeOut },
-  },
-  {
-    src: scene3Plant,
-    alt: "Indoor plant",
-    className: "absolute bottom-[2%] left-[1%] h-[55%] w-auto object-contain",
-    initial: { opacity: 0, x: -160 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.8, ease: easeOut },
-  },
-  {
-    src: scene3Vase,
-    alt: "Plant vase",
-    className: "absolute bottom-[30%] right-[11%] h-[16%] w-auto object-contain",
-    initial: { opacity: 0, y: 80 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.2, delay: 1.1, ease: easeOut },
-  },
-  {
-    src: scene3Cup,
-    alt: "Coffee cup",
-    className: "absolute bottom-[19%] left-[37%] h-[8%] w-auto object-contain",
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.0, delay: 1.2, ease: easeOut },
-  },
-  {
-    src: scene3Book,
-    alt: "Open book",
-    className: "absolute bottom-[19%] left-[42%] h-[5%] w-auto object-contain",
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.0, delay: 1.3, ease: easeOut },
-  },
-];
-
-const scenes = [scene1Parts, scene3Parts];
-const SLIDE_DURATION = 8000;
-
-/* Slide headlines — match to existing SpaceBox content */
-const slideContent = [
-  { watermarkTop: "INTERIOR", headline: "Design Make Dream", watermarkBottom: "DESIGN" },
-  { watermarkTop: "SPACEBOX", headline: "Living Room Design", watermarkBottom: "CONCEPTS" },
-];
-
-const SceneLayer = ({ parts, sceneKey }: { parts: HeroPart[]; sceneKey: number }) => (
-  <motion.div
-    key={sceneKey}
-    className="absolute inset-0"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 1.2, ease: easeOut }}
-  >
-    {parts.map((part, i) => (
-      <motion.img
-        key={`${sceneKey}-${i}`}
-        src={part.src}
-        alt={part.alt}
-        className={part.className}
-        initial={part.initial}
-        animate={part.animate}
-        transition={part.transition}
-      />
-    ))}
-  </motion.div>
-);
-
-/* ── Watermark text animation ── */
+/* ── Animation variants ── */
 const watermarkVariants = {
-  hidden: { opacity: 0, x: -80 },
+  hidden: { opacity: 0, x: -60 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 1.2, ease: easeOut },
+    transition: { duration: 1, ease: easeOut },
   },
   exit: {
     opacity: 0,
-    x: 80,
-    transition: { duration: 0.6, ease: easeOut },
+    x: 60,
+    transition: { duration: 0.5, ease: easeOut },
   },
 };
 
-const headlineCharVariants = {
-  hidden: { opacity: 0, y: 60, rotateX: -90 },
+const headlineWordVariants = {
+  hidden: { opacity: 0, y: 80, skewY: 4 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    rotateX: 0,
-    transition: { duration: 0.6, delay: 0.8 + i * 0.04, ease: easeOut },
+    skewY: 0,
+    transition: { duration: 0.7, delay: 0.3 + i * 0.1, ease: easeOut },
   }),
   exit: {
     opacity: 0,
-    y: -40,
+    y: -50,
     transition: { duration: 0.4, ease: easeOut },
   },
 };
 
-const HeroSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [activeScene, setActiveScene] = useState(0);
+const imageVariants = {
+  hidden: { opacity: 0, scale: 1.15 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 1.4, ease: easeOut },
+  },
+  exit: {
+    opacity: 0,
+    scale: 1.05,
+    transition: { duration: 0.6, ease: easeOut },
+  },
+};
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+const ctaVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: 1.0, ease: easeOut },
+  },
+  exit: {
+    opacity: 0,
+    y: 20,
+    transition: { duration: 0.3, ease: easeOut },
+  },
+};
+
+const HeroSection = () => {
+  const [active, setActive] = useState(0);
 
   const goNext = useCallback(() => {
-    setActiveScene((prev) => (prev + 1) % scenes.length);
+    setActive((prev) => (prev + 1) % slides.length);
   }, []);
 
   const goPrev = useCallback(() => {
-    setActiveScene((prev) => (prev - 1 + scenes.length) % scenes.length);
+    setActive((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
   useEffect(() => {
@@ -273,185 +109,196 @@ const HeroSection = () => {
     return () => clearInterval(timer);
   }, [goNext]);
 
-  const current = slideContent[activeScene];
+  const current = slides[active];
 
   return (
     <section
-      ref={sectionRef}
       id="home"
-      className="relative min-h-[75vh] sm:min-h-screen flex items-center overflow-hidden bg-primary"
+      className="relative min-h-[75vh] sm:min-h-screen overflow-hidden bg-primary"
     >
-      {/* Composite image layers with slider */}
-      <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
-        <AnimatePresence mode="wait">
-          <SceneLayer parts={scenes[activeScene]} sceneKey={activeScene} />
-        </AnimatePresence>
-      </motion.div>
+      {/* ── Left sidebar — social icons & contact ── */}
+      <div className="hidden lg:flex absolute left-0 top-0 bottom-0 w-14 z-30 flex-col items-center justify-center gap-5 border-r border-primary-foreground/10">
+        <a href="#" aria-label="Instagram" className="text-primary-foreground/40 hover:text-secondary transition-colors duration-300">
+          <Instagram className="w-4 h-4" />
+        </a>
+        <a href="#" aria-label="Facebook" className="text-primary-foreground/40 hover:text-secondary transition-colors duration-300">
+          <Facebook className="w-4 h-4" />
+        </a>
+        <a href="#" aria-label="Twitter" className="text-primary-foreground/40 hover:text-secondary transition-colors duration-300">
+          <Twitter className="w-4 h-4" />
+        </a>
 
-      {/* Dark overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/40 to-transparent" />
+        <div className="w-px h-10 bg-primary-foreground/15" />
 
-      {/* Noise texture */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Left sidebar — social & contact (desktop only) */}
-      <div className="hidden lg:flex absolute left-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-6">
-        {["instagram", "facebook", "twitter"].map((social) => (
-          <a
-            key={social}
-            href="#"
-            className="w-7 h-7 flex items-center justify-center text-primary-foreground/50 hover:text-secondary transition-colors duration-300"
-            aria-label={social}
-          >
-            <span className="text-xs uppercase tracking-widest" style={{ writingMode: "vertical-lr" }}>
-              {social === "instagram" ? "IG" : social === "facebook" ? "FB" : "TW"}
-            </span>
-          </a>
-        ))}
-        <div className="w-px h-12 bg-primary-foreground/20" />
         <a
           href="tel:+919876543210"
-          className="text-primary-foreground/50 hover:text-secondary transition-colors"
+          className="flex items-center gap-1.5 text-primary-foreground/40 hover:text-secondary transition-colors"
           style={{ writingMode: "vertical-lr" }}
         >
-          <span className="text-xs tracking-wider">+91 98765 43210</span>
+          <Phone className="w-3 h-3 rotate-90" />
+          <span className="text-[10px] tracking-wider font-body">+91 98765 43210</span>
         </a>
-        <div className="w-px h-12 bg-primary-foreground/20" />
+
+        <div className="w-px h-10 bg-primary-foreground/15" />
+
         <a
           href="mailto:info@spaceboxconcepts.com"
-          className="text-primary-foreground/50 hover:text-secondary transition-colors"
+          className="flex items-center gap-1.5 text-primary-foreground/40 hover:text-secondary transition-colors"
           style={{ writingMode: "vertical-lr" }}
         >
-          <span className="text-xs tracking-wider">info@spaceboxconcepts.com</span>
+          <Mail className="w-3 h-3 rotate-90" />
+          <span className="text-[10px] tracking-wider font-body">info@spaceboxconcepts.com</span>
         </a>
       </div>
 
-      {/* Text content with watermark */}
-      <div className="relative z-10 flex items-center min-h-[75vh] sm:min-h-screen container mx-auto px-4 sm:px-8 md:px-16 lg:pl-24">
-        <motion.div
-          className="max-w-2xl pt-20 sm:pt-24 pb-16 sm:pb-0 relative"
-          style={{ y: textY, opacity: textOpacity }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div key={activeScene} className="relative">
-              {/* Watermark top — large outline text behind */}
-              <motion.span
-                variants={watermarkVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="block text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] font-bold leading-none uppercase select-none pointer-events-none"
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  WebkitTextStroke: "1px hsl(var(--primary-foreground) / 0.08)",
-                  color: "transparent",
-                  lineHeight: 0.85,
-                }}
-              >
-                {current.watermarkTop}
-              </motion.span>
-
-              {/* Main headline — character-by-character animation */}
-              <motion.h1
-                className="relative -mt-6 sm:-mt-10 md:-mt-14 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.1] tracking-tight z-10"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
-                {current.headline.split("").map((char, i) => (
-                  <motion.span
-                    key={`${activeScene}-${i}`}
-                    custom={i}
-                    variants={headlineCharVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="inline-block"
-                    style={{ display: char === " " ? "inline" : "inline-block" }}
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
-                ))}
-              </motion.h1>
-
-              {/* Watermark bottom — large outline text */}
-              <motion.span
-                variants={watermarkVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="block text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] font-bold leading-none uppercase select-none pointer-events-none -mt-2 sm:-mt-4"
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  WebkitTextStroke: "1px hsl(var(--primary-foreground) / 0.06)",
-                  color: "transparent",
-                  lineHeight: 0.85,
-                }}
-              >
-                {current.watermarkBottom}
-              </motion.span>
-
-              {/* CTA Button */}
-              <motion.div
-                className="mt-8 sm:mt-10"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 1.4, ease: easeOut }}
-              >
-                <Link
-                  to="/start-project"
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-secondary text-secondary-foreground font-semibold tracking-widest uppercase text-sm hover:bg-secondary/90 transition-all duration-500 ease-out"
+      {/* ── Main content area ── */}
+      <div className="relative min-h-[75vh] sm:min-h-screen flex">
+        {/* Left half — text content */}
+        <div className="relative z-20 w-full lg:w-[42%] flex items-center px-6 sm:px-10 lg:pl-24 lg:pr-12">
+          <div className="w-full max-w-lg py-24 sm:py-32">
+            <AnimatePresence mode="wait">
+              <motion.div key={active} className="relative">
+                {/* Watermark top */}
+                <motion.span
+                  variants={watermarkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="block text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] font-bold leading-none uppercase select-none pointer-events-none"
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    WebkitTextStroke: "1px hsl(var(--primary-foreground) / 0.07)",
+                    color: "transparent",
+                    lineHeight: 0.9,
+                  }}
+                  aria-hidden="true"
                 >
-                  Get In Touch
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                </Link>
+                  {current.watermarkTop}
+                </motion.span>
+
+                {/* Main headline */}
+                <motion.h1
+                  className="relative -mt-4 sm:-mt-8 md:-mt-10 text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-primary-foreground leading-[1.15] tracking-tight z-10 uppercase"
+                  style={{ fontFamily: "var(--font-serif)" }}
+                >
+                  {current.headline.split(/(\s+)/).filter(Boolean).map((word, i) => (
+                    <motion.span
+                      key={`${active}-${i}`}
+                      custom={i}
+                      variants={headlineWordVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="inline-block"
+                    >
+                      {word === "\n" ? <br /> : word === " " ? "\u00A0" : word}
+                    </motion.span>
+                  ))}
+                </motion.h1>
+
+                {/* Watermark bottom */}
+                <motion.span
+                  variants={watermarkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="block text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] font-bold leading-none uppercase select-none pointer-events-none mt-1 sm:-mt-2"
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    WebkitTextStroke: "1px hsl(var(--primary-foreground) / 0.05)",
+                    color: "transparent",
+                    lineHeight: 0.9,
+                  }}
+                  aria-hidden="true"
+                >
+                  {current.watermarkBottom}
+                </motion.span>
+
+                {/* CTA Button */}
+                <motion.div
+                  variants={ctaVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="mt-8 sm:mt-10"
+                >
+                  <Link
+                    to="/start-project"
+                    className="group inline-flex items-center gap-3 px-8 py-4 bg-secondary/90 text-secondary-foreground font-semibold tracking-widest uppercase text-xs sm:text-sm hover:bg-secondary transition-all duration-500 ease-out active:scale-[0.97]"
+                  >
+                    Get In Touch
+                    <ArrowRight className="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                  </Link>
+                </motion.div>
               </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Right half — image with rounded clip */}
+        <div className="hidden lg:block absolute top-0 right-0 w-[62%] h-full z-10">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              variants={imageVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="absolute inset-0"
+              style={{
+                clipPath: "ellipse(85% 100% at 70% 50%)",
+              }}
+            >
+              <img
+                src={current.image}
+                alt="Interior design showcase"
+                className="w-full h-full object-cover"
+              />
+              {/* Subtle dark edge blend */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-transparent to-transparent" />
             </motion.div>
           </AnimatePresence>
-        </motion.div>
+        </div>
+
+        {/* Mobile: full background image */}
+        <div className="lg:hidden absolute inset-0 z-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              variants={imageVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="absolute inset-0"
+            >
+              <img
+                src={current.image}
+                alt="Interior design showcase"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-primary/70" />
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* Navigation arrows — bottom left */}
-      <div className="absolute bottom-8 sm:bottom-12 left-4 sm:left-8 md:left-16 lg:left-24 z-20 flex gap-3">
+      {/* ── Navigation arrows — bottom left ── */}
+      <div className="absolute bottom-8 sm:bottom-12 left-6 sm:left-10 lg:left-24 z-30 flex gap-2">
         <button
           onClick={goPrev}
-          className="w-12 h-12 rounded-full border border-primary-foreground/30 flex items-center justify-center text-primary-foreground/60 hover:border-secondary hover:text-secondary transition-all duration-300 active:scale-95"
+          className="w-11 h-11 rounded-full border border-primary-foreground/25 flex items-center justify-center text-primary-foreground/50 hover:border-secondary hover:text-secondary transition-all duration-300 active:scale-95"
           aria-label="Previous slide"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-4 h-4" />
         </button>
         <button
           onClick={goNext}
-          className="w-12 h-12 rounded-full border border-primary-foreground/30 flex items-center justify-center text-primary-foreground/60 hover:border-secondary hover:text-secondary transition-all duration-300 active:scale-95"
+          className="w-11 h-11 rounded-full border border-primary-foreground/25 flex items-center justify-center text-primary-foreground/50 hover:border-secondary hover:text-secondary transition-all duration-300 active:scale-95"
           aria-label="Next slide"
         >
-          <ArrowRight className="w-5 h-5" />
+          <ArrowRight className="w-4 h-4" />
         </button>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
-      >
-        <motion.div
-          className="w-5 h-8 rounded-full border-2 border-primary-foreground/40 flex justify-center pt-1.5"
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <motion.div
-            className="w-1 h-2 rounded-full bg-primary-foreground/60"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
