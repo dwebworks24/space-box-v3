@@ -91,7 +91,7 @@ function SplashCanvas() {
       ctx.moveTo(0, 0);
       ctx.bezierCurveTo(-s * 0.8 * (1 + wingFlap * 0.3), -s * 0.6, -s * (1 + wingFlap * 0.5), -s * 0.1, -s * 0.3, s * 0.3);
       ctx.bezierCurveTo(-s * 0.6, s * 0.5, -s * 0.2, s * 0.4, 0, 0);
-      ctx.fillStyle = `hsla(${p.hue}, 76%, 53%, ${alpha})`;
+      ctx.fillStyle = `hsla(${hue}, 76%, 53%, ${alpha})`;
       ctx.fill();
 
       // Right wing
