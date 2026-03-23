@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import AnimatedTitle from "./AnimatedTitle";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 
