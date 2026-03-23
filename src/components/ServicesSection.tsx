@@ -79,9 +79,9 @@ const ServicesSection = () => {
           <motion.p variants={fadeBlurUp} className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body">
             What We Offer
           </motion.p>
-          <motion.h2 variants={fadeBlurUp} className="text-4xl md:text-5xl text-white">
+          <AnimatedTitle className="text-4xl md:text-5xl text-white" delay={0.15}>
             Our Services
-          </motion.h2>
+          </AnimatedTitle>
         </motion.div>
 
         {/* Cards Grid — 3D perspective tilt */}

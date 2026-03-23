@@ -101,18 +101,14 @@ const AboutCompanySection = () => {
 
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
         {/* Section title */}
-        <motion.div
-          className="text-center mb-12 lg:mb-16"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: easeOut }}
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white uppercase tracking-[0.2em] sm:tracking-[0.3em]">
-            <span className="text-white">Welcome To </span>
-            <span className="text-secondary">About Us</span>
-          </h2>
-        </motion.div>
+        <div className="text-center mb-12 lg:mb-16">
+          <AnimatedTitle
+            as="h2"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white uppercase tracking-[0.2em] sm:tracking-[0.3em]"
+          >
+            Welcome To About Us
+          </AnimatedTitle>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-center">
           {/* Content Column */}

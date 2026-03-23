@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import AnimatedTitle from "./AnimatedTitle";
 import sectionShape from "@/assets/section-shape-1.png";
 import circleShape1 from "@/assets/site-footer-two-shape-1.png";
 
