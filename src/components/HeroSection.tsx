@@ -111,8 +111,7 @@ const scene1Parts: HeroPart[] = [
   },
 ];
 
-
-
+const scene3Parts: HeroPart[] = [
   {
     src: scene3Bg,
     alt: "Dark room background",
