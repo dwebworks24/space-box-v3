@@ -26,9 +26,9 @@ const Index = () => {
         <HeroSection />
       </ParallaxSection>
 
-      <ParallaxSection zIndex={2} scaleAmount={0.04}>
+      {/* <ParallaxSection zIndex={2} scaleAmount={0.04}>
         <CategoryBar />
-      </ParallaxSection>
+      </ParallaxSection> */}
 
       <ParallaxSection zIndex={3} scaleAmount={0.05}>
         <AboutCompanySection />
