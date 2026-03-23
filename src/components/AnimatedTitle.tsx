@@ -57,14 +57,14 @@ const charVariants = {
   },
 };
 
-export default function AnimatedTitle({
+const AnimatedTitle = forwardRef<HTMLElement, AnimatedTitleProps>(function AnimatedTitle({
   children,
   className = "",
   as: Tag = "h2",
   delay = 0,
   splitBy = "word",
   once = true,
-}: AnimatedTitleProps) {
+}, _ref) {
   const items =
     splitBy === "word"
       ? children.split(" ")
@@ -95,4 +95,6 @@ export default function AnimatedTitle({
       </motion.span>
     </Tag>
   );
-}
+});
+
+export default AnimatedTitle;
