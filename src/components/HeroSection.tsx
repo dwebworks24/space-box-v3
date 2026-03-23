@@ -3,15 +3,14 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-// Use the background images as full slides
-import slide1 from "@/assets/hero/sofa-main-bg.webp";
-import slide2 from "@/assets/hero/scene3-bg.png";
+import slide1 from "@/assets/c1-cafeteria.jpg";
+import slide2 from "@/assets/r1-drawing-room.jpg";
 
-const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const slides = [
-  { src: slide1, alt: "Modern living room interior" },
-  { src: slide2, alt: "Dark living room interior" },
+  { src: slide1, alt: "Modern cafeteria interior design" },
+  { src: slide2, alt: "Elegant drawing room interior" },
 ];
 
 const SLIDE_DURATION = 8000;
@@ -22,31 +21,45 @@ const slideContent = [
 ];
 
 const watermarkVariants = {
-  hidden: { opacity: 0, x: -80 },
+  hidden: { opacity: 0, x: -60, filter: "blur(8px)" },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 1.2, ease: easeOut },
+    filter: "blur(0px)",
+    transition: { duration: 1, ease: easeOut },
   },
   exit: {
     opacity: 0,
-    x: 80,
-    transition: { duration: 0.6, ease: easeOut },
+    x: 40,
+    filter: "blur(8px)",
+    transition: { duration: 0.5, ease: easeOut },
   },
 };
 
-const headlineCharVariants = {
-  hidden: { opacity: 0, y: 60, rotateX: -90 },
-  visible: (i: number) => ({
+/* Smooth word-by-word headline animation */
+const headlineContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.6 },
+  },
+  exit: {
+    transition: { staggerChildren: 0.03 },
+  },
+};
+
+const headlineWordVariants = {
+  hidden: { opacity: 0, y: 50, filter: "blur(6px)" },
+  visible: {
     opacity: 1,
     y: 0,
-    rotateX: 0,
-    transition: { duration: 0.6, delay: 0.8 + i * 0.04, ease: easeOut },
-  }),
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease: easeOut },
+  },
   exit: {
     opacity: 0,
-    y: -40,
-    transition: { duration: 0.4, ease: easeOut },
+    y: -30,
+    filter: "blur(4px)",
+    transition: { duration: 0.35, ease: easeOut },
   },
 };
 
@@ -76,6 +89,7 @@ const HeroSection = () => {
   }, [goNext]);
 
   const current = slideContent[activeScene];
+  const words = current.headline.split(" ");
 
   return (
     <section
@@ -83,7 +97,7 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-[75vh] sm:min-h-screen flex items-center overflow-hidden bg-primary"
     >
-      {/* Single background image per slide with Ken Burns zoom */}
+      {/* Background image with Ken Burns */}
       <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -98,7 +112,7 @@ const HeroSection = () => {
               src={slides[activeScene].src}
               alt={slides[activeScene].alt}
               className="absolute inset-0 w-full h-full object-cover"
-              initial={{ scale: 1.15 }}
+              initial={{ scale: 1.12 }}
               animate={{ scale: 1 }}
               transition={{ duration: 8, ease: "linear" }}
             />
@@ -118,7 +132,7 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Left sidebar — social & contact (desktop only) */}
+      {/* Left sidebar */}
       <div className="hidden lg:flex absolute left-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-6">
         {["instagram", "facebook", "twitter"].map((social) => (
           <a
@@ -150,7 +164,7 @@ const HeroSection = () => {
         </a>
       </div>
 
-      {/* Text content with watermark */}
+      {/* Text content */}
       <div className="relative z-10 flex items-center min-h-[75vh] sm:min-h-screen container mx-auto px-4 sm:px-8 md:px-16 lg:pl-24">
         <motion.div
           className="max-w-2xl pt-20 sm:pt-24 pb-16 sm:pb-0 relative"
@@ -175,23 +189,22 @@ const HeroSection = () => {
                 {current.watermarkTop}
               </motion.span>
 
-              {/* Main headline */}
+              {/* Main headline — smooth word-by-word */}
               <motion.h1
-                className="relative -mt-6 sm:-mt-10 md:-mt-14 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.1] tracking-tight z-10"
-                style={{ fontFamily: "var(--font-serif)" }}
+                className="relative -mt-6 sm:-mt-10 md:-mt-14 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.1] tracking-tight z-10 flex flex-wrap gap-x-[0.3em]"
+                style={{ fontFamily: "var(--font-serif)", lineHeight: 1.1 }}
+                variants={headlineContainerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
               >
-                {current.headline.split("").map((char, i) => (
+                {words.map((word, i) => (
                   <motion.span
                     key={`${activeScene}-${i}`}
-                    custom={i}
-                    variants={headlineCharVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
+                    variants={headlineWordVariants}
                     className="inline-block"
-                    style={{ display: char === " " ? "inline" : "inline-block" }}
                   >
-                    {char === " " ? "\u00A0" : char}
+                    {word}
                   </motion.span>
                 ))}
               </motion.h1>
@@ -216,13 +229,13 @@ const HeroSection = () => {
               {/* CTA Button */}
               <motion.div
                 className="mt-8 sm:mt-10"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 1.4, ease: easeOut }}
+                initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.7, delay: 1.2, ease: easeOut }}
               >
                 <Link
                   to="/start-project"
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-secondary text-secondary-foreground font-semibold tracking-widest uppercase text-sm hover:bg-secondary/90 transition-all duration-500 ease-out"
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-secondary text-secondary-foreground font-semibold tracking-widest uppercase text-sm hover:bg-secondary/90 transition-all duration-500 ease-out active:scale-[0.97]"
                 >
                   Get In Touch
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
