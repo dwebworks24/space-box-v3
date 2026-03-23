@@ -40,7 +40,7 @@ const ServicesSection = () => {
       </div>
       <div className="absolute inset-0 bg-foreground/55 z-0" />
 
-      <div className="container mx-auto px-8 sm:px-14 md:px-20 lg:px-28 relative z-10">
+      <div className="container mx-auto px-0 relative z-10">
         {/* Header */}
         <div className="mb-16">
           <motion.p
