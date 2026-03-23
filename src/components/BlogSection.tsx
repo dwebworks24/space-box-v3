@@ -67,7 +67,7 @@ const BlogSection = () => {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url(/images/section-shape-1-3.png)' }}
       />
-      <div className="absolute inset-0 bg-foreground/90" />
+      <div className="absolute inset-0 bg-foreground/80" />
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
         <motion.div
           className="flex items-end justify-between mb-16"
