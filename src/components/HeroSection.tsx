@@ -3,222 +3,24 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-// Scene 1: Sofa/Living Room
-import bgImage from "@/assets/hero/sofa-main-bg.webp";
-import pillarImage from "@/assets/hero/sofa-pillar.webp";
-import rackImage from "@/assets/hero/sofa-rack.webp";
-import lightImage from "@/assets/hero/sofa-light.webp";
-import sofaImage from "@/assets/hero/sofa-main.webp";
-import table1Image from "@/assets/hero/sofa-table1.webp";
-import table2Image from "@/assets/hero/sofa-table2.webp";
-import chairImage from "@/assets/hero/sofa-chair.webp";
-
-// Scene 3: Living Room
-import scene3Bg from "@/assets/hero/scene3-bg.png";
-import scene3Sofa from "@/assets/hero/scene3-sofa.png";
-import scene3Carpet from "@/assets/hero/scene3-carpet.png";
-import scene3Lamp from "@/assets/hero/scene3-lamp.png";
-import scene3Plant from "@/assets/hero/scene3-plant.png";
-import scene3Table1 from "@/assets/hero/scene3-table1.png";
-import scene3Table2 from "@/assets/hero/scene3-table2.png";
-import scene3Cup from "@/assets/hero/scene3-cup.png";
-import scene3Book from "@/assets/hero/scene3-book.png";
-import scene3Vase from "@/assets/hero/scene3-vase.png";
+// Use the background images as full slides
+import slide1 from "@/assets/hero/sofa-main-bg.webp";
+import slide2 from "@/assets/hero/scene3-bg.png";
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-interface HeroPart {
-  src: string;
-  alt: string;
-  className: string;
-  initial: Record<string, number>;
-  animate: Record<string, number>;
-  transition: { duration: number; delay?: number; ease: [number, number, number, number] };
-}
-
-const scene1Parts: HeroPart[] = [
-  {
-    src: bgImage,
-    alt: "Night sky background",
-    className: "absolute inset-0 w-full h-full object-cover",
-    initial: { opacity: 0, scale: 1.3 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { duration: 1.8, ease: easeOut },
-  },
-  {
-    src: pillarImage,
-    alt: "Architectural pillars",
-    className: "absolute inset-0 w-full h-full object-cover object-center",
-    initial: { opacity: 0, y: -120 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.3, ease: easeOut },
-  },
-  {
-    src: rackImage,
-    alt: "Bookshelf rack",
-    className: "absolute left-0 top-[8%] h-[75%] w-auto max-w-[35%] object-contain object-left",
-    initial: { opacity: 0, x: -200 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.6, ease: easeOut },
-  },
-  {
-    src: lightImage,
-    alt: "Pendant lights",
-    className: "absolute top-0 left-[30%] right-[10%] h-[45%] object-contain object-top",
-    initial: { opacity: 0, y: -180 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.5, delay: 0.5, ease: easeOut },
-  },
-  {
-    src: sofaImage,
-    alt: "Green sofa",
-    className: "absolute bottom-[2%] left-[15%] right-[10%] h-[38%] object-contain object-bottom",
-    initial: { opacity: 0, y: 150 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.8, ease: easeOut },
-  },
-  {
-    src: table1Image,
-    alt: "Coffee tables",
-    className: "absolute bottom-[5%] right-[8%] h-[25%] w-auto object-contain",
-    initial: { opacity: 0, x: 180 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 1.0, ease: easeOut },
-  },
-  {
-    src: table2Image,
-    alt: "Side table",
-    className: "absolute bottom-[10%] left-[2%] h-[30%] w-auto object-contain",
-    initial: { opacity: 0, x: -150 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.2, delay: 1.1, ease: easeOut },
-  },
-  {
-    src: chairImage,
-    alt: "Accent chair",
-    className: "absolute bottom-[5%] right-[0%] h-[35%] w-auto object-contain",
-    initial: { opacity: 0, x: 200 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.9, ease: easeOut },
-  },
+const slides = [
+  { src: slide1, alt: "Modern living room interior" },
+  { src: slide2, alt: "Dark living room interior" },
 ];
 
-const scene3Parts: HeroPart[] = [
-  {
-    src: scene3Bg,
-    alt: "Dark room background",
-    className: "absolute inset-0 w-full h-full object-cover",
-    initial: { opacity: 0, scale: 1.3 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { duration: 1.8, ease: easeOut },
-  },
-  {
-    src: scene3Carpet,
-    alt: "Floor carpet",
-    className: "absolute bottom-[3%] left-[22%] right-[22%] h-[16%] object-contain object-bottom",
-    initial: { opacity: 0, y: 100 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.3, delay: 0.4, ease: easeOut },
-  },
-  {
-    src: scene3Lamp,
-    alt: "Pendant lamp",
-    className: "absolute top-[0%] left-[43%] h-[38%] w-auto object-contain",
-    initial: { opacity: 0, y: -200 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.5, delay: 0.3, ease: easeOut },
-  },
-  {
-    src: scene3Sofa,
-    alt: "Yellow sofa",
-    className: "absolute bottom-[8%] left-[16%] right-[16%] h-[45%] object-contain object-bottom",
-    initial: { opacity: 0, y: 150 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.7, ease: easeOut },
-  },
-  {
-    src: scene3Table1,
-    alt: "Gold coffee table",
-    className: "absolute bottom-[6%] left-[34%] h-[17%] w-auto object-contain",
-    initial: { opacity: 0, y: 120 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.3, delay: 0.9, ease: easeOut },
-  },
-  {
-    src: scene3Table2,
-    alt: "Gold side table",
-    className: "absolute bottom-[10%] right-[10%] h-[24%] w-auto object-contain",
-    initial: { opacity: 0, x: 150 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.2, delay: 1.0, ease: easeOut },
-  },
-  {
-    src: scene3Plant,
-    alt: "Indoor plant",
-    className: "absolute bottom-[2%] left-[1%] h-[55%] w-auto object-contain",
-    initial: { opacity: 0, x: -160 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.8, ease: easeOut },
-  },
-  {
-    src: scene3Vase,
-    alt: "Plant vase",
-    className: "absolute bottom-[30%] right-[11%] h-[16%] w-auto object-contain",
-    initial: { opacity: 0, y: 80 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.2, delay: 1.1, ease: easeOut },
-  },
-  {
-    src: scene3Cup,
-    alt: "Coffee cup",
-    className: "absolute bottom-[19%] left-[37%] h-[8%] w-auto object-contain",
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.0, delay: 1.2, ease: easeOut },
-  },
-  {
-    src: scene3Book,
-    alt: "Open book",
-    className: "absolute bottom-[19%] left-[42%] h-[5%] w-auto object-contain",
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.0, delay: 1.3, ease: easeOut },
-  },
-];
-
-const scenes = [scene1Parts, scene3Parts];
 const SLIDE_DURATION = 8000;
 
-/* Slide headlines — match to existing SpaceBox content */
 const slideContent = [
   { watermarkTop: "INTERIOR", headline: "Design Make Dream", watermarkBottom: "DESIGN" },
   { watermarkTop: "SPACEBOX", headline: "Living Room Design", watermarkBottom: "CONCEPTS" },
 ];
 
-const SceneLayer = ({ parts, sceneKey }: { parts: HeroPart[]; sceneKey: number }) => (
-  <motion.div
-    key={sceneKey}
-    className="absolute inset-0"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 1.2, ease: easeOut }}
-  >
-    {parts.map((part, i) => (
-      <motion.img
-        key={`${sceneKey}-${i}`}
-        src={part.src}
-        alt={part.alt}
-        className={part.className}
-        initial={part.initial}
-        animate={part.animate}
-        transition={part.transition}
-      />
-    ))}
-  </motion.div>
-);
-
-/* ── Watermark text animation ── */
 const watermarkVariants = {
   hidden: { opacity: 0, x: -80 },
   visible: {
@@ -261,11 +63,11 @@ const HeroSection = () => {
   const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   const goNext = useCallback(() => {
-    setActiveScene((prev) => (prev + 1) % scenes.length);
+    setActiveScene((prev) => (prev + 1) % slides.length);
   }, []);
 
   const goPrev = useCallback(() => {
-    setActiveScene((prev) => (prev - 1 + scenes.length) % scenes.length);
+    setActiveScene((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
   useEffect(() => {
@@ -281,10 +83,26 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-[75vh] sm:min-h-screen flex items-center overflow-hidden bg-primary"
     >
-      {/* Composite image layers with slider */}
+      {/* Single background image per slide with Ken Burns zoom */}
       <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
         <AnimatePresence mode="wait">
-          <SceneLayer parts={scenes[activeScene]} sceneKey={activeScene} />
+          <motion.div
+            key={activeScene}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: easeOut }}
+          >
+            <motion.img
+              src={slides[activeScene].src}
+              alt={slides[activeScene].alt}
+              className="absolute inset-0 w-full h-full object-cover"
+              initial={{ scale: 1.15 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 8, ease: "linear" }}
+            />
+          </motion.div>
         </AnimatePresence>
       </motion.div>
 
@@ -340,7 +158,7 @@ const HeroSection = () => {
         >
           <AnimatePresence mode="wait">
             <motion.div key={activeScene} className="relative">
-              {/* Watermark top — large outline text behind */}
+              {/* Watermark top */}
               <motion.span
                 variants={watermarkVariants}
                 initial="hidden"
@@ -357,7 +175,7 @@ const HeroSection = () => {
                 {current.watermarkTop}
               </motion.span>
 
-              {/* Main headline — character-by-character animation */}
+              {/* Main headline */}
               <motion.h1
                 className="relative -mt-6 sm:-mt-10 md:-mt-14 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.1] tracking-tight z-10"
                 style={{ fontFamily: "var(--font-serif)" }}
@@ -378,7 +196,7 @@ const HeroSection = () => {
                 ))}
               </motion.h1>
 
-              {/* Watermark bottom — large outline text */}
+              {/* Watermark bottom */}
               <motion.span
                 variants={watermarkVariants}
                 initial="hidden"
@@ -415,7 +233,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Navigation arrows — bottom left */}
+      {/* Navigation arrows */}
       <div className="absolute bottom-8 sm:bottom-12 left-4 sm:left-8 md:left-16 lg:left-24 z-20 flex gap-3">
         <button
           onClick={goPrev}
