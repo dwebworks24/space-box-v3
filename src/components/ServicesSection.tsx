@@ -72,10 +72,11 @@ const ServicesSection = () => {
           </AnimatedTitle>
         </motion.div>
 
-        {/* Cards Grid — vertical card layout like reference */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cards Grid — 6 columns side by side with right border dividers */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
           {services.map((s, i) => {
             const Icon = serviceIcons[i];
+            const isLast = i === services.length - 1;
             return (
               <motion.div
                 key={s.slug}
@@ -85,37 +86,40 @@ const ServicesSection = () => {
                 viewport={{ once: true, margin: "-40px" }}
               >
                 <Link to={`/services/${s.slug}`} className="group block h-full">
-                  <div className="relative h-full rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 flex flex-col transition-all duration-500 hover:border-secondary/40 hover:bg-white/[0.06] hover:shadow-[0_8px_40px_hsl(var(--secondary)/0.1)]">
+                  <div
+                    className={`relative h-full p-5 flex flex-col transition-all duration-500 hover:bg-white/[0.04] ${
+                      !isLast ? "border-r border-white/10" : ""
+                    }`}
+                  >
                     {/* Icon circle */}
-                    <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center mb-5 group-hover:border-secondary/50 transition-colors duration-500">
-                      <Icon className="w-6 h-6 text-secondary/80 group-hover:text-secondary transition-colors duration-300" strokeWidth={1.5} />
+                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-4 group-hover:border-secondary/50 transition-colors duration-500">
+                      <Icon className="w-5 h-5 text-secondary/70 group-hover:text-secondary transition-colors duration-300" strokeWidth={1.5} />
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-white text-sm font-bold uppercase tracking-wider leading-snug mb-4 min-h-[2.5rem]">
+                    <h3 className="text-white text-xs font-bold uppercase tracking-wider leading-snug mb-4 min-h-[2rem]">
                       {s.title}
                     </h3>
 
                     {/* Image */}
-                    <div className="relative rounded-lg overflow-hidden mb-5 aspect-[4/3]">
+                    <div className="relative rounded-lg overflow-hidden mb-4 aspect-[4/3]">
                       <img
                         src={s.image}
                         alt={s.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
 
                     {/* Description */}
-                    <p className="text-white/50 text-sm font-body leading-relaxed flex-1 mb-5">
+                    <p className="text-white/45 text-xs font-body leading-relaxed flex-1 mb-4">
                       {s.desc}
                     </p>
 
                     {/* Arrow link */}
                     <div className="mt-auto">
-                      <span className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/20 group-hover:border-secondary group-hover:bg-secondary/10 transition-all duration-300">
-                        <ArrowUpRight className="w-4 h-4 text-white/50 group-hover:text-secondary transition-colors duration-300" />
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-white/15 group-hover:border-secondary group-hover:bg-secondary/10 transition-all duration-300">
+                        <ArrowUpRight className="w-3.5 h-3.5 text-white/40 group-hover:text-secondary transition-colors duration-300" />
                       </span>
                     </div>
                   </div>
