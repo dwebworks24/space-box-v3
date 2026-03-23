@@ -12,14 +12,6 @@ import table1Image from "@/assets/hero/sofa-table1.webp";
 import table2Image from "@/assets/hero/sofa-table2.webp";
 import chairImage from "@/assets/hero/sofa-chair.webp";
 
-// Scene 2: Bedroom
-import bedroomBg from "@/assets/hero/bedroom-bg.webp";
-import bedroomBed from "@/assets/hero/bedroom-bed.png";
-import bedroomNightstand from "@/assets/hero/bedroom-nightstand.png";
-import bedroomLamp from "@/assets/hero/bedroom-lamp.png";
-import bedroomPlant from "@/assets/hero/bedroom-plant.png";
-import bedroomChair from "@/assets/hero/bedroom-chair.png";
-import bedroomArt from "@/assets/hero/bedroom-art.png";
 
 // Scene 3: Living Room
 import scene3Bg from "@/assets/hero/scene3-bg.png";
