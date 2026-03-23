@@ -12,14 +12,6 @@ import table1Image from "@/assets/hero/sofa-table1.webp";
 import table2Image from "@/assets/hero/sofa-table2.webp";
 import chairImage from "@/assets/hero/sofa-chair.webp";
 
-// Scene 2: Bedroom
-import bedroomBg from "@/assets/hero/bedroom-bg.webp";
-import bedroomBed from "@/assets/hero/bedroom-bed.png";
-import bedroomNightstand from "@/assets/hero/bedroom-nightstand.png";
-import bedroomLamp from "@/assets/hero/bedroom-lamp.png";
-import bedroomPlant from "@/assets/hero/bedroom-plant.png";
-import bedroomChair from "@/assets/hero/bedroom-chair.png";
-import bedroomArt from "@/assets/hero/bedroom-art.png";
 
 // Scene 3: Living Room
 import scene3Bg from "@/assets/hero/scene3-bg.png";
@@ -111,65 +103,6 @@ const scene1Parts: HeroPart[] = [
   },
 ];
 
-const scene2Parts: HeroPart[] = [
-  {
-    src: bedroomBg,
-    alt: "Bedroom background",
-    className: "absolute inset-0 w-full h-full object-cover",
-    initial: { opacity: 0, scale: 1.3 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { duration: 1.8, ease: easeOut },
-  },
-  {
-    src: bedroomArt,
-    alt: "Wall art",
-    className: "absolute top-[8%] left-[10%] h-[30%] w-auto object-contain",
-    initial: { opacity: 0, y: -150 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.3, ease: easeOut },
-  },
-  {
-    src: bedroomLamp,
-    alt: "Pendant lamp",
-    className: "absolute top-0 right-[25%] h-[40%] w-auto object-contain",
-    initial: { opacity: 0, y: -200 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.5, delay: 0.4, ease: easeOut },
-  },
-  {
-    src: bedroomBed,
-    alt: "King bed",
-    className: "absolute bottom-[5%] left-[15%] right-[15%] h-[40%] object-contain object-bottom",
-    initial: { opacity: 0, y: 160 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.4, delay: 0.7, ease: easeOut },
-  },
-  {
-    src: bedroomNightstand,
-    alt: "Nightstand",
-    className: "absolute bottom-[8%] right-[5%] h-[28%] w-auto object-contain",
-    initial: { opacity: 0, x: 180 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.9, ease: easeOut },
-  },
-  {
-    src: bedroomPlant,
-    alt: "Indoor plant",
-    className: "absolute bottom-[5%] left-[2%] h-[35%] w-auto object-contain",
-    initial: { opacity: 0, x: -160 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.2, delay: 1.0, ease: easeOut },
-  },
-  {
-    src: bedroomChair,
-    alt: "Accent chair",
-    className: "absolute bottom-[8%] right-[0%] h-[30%] w-auto object-contain",
-    initial: { opacity: 0, x: 200 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 1.3, delay: 0.8, ease: easeOut },
-  },
-];
-
 const scene3Parts: HeroPart[] = [
   {
     src: scene3Bg,
@@ -253,7 +186,7 @@ const scene3Parts: HeroPart[] = [
   },
 ];
 
-const scenes = [scene1Parts, scene2Parts, scene3Parts];
+const scenes = [scene1Parts, scene3Parts];
 const SLIDE_DURATION = 8000; // ms per slide
 
 const textContainerVariants = {
