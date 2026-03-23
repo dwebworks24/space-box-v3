@@ -42,21 +42,20 @@ const ServicesSection = () => {
 
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
         {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: easeOut }}
-        >
-          <AnimatedTitle
-            as="h2"
-            className="text-3xl md:text-4xl lg:text-5xl text-white uppercase tracking-[0.15em]"
-            delay={0.1}
+        <div className="mb-16">
+          <motion.p
+            className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
           >
-            Where Innovation Meet Interior Design
+            What We Offer
+          </motion.p>
+          <AnimatedTitle className="text-4xl md:text-5xl text-white leading-tight">
+            Our Services
           </AnimatedTitle>
-        </motion.div>
+        </div>
 
         {/* Cards Grid — 5 columns side by side with right border dividers */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
