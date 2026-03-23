@@ -58,7 +58,7 @@ const MusicPlayer = () => {
   return (
     <motion.button
       onClick={toggle}
-      className="fixed bottom-6 left-4 z-50 w-10 h-10 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90"
+      className="fixed bottom-[70px] sm:bottom-6 left-4 z-50 w-10 h-10 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90"
       aria-label={playing ? "Mute music" : "Play music"}
       initial={{ opacity: 0, x: -30 }}
       animate={{ opacity: 1, x: 0 }}
