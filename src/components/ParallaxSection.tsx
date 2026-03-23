@@ -26,24 +26,16 @@ export default function ParallaxSection({
   const ref = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
 
-  if (isMobile) {
-    return (
-      <div className={`relative ${className}`}>
-        {children}
-      </div>
-    );
-  }
-
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1 - scaleAmount]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, fadeOut ? 0.6 : 1]);
-  const borderRadius = useTransform(scrollYProgress, [0, 0.5], ["0px", "20px"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1 - (isMobile ? 0 : scaleAmount)]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, fadeOut && !isMobile ? 0.6 : 1]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.5], ["0px", isMobile ? "0px" : "20px"]);
 
-  if (!sticky) {
+  if (isMobile || !sticky) {
     return (
       <div className={`relative ${className}`} style={{ zIndex }}>
         {children}
