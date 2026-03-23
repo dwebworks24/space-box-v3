@@ -63,7 +63,7 @@ const PromisesSection = () => {
   const circleY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   return (
-    <section ref={sectionRef} className="py-28 bg-[hsl(220,20%,12%)] border-t border-white/10 relative overflow-hidden">
+    <section ref={sectionRef} className="py-20 md:py-28 bg-[hsl(220,20%,12%)] border-t border-white/10 relative overflow-hidden">
       {/* Background decorative shapes */}
       <motion.img src={shapeImg} alt="" className="absolute -top-16 -right-16 w-[400px] lg:w-[500px] pointer-events-none opacity-[0.35] rotate-180" style={{ y: shapeY }} />
       <motion.img src={circleShape2} alt="" className="absolute -bottom-16 -left-10 w-[280px] lg:w-[380px] pointer-events-none opacity-[0.35]" style={{ y: circleY }} />

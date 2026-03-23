@@ -88,7 +88,7 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section id="services" className="py-20 md:py-28 relative overflow-hidden bg-foreground">
+    <section id="services" className="py-24 md:py-28 relative overflow-hidden bg-foreground">
       <div className="absolute inset-0 z-0">
         <img src="/images/site-footer-shape-1-2.jpg" alt="" className="w-full h-full object-cover opacity-80" />
       </div>

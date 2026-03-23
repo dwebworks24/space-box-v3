@@ -95,7 +95,7 @@ const HeroSection = () => {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-[75vh] sm:min-h-screen flex items-center overflow-hidden bg-primary"
+      className="relative min-h-[85vh] sm:min-h-screen flex items-center overflow-hidden bg-primary"
     >
       {/* Background image with Ken Burns */}
       <motion.div className="absolute inset-0" style={{ y: parallaxY }}>

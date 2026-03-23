@@ -69,7 +69,7 @@ const AboutCompanySection = () => {
   const sectionShapeX = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
 
   return (
-    <section ref={sectionRef} className="relative py-12 md:py-16 lg:py-24 overflow-hidden bg-foreground">
+    <section ref={sectionRef} className="relative py-20 md:py-16 lg:py-24 overflow-hidden bg-foreground">
       {/* Full-width background texture */}
       <div className="absolute inset-0 pointer-events-none">
         <img

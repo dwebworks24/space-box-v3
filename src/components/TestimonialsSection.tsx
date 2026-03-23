@@ -56,7 +56,7 @@ const TestimonialsSection = () => {
   const prev = () => setActive((i) => (i - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-24 relative overflow-hidden bg-background">
+    <section className="py-20 md:py-24 relative overflow-hidden bg-background">
       {/* Dark background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
