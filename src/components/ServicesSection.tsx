@@ -36,11 +36,11 @@ const ServicesSection = () => {
     <section id="services" className="py-20 md:py-28 relative overflow-hidden bg-foreground">
       {/* Background texture */}
       <div className="absolute inset-0 z-0">
-        <img src="/images/section-shape-1-4.png" alt="" className="w-full h-full object-cover opacity-80" />
+        <img src="/images/site-footer-shape-1-2.jpg" alt="" className="w-full h-full object-cover opacity-80" />
       </div>
-      <div className="absolute inset-0 bg-foreground/65 z-0" />
+      <div className="absolute inset-0 bg-foreground/55 z-0" />
 
-      <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
+      <div className="container mx-auto px-8 sm:px-14 md:px-20 lg:px-28 relative z-10">
         {/* Header */}
         <div className="mb-16">
           <motion.p
@@ -58,7 +58,7 @@ const ServicesSection = () => {
         </div>
 
         {/* Cards Grid — 5 columns side by side with right border dividers */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {services.map((s, i) => {
             const Icon = serviceIcons[i];
             const isLast = i === services.length - 1;
