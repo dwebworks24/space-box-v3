@@ -230,7 +230,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Vase,
     alt: "Plant vase",
-    className: "absolute bottom-[28%] right-[13%] h-[14%] w-auto object-contain",
+    className: "absolute bottom-[18%] right-[14%] h-[18%] w-auto object-contain",
     initial: { opacity: 0, y: 80 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.2, delay: 1.1, ease: easeOut },
