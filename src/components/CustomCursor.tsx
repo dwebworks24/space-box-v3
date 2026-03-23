@@ -80,6 +80,7 @@ function SplashCanvas() {
       const alpha = p.opacity * (1 - progress);
       const s = p.size * (0.3 + 0.7 * Math.min(p.life / 10, 1)) * (1 - progress * 0.3);
       const wingFlap = Math.sin(p.wingPhase + p.life * p.wingSpeed) * 0.8;
+      const hue = p.hue ?? 3;
 
       ctx.save();
       ctx.translate(p.x, p.y);
@@ -90,7 +91,7 @@ function SplashCanvas() {
       ctx.moveTo(0, 0);
       ctx.bezierCurveTo(-s * 0.8 * (1 + wingFlap * 0.3), -s * 0.6, -s * (1 + wingFlap * 0.5), -s * 0.1, -s * 0.3, s * 0.3);
       ctx.bezierCurveTo(-s * 0.6, s * 0.5, -s * 0.2, s * 0.4, 0, 0);
-      ctx.fillStyle = `hsla(${p.hue}, 76%, 53%, ${alpha})`;
+      ctx.fillStyle = `hsla(${hue}, 76%, 53%, ${alpha})`;
       ctx.fill();
 
       // Right wing
@@ -98,19 +99,19 @@ function SplashCanvas() {
       ctx.moveTo(0, 0);
       ctx.bezierCurveTo(s * 0.8 * (1 + wingFlap * 0.3), -s * 0.6, s * (1 + wingFlap * 0.5), -s * 0.1, s * 0.3, s * 0.3);
       ctx.bezierCurveTo(s * 0.6, s * 0.5, s * 0.2, s * 0.4, 0, 0);
-      ctx.fillStyle = `hsla(${p.hue}, 76%, 58%, ${alpha * 0.9})`;
+      ctx.fillStyle = `hsla(${hue}, 76%, 58%, ${alpha * 0.9})`;
       ctx.fill();
 
       // Body
       ctx.beginPath();
       ctx.ellipse(0, 0, s * 0.06, s * 0.3, 0, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${p.hue}, 50%, 30%, ${alpha})`;
+      ctx.fillStyle = `hsla(${hue}, 50%, 30%, ${alpha})`;
       ctx.fill();
 
       // Wing glow
       const grad = ctx.createRadialGradient(0, -s * 0.2, 0, 0, -s * 0.2, s);
-      grad.addColorStop(0, `hsla(${p.hue}, 76%, 53%, ${alpha * 0.15})`);
-      grad.addColorStop(1, `hsla(${p.hue}, 76%, 53%, 0)`);
+      grad.addColorStop(0, `hsla(${hue}, 76%, 53%, ${alpha * 0.15})`);
+      grad.addColorStop(1, `hsla(${hue}, 76%, 53%, 0)`);
       ctx.beginPath();
       ctx.arc(0, -s * 0.2, s, 0, Math.PI * 2);
       ctx.fillStyle = grad;
