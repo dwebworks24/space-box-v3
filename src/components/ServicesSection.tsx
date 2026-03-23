@@ -72,7 +72,7 @@ const ServicesSection = () => {
               >
                 <Link to={`/services/${s.slug}`} className="group block h-full">
                   <div
-                    className={`relative h-full px-0 py-5 flex flex-col transition-all duration-500 hover:bg-white/[0.04] ${
+                    className={`relative h-full p-5 flex flex-col transition-all duration-500 hover:bg-white/[0.04] ${
                       !isLast ? "border-r border-white/10" : ""
                     }`}
                   >
