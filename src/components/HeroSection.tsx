@@ -182,7 +182,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Carpet,
     alt: "Floor carpet",
-    className: "absolute bottom-[2%] left-[20%] right-[20%] h-[18%] object-contain object-bottom",
+    className: "absolute bottom-[3%] left-[22%] right-[22%] h-[16%] object-contain object-bottom",
     initial: { opacity: 0, y: 100 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.3, delay: 0.4, ease: easeOut },
@@ -190,7 +190,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Lamp,
     alt: "Pendant lamp",
-    className: "absolute top-[0%] left-[42%] h-[40%] w-auto object-contain",
+    className: "absolute top-[0%] left-[43%] h-[38%] w-auto object-contain",
     initial: { opacity: 0, y: -200 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.5, delay: 0.3, ease: easeOut },
@@ -198,7 +198,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Sofa,
     alt: "Yellow sofa",
-    className: "absolute bottom-[10%] left-[18%] right-[18%] h-[42%] object-contain object-bottom",
+    className: "absolute bottom-[8%] left-[16%] right-[16%] h-[45%] object-contain object-bottom",
     initial: { opacity: 0, y: 150 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.4, delay: 0.7, ease: easeOut },
@@ -206,7 +206,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Table1,
     alt: "Gold coffee table",
-    className: "absolute bottom-[8%] left-[33%] h-[18%] w-auto object-contain",
+    className: "absolute bottom-[6%] left-[34%] h-[17%] w-auto object-contain",
     initial: { opacity: 0, y: 120 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.3, delay: 0.9, ease: easeOut },
@@ -214,7 +214,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Table2,
     alt: "Gold side table",
-    className: "absolute bottom-[12%] right-[12%] h-[22%] w-auto object-contain",
+    className: "absolute bottom-[10%] right-[10%] h-[24%] w-auto object-contain",
     initial: { opacity: 0, x: 150 },
     animate: { opacity: 1, x: 0 },
     transition: { duration: 1.2, delay: 1.0, ease: easeOut },
@@ -222,7 +222,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Plant,
     alt: "Indoor plant",
-    className: "absolute bottom-[3%] left-[2%] h-[50%] w-auto object-contain",
+    className: "absolute bottom-[2%] left-[1%] h-[55%] w-auto object-contain",
     initial: { opacity: 0, x: -160 },
     animate: { opacity: 1, x: 0 },
     transition: { duration: 1.3, delay: 0.8, ease: easeOut },
@@ -230,7 +230,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Vase,
     alt: "Plant vase",
-    className: "absolute bottom-[18%] right-[14%] h-[18%] w-auto object-contain",
+    className: "absolute bottom-[30%] right-[11%] h-[16%] w-auto object-contain",
     initial: { opacity: 0, y: 80 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.2, delay: 1.1, ease: easeOut },
@@ -238,7 +238,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Cup,
     alt: "Coffee cup",
-    className: "absolute bottom-[20%] left-[36%] h-[10%] w-auto object-contain",
+    className: "absolute bottom-[19%] left-[37%] h-[8%] w-auto object-contain",
     initial: { opacity: 0, y: 50 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.0, delay: 1.2, ease: easeOut },
@@ -246,7 +246,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Book,
     alt: "Open book",
-    className: "absolute bottom-[22%] left-[43%] h-[6%] w-auto object-contain",
+    className: "absolute bottom-[19%] left-[42%] h-[5%] w-auto object-contain",
     initial: { opacity: 0, y: 50 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.0, delay: 1.3, ease: easeOut },
