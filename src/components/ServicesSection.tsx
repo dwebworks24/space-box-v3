@@ -34,23 +34,11 @@ const cardVariant = (i: number) => ({
 const ServicesSection = () => {
   return (
     <section id="services" className="py-20 md:py-28 relative overflow-hidden bg-foreground">
-      {/* Galaxy background */}
+      {/* Background texture */}
       <div className="absolute inset-0 z-0">
-        <Galaxy
-          mouseRepulsion
-          mouseInteraction
-          density={1}
-          glowIntensity={0.3}
-          saturation={0}
-          hueShift={140}
-          twinkleIntensity={0.3}
-          rotationSpeed={0.1}
-          repulsionStrength={2}
-          autoCenterRepulsion={0}
-          starSpeed={0.5}
-          speed={1}
-        />
+        <img src={sectionBg} alt="" className="w-full h-full object-cover opacity-[0.08]" />
       </div>
+      <div className="absolute inset-0 bg-foreground/90 z-0" />
 
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
         {/* Header */}
