@@ -31,10 +31,10 @@ export default function ParallaxSection({
     offset: ["start start", "end start"],
   });
 
-  const mobileScale = isMobile ? scaleAmount * 0.4 : scaleAmount;
+  const mobileScale = isMobile ? scaleAmount * 0.25 : scaleAmount;
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1 - mobileScale]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, fadeOut ? (isMobile ? 0.8 : 0.6) : 1]);
-  const borderRadius = useTransform(scrollYProgress, [0, 0.5], ["0px", isMobile ? "12px" : "20px"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, fadeOut ? (isMobile ? 0.9 : 0.6) : 1]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.5], ["0px", isMobile ? "8px" : "20px"]);
 
   if (!sticky) {
     return (
