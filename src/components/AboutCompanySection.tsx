@@ -195,30 +195,11 @@ const AboutCompanySection = () => {
             viewport={{ once: true, margin: "-80px" }}
             className="flex items-center justify-center relative"
           >
-            {/* Decorative border frame behind image */}
-            <div className="absolute -top-3 -right-3 w-[85%] h-[85%] border-2 border-secondary/30 rounded-2xl pointer-events-none hidden lg:block" />
-
             <motion.img
               src={aboutImg}
               alt="SpaceBox Concepts – Modern office interior"
               className="w-full max-w-lg lg:max-w-none rounded-2xl object-cover shadow-xl relative z-10"
             />
-
-            {/* Fun facts badge overlay */}
-            <motion.div
-              className="absolute -bottom-4 -left-4 lg:bottom-8 lg:-left-8 bg-secondary text-secondary-foreground rounded-2xl px-6 py-5 shadow-2xl z-20"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.8, ease: easeOut }}
-            >
-              <p className="text-xs uppercase tracking-widest text-secondary-foreground/70 font-body mb-1">Funfacts In Great</p>
-              <p className="text-xs uppercase tracking-widest text-secondary-foreground/70 font-body mb-2">Numbers</p>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white">7+</span>
-                <span className="text-sm text-secondary-foreground/80 font-body">Years Of<br />Experience</span>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
