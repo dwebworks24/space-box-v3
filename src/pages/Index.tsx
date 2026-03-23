@@ -55,11 +55,11 @@ const Index = () => {
         <WorkProcessSection />
       </div>
 
-      <ParallaxSection zIndex={9} scaleAmount={0.05}>
+      <ParallaxSection zIndex={9} scaleAmount={0.05} sticky className="min-h-screen">
         <TestimonialsSection />
       </ParallaxSection>
 
-      <ParallaxSection zIndex={10} scaleAmount={0.05}>
+      <ParallaxSection zIndex={10} scaleAmount={0.05} sticky className="min-h-screen">
         <BlogSection />
       </ParallaxSection>
 
