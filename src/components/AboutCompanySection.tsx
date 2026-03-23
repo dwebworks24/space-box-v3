@@ -84,7 +84,7 @@ const AboutCompanySection = () => {
         src={shapeImg}
         alt=""
         className="absolute -top-10 -left-10 w-[400px] lg:w-[550px] pointer-events-none"
-        style={{ y: shapeY, rotate: shapeRotate, opacity: 0.18 }}
+        style={{ y: shapeY, rotate: shapeRotate, opacity: 0.30 }}
       />
 
       {/* Circle shapes - decorative — larger, brighter, parallax */}
@@ -92,13 +92,13 @@ const AboutCompanySection = () => {
         src={circleShape1}
         alt=""
         className="absolute -bottom-10 -left-10 w-[300px] lg:w-[420px] pointer-events-none"
-        style={{ y: circle1Y, opacity: 0.2 }}
+        style={{ y: circle1Y, opacity: 0.30 }}
       />
       <motion.img
         src={circleShape2}
         alt=""
         className="absolute -top-10 -right-10 w-[300px] lg:w-[420px] pointer-events-none"
-        style={{ y: circle2Y, opacity: 0.2 }}
+        style={{ y: circle2Y, opacity: 0.30 }}
       />
 
       {/* Extra section shape - right side mid */}
