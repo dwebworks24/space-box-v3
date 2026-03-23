@@ -61,6 +61,10 @@ const OurWorkSection = () => {
       className="relative bg-foreground"
       style={{ height: `${totalScrollHeight}px` }}
     >
+      {/* Background texture */}
+      <img src={sectionShape} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.04] pointer-events-none" />
+      <img src={circleShape1} alt="" className="absolute bottom-0 right-0 w-[250px] opacity-[0.06] pointer-events-none" />
+
       {/* Sticky container that stays in view */}
       <div className="sticky top-0 h-screen overflow-hidden flex items-center pt-32 lg:pt-0">
         <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-20">
