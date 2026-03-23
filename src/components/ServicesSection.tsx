@@ -36,7 +36,7 @@ const ServicesSection = () => {
     <section id="services" className="py-20 md:py-28 relative overflow-hidden bg-foreground">
       {/* Background texture */}
       <div className="absolute inset-0 z-0">
-        <img src="/images/section-shape-1-3.png" alt="" className="w-full h-full object-cover" />
+        <img src="/images/section-shape-1-4.png" alt="" className="w-full h-full object-cover opacity-80" />
       </div>
       <div className="absolute inset-0 bg-foreground/80 z-0" />
 
