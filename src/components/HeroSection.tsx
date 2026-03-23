@@ -238,7 +238,7 @@ const scene3Parts: HeroPart[] = [
   {
     src: scene3Cup,
     alt: "Coffee cup",
-    className: "absolute bottom-[22%] left-[38%] h-[7%] w-auto object-contain",
+    className: "absolute bottom-[20%] left-[36%] h-[10%] w-auto object-contain",
     initial: { opacity: 0, y: 50 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 1.0, delay: 1.2, ease: easeOut },
