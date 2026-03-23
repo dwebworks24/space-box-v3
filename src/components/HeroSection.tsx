@@ -3,8 +3,8 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import slide1 from "@/assets/c1-cafeteria.jpg";
-import slide2 from "@/assets/r1-drawing-room.jpg";
+import slide1 from "@/assets/homepage-banner1.png";
+import slide2 from "@/assets/hero-slide2.png";
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
