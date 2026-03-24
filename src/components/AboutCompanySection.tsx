@@ -62,9 +62,8 @@ const AboutCompanySection = () => {
     offset: ["start end", "end start"],
   });
 
-  const shapeY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
-  const shapeRotate = useTransform(scrollYProgress, [0, 1], [-15, 15]);
   const circle1Y = useTransform(scrollYProgress, [0, 1], ["10%", "-15%"]);
+  const circle2Y = useTransform(scrollYProgress, [0, 1], ["-10%", "20%"]);
   const circle2Y = useTransform(scrollYProgress, [0, 1], ["-10%", "20%"]);
   const sectionShapeX = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
 
