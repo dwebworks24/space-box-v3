@@ -16,8 +16,8 @@ const slides = [
 const SLIDE_DURATION = 8000;
 
 const slideContent = [
-  { watermarkTop: "INTERIOR", headline: "From Concept to Execution", watermarkBottom: "DESIGN" },
-  { watermarkTop: "SPACEBOX", headline: "Precision in Every Detail", watermarkBottom: "CONCEPTS" },
+  { watermarkTop: "INTERIOR", headline: "From Concept to Execution Precision in Every Detail", watermarkBottom: "DESIGN" },
+  { watermarkTop: "SPACEBOX", headline: "Living Room Design", watermarkBottom: "CONCEPTS" },
 ];
 
 const watermarkVariants = {
