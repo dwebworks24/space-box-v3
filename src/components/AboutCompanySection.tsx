@@ -128,9 +128,9 @@ const AboutCompanySection = () => {
 
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
         {/* Section title */}
-        <div className="mb-12 lg:mb-16">
+        <div className="mb-4 lg:mb-6">
           <motion.p
-            className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body"
+            className="text-secondary text-sm uppercase tracking-[0.3em] mb-2 font-body"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
