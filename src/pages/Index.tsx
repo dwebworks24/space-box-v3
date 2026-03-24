@@ -64,8 +64,12 @@ const Index = () => {
         <BlogSection />
       </div>
 
+      <div className="relative" style={{ zIndex: 11 }}>
+        <FAQSection />
+      </div>
+
       {/* Last section - no sticky needed */}
-      <ParallaxSection zIndex={11} sticky={false}>
+      <ParallaxSection zIndex={12} sticky={false}>
         <CTAStrip />
       </ParallaxSection>
     </>
