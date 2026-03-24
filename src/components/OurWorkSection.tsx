@@ -67,6 +67,21 @@ const OurWorkSection = () => {
       <img src="/images/about-v1-shape1-2.png" alt="" className="absolute top-0 left-0 w-[350px] md:w-[450px] opacity-50 pointer-events-none" />
       <img src={circleShape1} alt="" className="absolute bottom-0 right-0 w-[250px] opacity-[0.15] pointer-events-none" />
 
+      {/* Background watermark text */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 pointer-events-none select-none z-0">
+        <span
+          className="block text-[6rem] sm:text-[8rem] md:text-[10rem] lg:text-[14rem] font-bold uppercase leading-none whitespace-nowrap"
+          style={{
+            fontFamily: "var(--font-serif)",
+            WebkitTextStroke: "1px hsl(var(--primary-foreground) / 0.06)",
+            color: "transparent",
+            lineHeight: 0.85,
+          }}
+        >
+          OUR WORKS
+        </span>
+      </div>
+
       {/* Sticky container that stays in view */}
       <div className="sticky top-0 h-screen overflow-hidden flex items-center pt-32 lg:pt-0">
         <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-20">
