@@ -5,12 +5,16 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import slide1 from "@/assets/homepage-banner1.png";
 import slide2 from "@/assets/hero-slide2.png";
+import slide3 from "@/assets/hero-slide3.jpg";
+import slide4 from "@/assets/hero-slide4.jpg";
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const slides = [
   { src: slide1, alt: "Modern cafeteria interior design" },
   { src: slide2, alt: "Elegant drawing room interior" },
+  { src: slide3, alt: "Luxury living room with golden accents" },
+  { src: slide4, alt: "Contemporary living room with designer lighting" },
 ];
 
 const SLIDE_DURATION = 8000;
