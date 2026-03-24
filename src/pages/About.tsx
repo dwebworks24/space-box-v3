@@ -149,9 +149,6 @@ export default function About() {
       {/* ═══════ ABOUT US (reuse homepage) ═══════ */}
       <AboutCompanySection />
 
-      {/* ═══════ STATS (reuse homepage) ═══════ */}
-      <StatsSection />
-
       {/* ═══════ WHY CHOOSE US ═══════ */}
       <section className="py-24 lg:py-32 bg-muted/30">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
@@ -222,6 +219,9 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* ═══════ STATS ═══════ */}
+      <StatsSection />
 
       {/* ═══════ HORIZONTAL TIMELINE ═══════ */}
       <section className="py-24 lg:py-32 bg-card overflow-hidden">
