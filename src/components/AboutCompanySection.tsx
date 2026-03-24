@@ -3,7 +3,7 @@ import { useRef } from "react";
 import AnimatedTitle from "./AnimatedTitle";
 import logo from "@/assets/space-box-logo.png";
 import aboutImg from "@/assets/about-us-img.png";
-import shapeImg from "@/assets/about-v1-shape1.png";
+
 import circleShape1 from "@/assets/site-footer-two-shape-1.png";
 import circleShape2 from "@/assets/site-footer-two-shape-2.png";
 import sectionShape from "@/assets/section-shape-1.png";
@@ -62,8 +62,6 @@ const AboutCompanySection = () => {
     offset: ["start end", "end start"],
   });
 
-  const shapeY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
-  const shapeRotate = useTransform(scrollYProgress, [0, 1], [-15, 15]);
   const circle1Y = useTransform(scrollYProgress, [0, 1], ["10%", "-15%"]);
   const circle2Y = useTransform(scrollYProgress, [0, 1], ["-10%", "20%"]);
   const sectionShapeX = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
@@ -79,13 +77,6 @@ const AboutCompanySection = () => {
         />
       </div>
 
-      {/* Geometric wireframe shape - top left — now larger & more visible with parallax */}
-      <motion.img
-        src={shapeImg}
-        alt=""
-        className="absolute -top-10 -left-10 w-[400px] lg:w-[550px] pointer-events-none"
-        style={{ y: shapeY, rotate: shapeRotate, opacity: 0.45 }}
-      />
 
       {/* Circle shapes - decorative — larger, brighter, parallax */}
       <motion.img
