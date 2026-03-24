@@ -3,7 +3,7 @@ import { useRef } from "react";
 import AnimatedTitle from "./AnimatedTitle";
 import logo from "@/assets/space-box-logo.png";
 import aboutImg from "@/assets/about-us-img.png";
-import shapeImg from "@/assets/about-v1-shape1.png";
+
 import circleShape1 from "@/assets/site-footer-two-shape-1.png";
 import circleShape2 from "@/assets/site-footer-two-shape-2.png";
 import sectionShape from "@/assets/section-shape-1.png";
