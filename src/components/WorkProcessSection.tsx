@@ -161,26 +161,10 @@ function StageCard({
   const segEnd = (index + 1) / total;
   const [isHovered, setIsHovered] = useState(false);
 
-  // Each card slides in from right, scales up and glows when "active"
-  const cardTranslateX = useTransform(
-    scrollYProgress,
-    [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
-    [80, 0, 0, 80]
-  );
-  const cardRotateY = useTransform(
-    scrollYProgress,
-    [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
-    [6, 0, 0, 6]
-  );
-  const cardScale = useTransform(
-    scrollYProgress,
-    [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
-    [0.85, 1, 1, 0.85]
-  );
   const cardOpacity = useTransform(
     scrollYProgress,
     [segStart, segStart + 0.04, segEnd - 0.04, segEnd],
-    [0.3, 1, 1, 0.3]
+    [0.4, 1, 1, 0.4]
   );
   const borderOpacity = useTransform(
     scrollYProgress,
