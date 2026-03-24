@@ -17,7 +17,7 @@ const SLIDE_DURATION = 8000;
 
 const slideContent = [
   { watermarkTop: "INTERIOR", headline: "From Concept to Execution Precision in Every Detail", watermarkBottom: "DESIGN" },
-  { watermarkTop: "SPACEBOX", headline: "Living Room Design", watermarkBottom: "CONCEPTS" },
+  { watermarkTop: "SPACEBOX", headline: "Crafting Spaces That Inspire Elegance in Every Corner", watermarkBottom: "CONCEPTS" },
 ];
 
 const watermarkVariants = {
