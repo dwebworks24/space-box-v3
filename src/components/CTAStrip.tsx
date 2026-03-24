@@ -47,7 +47,7 @@ export default function CTAStrip() {
             to="/start-project"
             className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-2.5 rounded-lg font-semibold uppercase tracking-wider text-xs hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 shadow-md hover:shadow-xl whitespace-nowrap"
           >
-            Start Your Project
+            Get a Quote
             <motion.span
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}

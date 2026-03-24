@@ -175,11 +175,11 @@ const StartProject = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Start Your Project - Get a Free Quote"
+        title="Get a Quote"
         description="Start your interior design project with SpaceBox Concepts. Tell us about your space, style preferences, and budget to get a personalized design proposal."
         keywords="start interior design project, free design quote, interior design inquiry, SpaceBox Concepts project, home renovation, office design project"
       />
-      <SubBanner title="Start Your" highlight="Project" image="" />
+      <SubBanner title="Get a" highlight="Quote" image="" />
 
       <div className="container mx-auto px-4 py-12 md:py-16 max-w-3xl">
         {/* Step Indicator */}
