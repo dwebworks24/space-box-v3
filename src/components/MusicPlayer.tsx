@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Music, VolumeX } from "lucide-react";
 
-const MUSIC_URL = "https://cdn.pixabay.com/audio/2022/02/23/audio_ea70ad08e0.mp3";
+const MUSIC_URL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
 const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
