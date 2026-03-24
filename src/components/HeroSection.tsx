@@ -22,6 +22,8 @@ const SLIDE_DURATION = 8000;
 const slideContent = [
   { watermarkTop: "INTERIOR", headline: "From Concept to Execution Precision in Every Detail", watermarkBottom: "DESIGN" },
   { watermarkTop: "SPACEBOX", headline: "Crafting Spaces That Inspire Elegance in Every Corner", watermarkBottom: "CONCEPTS" },
+  { watermarkTop: "LUXURY", headline: "Where Comfort Meets Sophistication", watermarkBottom: "LIVING" },
+  { watermarkTop: "MODERN", headline: "Redefining Spaces With Timeless Design", watermarkBottom: "INTERIORS" },
 ];
 
 const watermarkVariants = {
