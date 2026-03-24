@@ -68,13 +68,14 @@ const OurWorkSection = () => {
       <img src={circleShape1} alt="" className="absolute bottom-0 right-0 w-[250px] opacity-[0.15] pointer-events-none" />
 
       {/* Background watermark text */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 pointer-events-none select-none z-0">
+      <div className="absolute top-1/2 left-4 sm:left-8 -translate-y-1/2 pointer-events-none select-none z-0">
         <span
           className="block text-[6rem] sm:text-[8rem] md:text-[10rem] lg:text-[14rem] font-bold uppercase leading-none whitespace-nowrap"
           style={{
             fontFamily: "var(--font-serif)",
             WebkitTextStroke: "1px hsl(var(--primary-foreground) / 0.06)",
             color: "transparent",
+            writingMode: "vertical-lr",
             lineHeight: 0.85,
           }}
         >
