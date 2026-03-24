@@ -57,15 +57,15 @@ const Index = () => {
       </div>
 
       <div className="relative" style={{ zIndex: 9 }}>
-        <TestimonialsSection />
+        <FAQSection />
       </div>
 
       <div className="relative" style={{ zIndex: 10 }}>
-        <BlogSection />
+        <TestimonialsSection />
       </div>
 
       <div className="relative" style={{ zIndex: 11 }}>
-        <FAQSection />
+        <BlogSection />
       </div>
 
       {/* Last section - no sticky needed */}
