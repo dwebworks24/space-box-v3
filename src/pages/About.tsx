@@ -220,6 +220,9 @@ export default function About() {
         </div>
       </section>
 
+      {/* ═══════ STATS ═══════ */}
+      <StatsSection />
+
       {/* ═══════ HORIZONTAL TIMELINE ═══════ */}
       <section className="py-24 lg:py-32 bg-card overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
