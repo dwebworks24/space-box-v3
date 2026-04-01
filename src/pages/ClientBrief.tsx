@@ -71,6 +71,8 @@ const ClientBrief = () => {
   const [phoneError, setPhoneError] = useState('');
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [siteReadyDateOpen, setSiteReadyDateOpen] = useState(false);
+  const [completionDateOpen, setCompletionDateOpen] = useState(false);
 
   const [form, setForm] = useState({
     firstName: "",
@@ -413,7 +415,12 @@ const ClientBrief = () => {
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                       {PROPERTY_TYPES.map((p) => (
                         <button key={p} type="button" onClick={() => update("propertyType", p)} className={radioClass(form.propertyType === p)}>
-                          {p}
+                          <span className="inline-flex items-center gap-2">
+                            <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.propertyType === p ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                              {form.propertyType === p && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                            </span>
+                            {p}
+                          </span>
                         </button>
                       ))}
                     </div>
@@ -462,7 +469,7 @@ const ClientBrief = () => {
                   {form.siteReadiness === "Not yet Ready" && (
                     <div>
                       <label className="text-sm font-medium mb-1.5 block">When will it be ready for Interior? *</label>
-                      <Popover>
+                      <Popover open={siteReadyDateOpen} onOpenChange={setSiteReadyDateOpen}>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
@@ -476,7 +483,7 @@ const ClientBrief = () => {
                           <Calendar
                             mode="single"
                             selected={form.siteReadyDate}
-                            onSelect={(d) => update("siteReadyDate", d)}
+                            onSelect={(d) => { update("siteReadyDate", d); setSiteReadyDateOpen(false); }}
                             disabled={(date) => date < new Date()}
                             initialFocus
                             className={cn("p-3 pointer-events-auto")}
@@ -570,7 +577,7 @@ const ClientBrief = () => {
                     <p className="text-xs text-muted-foreground mb-2">
                       Quality custom interiors typically take 45–90 days depending on the scope.
                     </p>
-                    <Popover>
+                    <Popover open={completionDateOpen} onOpenChange={setCompletionDateOpen}>
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
@@ -584,7 +591,7 @@ const ClientBrief = () => {
                         <Calendar
                           mode="single"
                           selected={form.completionDate}
-                          onSelect={(d) => update("completionDate", d)}
+                          onSelect={(d) => { update("completionDate", d); setCompletionDateOpen(false); }}
                           disabled={(date) => date < new Date()}
                           initialFocus
                           className={cn("p-3 pointer-events-auto")}
@@ -611,11 +618,21 @@ const ClientBrief = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {PAYMENT_MODES.map((p) => (
                         <button key={p} type="button" onClick={() => { update("paymentMode", p); update("paymentModeOther", ""); }} className={radioClass(form.paymentMode === p)}>
-                          {p}
+                          <span className="inline-flex items-center gap-2">
+                            <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.paymentMode === p ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                              {form.paymentMode === p && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                            </span>
+                            {p}
+                          </span>
                         </button>
                       ))}
                       <button type="button" onClick={() => update("paymentMode", "Other")} className={radioClass(form.paymentMode === "Other")}>
-                        Other
+                        <span className="inline-flex items-center gap-2">
+                          <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.paymentMode === "Other" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                            {form.paymentMode === "Other" && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                          </span>
+                          Other
+                        </span>
                       </button>
                     </div>
                     {form.paymentMode === "Other" && (
@@ -713,7 +730,12 @@ const ClientBrief = () => {
                           : "border-border bg-background text-muted-foreground hover:border-secondary/50"
                       }`}
                     >
-                      I understand and am ready to proceed with the registration.
+                      <span className="inline-flex items-center gap-2">
+                        <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.professionalCommitment === "proceed" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                          {form.professionalCommitment === "proceed" && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                        </span>
+                        I understand and am ready to proceed with the registration.
+                      </span>
                     </button>
                     <button
                       type="button"
@@ -724,7 +746,12 @@ const ClientBrief = () => {
                           : "border-border bg-background text-muted-foreground hover:border-secondary/50"
                       }`}
                     >
-                      I would like to discuss this with a consultant first.
+                      <span className="inline-flex items-center gap-2">
+                        <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.professionalCommitment === "consult" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                          {form.professionalCommitment === "consult" && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                        </span>
+                        I would like to discuss this with a consultant first.
+                      </span>
                     </button>
                   </div>
                 </div>
