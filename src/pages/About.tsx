@@ -3,19 +3,15 @@ import { motion } from 'framer-motion';
 import {
   MessageSquare, Box, Maximize, Palette, Sofa, Lamp, Frame,
   ClipboardList, HeadphonesIcon,
-  Compass, Layers, Shield, Wrench, Facebook, Twitter, Linkedin, Instagram
+  Compass, Layers, Shield, Wrench,
 } from 'lucide-react';
-import teamAmruta from '@/assets/team-amruta.jpg';
-import teamMini from '@/assets/team-mini.jpg';
-import teamPratyusha from '@/assets/team-pratyusha.jpg';
-import teamMockup from '@/assets/team-mockup.jpg';
 import aboutHeroSplit from '@/assets/about-hero-split.jpg';
 import projectResidential from '@/assets/project-residential.jpg';
-import teamBg from '@/assets/team-bg.jpg';
 import AboutCompanySection from '@/components/AboutCompanySection';
 import StatsSection from '@/components/StatsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import SubBanner from '@/components/SubBanner';
+import FoundersSection from '@/components/FoundersSection';
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -87,28 +83,6 @@ const timeline = [
     year: '2026',
     title: 'Spacebox Concepts LLP',
     details: ['2000 sq ft Office', '12+ Team Members', ' 75+ Projects Completed', ' 400,000+ sq ft Executed'],
-  },
-];
-
-/* ── Team ── */
-const partners = [
-  {
-    name: 'Pratyusha Ravula',
-    role: 'Principal Designer & Founder',
-    bio: 'Visionary designer with 7+ years of creating transformative interior spaces.',
-    image: teamMockup,
-  },
-  {
-    name: 'Mini Khapekar',
-    role: 'Managing Director, Operations & Execution',
-    bio: 'Operations expert ensuring flawless project delivery every time.',
-    image: teamMockup,
-  },
-  {
-    name: 'Amruta Desai',
-    role: 'Managing Director, Finance & Strategy',
-    bio: 'Strategic leader driving financial excellence and sustainable growth.',
-    image: teamMockup,
   },
 ];
 
@@ -318,105 +292,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════ TEAM SECTION ═══════ */}
-      <section className="relative py-24 lg:py-32 overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0">
-          <img src={teamBg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-primary/85" />
-        </div>
-        <div className="relative max-w-[1600px] mx-auto px-6 lg:px-12">
-          <motion.div
-            className="text-center mb-16"
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.p variants={fadeUp} className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body">
-              Leadership
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl text-primary-foreground">
-              Meet Our Professional <span className="text-secondary">Team</span>
-            </motion.h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {partners.map((p, i) => (
-              <motion.div
-                key={p.name}
-                variants={cardPop(i)}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                className="group relative pb-12"
-              >
-                {/* Photo card */}
-                <div className="relative overflow-hidden rounded-xl">
-                  {/* Photo placeholder with gradient */}
-                  <div className="aspect-[3/4] relative overflow-hidden">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Decorative corner accents */}
-                    <div className="absolute top-3 right-3 w-16 h-16 border-t-2 border-r-2 border-secondary/40 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-3 left-3 w-16 h-16 border-b-2 border-l-2 border-secondary/40 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-
-                  {/* Name banner - angled overlay at bottom */}
-                  <div className="absolute bottom-0 left-0 right-0">
-                    <div className="relative">
-                      <div className="bg-secondary/90 backdrop-blur-sm px-6 py-5 clip-diagonal">
-                        <h3 className="text-primary-foreground font-bold text-lg tracking-wide uppercase font-body">
-                          {p.name}
-                        </h3>
-                        <p className="text-primary-foreground/80 text-sm font-body mt-1">
-                          {p.role}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Social icons - hidden by default, float up on card hover */}
-                <motion.div
-                  className="absolute -bottom-2 left-0 right-0 flex items-center justify-center gap-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 ease-out"
-                >
-                  {[
-                    { icon: Facebook, href: '#' },
-                    { icon: Twitter, href: '#' },
-                    { icon: Linkedin, href: '#' },
-                    { icon: Instagram, href: '#' },
-                  ].map(({ icon: SIcon, href }, idx) => (
-                    <a
-                      key={idx}
-                      href={href}
-                      className="w-9 h-9 rounded-full border border-primary-foreground/30 bg-primary/80 backdrop-blur-sm flex items-center justify-center hover:border-secondary hover:bg-secondary/20 transition-all duration-300"
-                      style={{ transitionDelay: `${idx * 60}ms` }}
-                    >
-                      <SIcon className="w-4 h-4 text-primary-foreground/70 hover:text-secondary transition-colors" />
-                    </a>
-                  ))}
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.p
-            className="text-center text-primary-foreground/50 font-body mt-12 text-sm"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-          >
-            12+ In-house Designers, Design Managers, Execution Managers & Sales Managers
-          </motion.p>
-        </div>
-      </section>
-
+      {/* ═══════ MEET THE FOUNDERS ═══════ */}
+      <FoundersSection />
       {/* ═══════ TESTIMONIALS (reuse homepage) ═══════ */}
       <TestimonialsSection />
     </div>

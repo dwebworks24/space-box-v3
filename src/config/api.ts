@@ -27,4 +27,7 @@ export const ENDPOINTS = {
 
     // Project Inquiry
     PROJECT_INQUIRY: "/api/project-inquiry/",
+
+    // Razorpay
+    CREATE_ORDER: "/api/create-razorpay-order/",
 } as const;

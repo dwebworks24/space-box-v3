@@ -41,7 +41,7 @@ const OurWorkSection = () => {
     return () => window.removeEventListener("resize", handler);
   }, []);
 
-  const cardHeight = isMobile ? 240 : PROJECT_HEIGHT;
+  const cardHeight = isMobile ? 300 : PROJECT_HEIGHT;
 
   // Scroll height: one viewport + enough to scroll through remaining cards
   const extraScroll = (projects.length - VISIBLE_CARDS) * (cardHeight + GAP);
@@ -65,15 +65,15 @@ const OurWorkSection = () => {
       {/* Background texture */}
       <img src={sectionShape} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none" />
       <img src="/images/about-v1-shape1-2.png" alt="" className="absolute top-0 left-0 w-[350px] md:w-[450px] opacity-50 pointer-events-none" />
-      <img src={circleShape1} alt="" className="absolute bottom-0 right-0 w-[250px] opacity-[0.15] pointer-events-none" />
+      <img src={circleShape1} alt="" className="absolute bottom-0 right-0 w-[250px] opacity-30 pointer-events-none" />
 
       {/* Background watermark text */}
-      <div className="absolute top-1/2 left-4 sm:left-8 -translate-y-1/2 pointer-events-none select-none z-0">
+      <div className="absolute top-1/2 left-4 sm:left-8 -translate-y-1/2 pointer-events-none select-none z-0 hidden sm:block">
         <span
           className="block text-[6rem] sm:text-[8rem] md:text-[10rem] lg:text-[14rem] font-bold uppercase leading-none whitespace-nowrap"
           style={{
             fontFamily: "var(--font-serif)",
-            WebkitTextStroke: "1px hsl(var(--primary-foreground) / 0.06)",
+            WebkitTextStroke: "2px hsl(var(--primary-foreground) / 0.30)",
             color: "transparent",
             writingMode: "vertical-lr",
             lineHeight: 0.85,
@@ -113,7 +113,7 @@ const OurWorkSection = () => {
               </a>
 
               {/* Progress dots */}
-              <div className="mt-10 flex gap-2">
+              <div className="mt-10 hidden lg:flex gap-2">
                 {projects.map((_, i) => (
                   <ProgressDot key={i} index={i} scrollYProgress={scrollYProgress} total={projects.length} />
                 ))}
@@ -121,7 +121,7 @@ const OurWorkSection = () => {
             </motion.div>
 
             {/* Right: Scrolling projects */}
-            <div className="relative h-[80vh] sm:h-[65vh] lg:h-[calc(100vh-120px)] overflow-hidden py-14 sm:pb-10">
+            <div className="relative h-[80vh] sm:h-[65vh] lg:h-[calc(100vh-120px)] overflow-hidden pt-4 pb-4 sm:pt-6 sm:pb-10">
               <motion.div
                 style={{ y: translateY }}
                 className="flex flex-col"

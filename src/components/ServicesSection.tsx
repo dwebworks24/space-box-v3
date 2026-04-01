@@ -1,4 +1,4 @@
-import { useState, useCallback, forwardRef } from "react";
+import { useState, useCallback, useEffect, useRef, forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedTitle from "./AnimatedTitle";
 import { Link } from "react-router-dom";
@@ -81,11 +81,19 @@ const ServicesSection = () => {
   const isMobile = useIsMobile();
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const autoSlideRef = useRef<NodeJS.Timeout | null>(null);
 
   const paginate = useCallback((dir: number) => {
     setDirection(dir);
     setCurrent((prev) => (prev + dir + services.length) % services.length);
   }, []);
+
+  // Auto-slide on mobile
+  useEffect(() => {
+    if (!isMobile) return;
+    autoSlideRef.current = setInterval(() => paginate(1), 3000);
+    return () => { if (autoSlideRef.current) clearInterval(autoSlideRef.current); };
+  }, [isMobile, paginate]);
 
   return (
     <section id="services" className="py-24 md:py-28 relative overflow-hidden bg-foreground">

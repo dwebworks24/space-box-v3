@@ -1,6 +1,6 @@
 import { motion, useInView, useSpring, useMotionValue, useTransform, useScroll } from "framer-motion";
 import { useRef, useEffect } from "react";
-import ctaBg from "@/assets/cta-bg.jpg";
+import statsBg from "@/assets/stats-bg.png";
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -69,7 +69,7 @@ const StatsSection = () => {
         style={{ y: bgY }}
       >
         <img
-          src={ctaBg}
+          src={statsBg}
           alt=""
           className="w-full h-full object-cover"
         />
@@ -77,6 +77,56 @@ const StatsSection = () => {
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/70" />
+
+      {/* Left decorative shapes */}
+      <div className="absolute left-0 top-0 bottom-0 z-[1] pointer-events-none hidden md:block">
+        <motion.div
+          className="absolute -left-8 top-1/4 w-40 h-40 border-2 border-white/10 rounded-full"
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: easeOut }}
+        />
+        <motion.div
+          className="absolute -left-4 top-[60%] w-24 h-24 border border-secondary/20 rotate-45"
+          initial={{ opacity: 0, x: -30, rotate: 0 }}
+          whileInView={{ opacity: 1, x: 0, rotate: 45 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: easeOut, delay: 0.2 }}
+        />
+        <motion.div
+          className="absolute left-6 top-[15%] w-3 h-3 rounded-full bg-secondary/30"
+          initial={{ opacity: 0, scale: 0 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        />
+      </div>
+
+      {/* Right decorative shapes */}
+      <div className="absolute right-0 top-0 bottom-0 z-[1] pointer-events-none hidden md:block">
+        <motion.div
+          className="absolute -right-8 bottom-1/4 w-40 h-40 border-2 border-white/10 rounded-full"
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: easeOut }}
+        />
+        <motion.div
+          className="absolute -right-4 top-[30%] w-24 h-24 border border-secondary/20 rotate-45"
+          initial={{ opacity: 0, x: 30, rotate: 0 }}
+          whileInView={{ opacity: 1, x: 0, rotate: 45 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: easeOut, delay: 0.2 }}
+        />
+        <motion.div
+          className="absolute right-6 bottom-[15%] w-3 h-3 rounded-full bg-secondary/30"
+          initial={{ opacity: 0, scale: 0 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        />
+      </div>
 
       {/* Content */}
       <motion.div

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import faqShape from "@/assets/faq-shape.png";
 import {
   Accordion,
   AccordionContent,
@@ -43,7 +44,17 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section className="bg-background py-20 md:py-28">
+    <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(260 8% 22%) 0%, hsl(320 18% 38%) 50%, hsl(330 22% 45%) 100%)" }}>
+      {/* Bottom-left decorative shape */}
+      <motion.img
+        src={faqShape}
+        alt=""
+        className="absolute bottom-0 left-0 w-48 md:w-72 lg:w-96 opacity-[0.07] pointer-events-none select-none"
+        initial={{ opacity: 0, x: -40, y: 40 }}
+        whileInView={{ opacity: 0.07, x: 0, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      />
       <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-start">
           {/* Left – heading */}
@@ -56,11 +67,11 @@ export default function FAQSection() {
             <span className="text-secondary font-semibold uppercase tracking-widest text-xs">
               FAQ
             </span>
-            <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+            <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
               Frequently Asked{" "}
               <span className="text-secondary">Questions</span>
             </h2>
-            <p className="mt-4 text-muted-foreground max-w-md font-body">
+            <p className="mt-4 text-white/60 max-w-md font-body">
               Everything you need to know before starting your interior design
               journey with SpaceBox Concepts.
             </p>
@@ -78,12 +89,12 @@ export default function FAQSection() {
                 <AccordionItem
                   key={i}
                   value={`faq-${i}`}
-                  className="border border-border/60 rounded-lg px-5 data-[state=open]:border-secondary/40 transition-colors duration-300"
+                  className="border border-white/15 rounded-lg px-5 data-[state=open]:border-secondary/40 transition-colors duration-300"
                 >
-                  <AccordionTrigger className="text-left text-foreground font-medium hover:text-secondary transition-colors py-5 text-sm md:text-base">
+                  <AccordionTrigger className="text-left text-white font-medium hover:text-secondary transition-colors py-5 text-sm md:text-base">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground font-body text-sm leading-relaxed pb-5">
+                  <AccordionContent className="text-white/60 font-body text-sm leading-relaxed pb-5">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

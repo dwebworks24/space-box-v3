@@ -12,31 +12,74 @@ import { isValidPhone, getPhoneError } from '@/lib/phoneValidation';
 
 const RECAPTCHA_SITE_KEY = '6LfT-YYsAAAAANH5sGA7t-a8BuWMt_F4FMhkTRBh';
 
-// Gallery images
-import c1Cabin from '@/assets/projects/c1-cabin.jpg';
-import c1Cafeteria from '@/assets/projects/c1-cafeteria.jpg';
-import c1Conference from '@/assets/projects/c1-conference.jpg';
-import c1Lobby from '@/assets/projects/c1-lobby.jpg';
-import c1Meeting from '@/assets/projects/c1-meeting.jpg';
-import c1Reception from '@/assets/projects/c1-reception-1.jpg';
-import c1Workarea from '@/assets/projects/c1-workarea.jpg';
-import c2Conference from '@/assets/projects/c2-conference.jpg';
-import c2Lounge from '@/assets/projects/c2-lounge.jpg';
-import c2Reception from '@/assets/projects/c2-reception.jpg';
-import r1Drawing from '@/assets/projects/r1-drawing-room.jpg';
-import r1Entrance from '@/assets/projects/r1-entrance.jpg';
-import r1Bedroom from '@/assets/projects/r1-master-bedroom.jpg';
-import r2Drawing from '@/assets/projects/r2-drawing-room.jpg';
-import r2Kitchen from '@/assets/projects/r2-kitchen.jpg';
-import r2Bedroom from '@/assets/projects/r2-master-bedroom.jpg';
+// Service-specific hero images
+import residentialHero from '@/assets/services/residential-hero.jpg';
+import commercialHero from '@/assets/services/commercial-hero.jpg';
+import spacePlanningHero from '@/assets/services/space-planning-hero.jpg';
+import materialColorHero from '@/assets/services/material-color-hero.jpg';
+import projectExecutionHero from '@/assets/services/project-execution-hero.jpg';
 
-const allGallery = [c1Cabin, c1Cafeteria, c1Conference, c1Lobby, c1Meeting, c1Reception, c1Workarea, c2Conference, c2Lounge, c2Reception, r1Drawing, r1Entrance, r1Bedroom, r2Drawing, r2Kitchen, r2Bedroom];
+// Detail images
+import detailBedroom from '@/assets/services/detail-bedroom.jpg';
+import detailKitchen from '@/assets/services/detail-kitchen.jpg';
+import detailDining from '@/assets/services/detail-dining.jpg';
+import detailReception from '@/assets/services/detail-reception.jpg';
+import detailConference from '@/assets/services/detail-conference.jpg';
 
-function getGalleryForService(index: number) {
-  const start = (index * 3) % allGallery.length;
-  const imgs: string[] = [];
-  for (let i = 0; i < 3; i++) imgs.push(allGallery[(start + i) % allGallery.length]);
-  return imgs;
+// Service hero image map
+const serviceHeroImages: Record<string, string> = {
+  "residential-interior-design": residentialHero,
+  "commercial-interior-design": commercialHero,
+  "space-planning-concept-development": spacePlanningHero,
+  "material-color-consultation": materialColorHero,
+  "end-to-end-project-execution": projectExecutionHero,
+};
+
+// Service detail (second) image map
+const serviceDetailImages: Record<string, string> = {
+  "residential-interior-design": detailBedroom,
+  "commercial-interior-design": detailReception,
+  "space-planning-concept-development": detailKitchen,
+  "material-color-consultation": detailDining,
+  "end-to-end-project-execution": detailConference,
+};
+
+// Portfolio images (unique per service, no repeats)
+import portfolio1 from '@/assets/services/portfolio-1.jpg';
+import portfolio2 from '@/assets/services/portfolio-2.jpg';
+import portfolio3 from '@/assets/services/portfolio-3.jpg';
+import portfolio4 from '@/assets/services/portfolio-4.jpg';
+import portfolio5 from '@/assets/services/portfolio-5.jpg';
+import portfolio6 from '@/assets/services/portfolio-6.jpg';
+import portfolio7 from '@/assets/services/portfolio-7.jpg';
+import portfolio8 from '@/assets/services/portfolio-8.jpg';
+import portfolio9 from '@/assets/services/portfolio-9.jpg';
+import portfolio10 from '@/assets/services/portfolio-10.jpg';
+import darkshellBg from '@/assets/services/darkshell-bg.jpg';
+import darkshellBg2 from '@/assets/services/darkshell-bg-2.jpg';
+import darkshellBg3 from '@/assets/services/darkshell-bg-3.jpg';
+import darkshellBg4 from '@/assets/services/darkshell-bg-4.jpg';
+import darkshellBg5 from '@/assets/services/darkshell-bg-5.jpg';
+
+const serviceDarkshellBg: Record<string, string> = {
+  "residential-interior-design": darkshellBg,
+  "commercial-interior-design": darkshellBg2,
+  "space-planning-concept-development": darkshellBg3,
+  "material-color-consultation": darkshellBg4,
+  "end-to-end-project-execution": darkshellBg5,
+};
+
+// Each service gets a unique set of portfolio images — no repeats across services
+const servicePortfolioImages: Record<string, string[]> = {
+  "residential-interior-design": [portfolio1, portfolio2, portfolio5, portfolio6, portfolio8, portfolio10],
+  "commercial-interior-design": [portfolio3, portfolio4, portfolio7, portfolio9, detailReception, detailConference],
+  "space-planning-concept-development": [portfolio1, portfolio3, portfolio5, portfolio9, spacePlanningHero, detailKitchen],
+  "material-color-consultation": [portfolio2, portfolio4, portfolio6, portfolio10, materialColorHero, detailDining],
+  "end-to-end-project-execution": [portfolio7, portfolio8, portfolio9, portfolio3, projectExecutionHero, detailConference],
+};
+
+function getGalleryForService(slug: string) {
+  return servicePortfolioImages[slug] || [portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
 }
 
 // ── Service Highlights (3 per service) ──
@@ -216,7 +259,7 @@ export default function ServiceDetail() {
 
   const prev = index > 0 ? services[index - 1] : null;
   const next = index < services.length - 1 ? services[index + 1] : null;
-  const gallery = getGalleryForService(index);
+  const gallery = getGalleryForService(service.slug);
   const highlights = serviceHighlights[service.slug] || serviceHighlights["interior-consultation"];
   const detailedContent = serviceDetailedContent[service.slug] || serviceDetailedContent["interior-consultation"];
   const extendedDesc = serviceExtendedDesc[service.slug] || serviceExtendedDesc["interior-consultation"];
@@ -281,10 +324,10 @@ export default function ServiceDetail() {
       />
 
       {/* ═══════════ SECTION 1: Editorial Overview ═══════════ */}
-      <section className="py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
+      <section className="py-10 lg:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           {/* Row 1: Text left, Image right */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-16 lg:mb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 lg:mb-16">
             <motion.div {...fadeUp}>
               <h2 className="font-display text-3xl md:text-4xl lg:text-[42px] text-foreground leading-tight mb-6 font-semibold">
                 {service.title}
@@ -297,20 +340,22 @@ export default function ServiceDetail() {
             </motion.div>
             <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.15 }}>
               <img
-                src={service.image}
+                src={serviceHeroImages[service.slug] || service.image}
                 alt={service.title}
                 className="w-full h-[300px] lg:h-[420px] object-cover rounded-xl"
+                loading="lazy"
               />
             </motion.div>
           </div>
 
           {/* Row 2: Image left, Text right (detailed content) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             <motion.div {...fadeUp} className="order-2 lg:order-1">
               <img
-                src={gallery[0]}
+                src={serviceDetailImages[service.slug] || gallery[0]}
                 alt={`${service.title} detail`}
                 className="w-full h-[300px] lg:h-[420px] object-cover rounded-xl"
+                loading="lazy"
               />
             </motion.div>
             <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.15 }} className="order-1 lg:order-2">
@@ -333,17 +378,17 @@ export default function ServiceDetail() {
       </section>
 
       {/* ═══════════ SECTION 2: Service Highlights (3 cards) ═══════════ */}
-      <section ref={highlightsRef} className="relative py-16 lg:py-24 overflow-hidden">
+      <section ref={highlightsRef} className="relative py-10 lg:py-16 overflow-hidden">
         {/* Parallax bg image */}
         <motion.div
           className="absolute inset-[-20%]"
           style={{ y: heroY, scale: heroScale }}
         >
-          <img src={service.image} alt="" className="w-full h-full object-cover" />
+          <img src={serviceHeroImages[service.slug] || service.image} alt="" className="w-full h-full object-cover" />
         </motion.div>
         <div className="absolute inset-0 bg-black/70" />
 
-        <div className="relative z-10 container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
+        <div className="relative z-10 container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           <motion.div className="text-center mb-14" {...fadeUp}>
             <p className="text-secondary text-[13px] uppercase tracking-[3px] mb-3 font-display font-semibold">Highlights</p>
             <h2 className="font-display text-3xl md:text-4xl text-white font-semibold">Service Highlights</h2>
@@ -369,8 +414,8 @@ export default function ServiceDetail() {
       </section>
 
       {/* ═══════════ SECTION 3: Consultation / Booking Form ═══════════ */}
-      <section className="py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-4 sm:px-10 md:px-14 lg:px-20">
+      <section className="py-10 lg:py-16 bg-warm-bg">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           <motion.div
             className="max-w-3xl mx-auto bg-warm-bg border border-border rounded-2xl p-5 sm:p-8 md:p-12 shadow-sm"
             {...fadeUp}
@@ -475,11 +520,11 @@ export default function ServiceDetail() {
       </section>
 
       {/* ═══════════ SECTION 4: Sample Works Carousel ═══════════ */}
-      <SampleWorksCarousel gallery={gallery} serviceTitle={service.title} fadeUp={fadeUp} />
+      <SampleWorksCarousel gallery={gallery} serviceTitle={service.title} fadeUp={fadeUp} slug={service.slug} />
 
       {/* ═══════════ SECTION 5: FAQ ═══════════ */}
-      <section className="py-16 lg:py-24 bg-warm-bg">
-        <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
+      <section className="py-10 lg:py-16 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           <motion.div className="text-center mb-14" {...fadeUp}>
             <h2 className="font-display text-3xl md:text-4xl text-foreground font-semibold">Frequently Asked Questions</h2>
           </motion.div>
@@ -514,8 +559,8 @@ export default function ServiceDetail() {
       </section>
 
       {/* ═══════════ SECTION 6: Prev / Next Navigation ═══════════ */}
-      <section className="border-t border-border bg-background">
-        <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20 grid grid-cols-2">
+      <section className="border-t border-border bg-warm-bg">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 grid grid-cols-2">
           {prev ? (
             <Link
               to={`/services/${prev.slug}`}
@@ -547,8 +592,8 @@ export default function ServiceDetail() {
 }
 
 /* ═══════════ Sample Works Carousel Component ═══════════ */
-function SampleWorksCarousel({ gallery, serviceTitle, fadeUp }: { gallery: string[]; serviceTitle: string; fadeUp: any }) {
-  const allImages = [...gallery, ...gallery]; // double for more slides
+function SampleWorksCarousel({ gallery, serviceTitle, fadeUp, slug }: { gallery: string[]; serviceTitle: string; fadeUp: any; slug: string }) {
+  const allImages = gallery; // unique images, no duplication
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start', slidesToScroll: 1 });
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
@@ -557,12 +602,29 @@ function SampleWorksCarousel({ gallery, serviceTitle, fadeUp }: { gallery: strin
   const labels = ['Living Interiors', 'Workspace Interiors', 'Reception Interiors', 'Modern Interiors', 'Classic Interiors', 'Contemporary Interiors'];
 
   return (
-    <section className="py-16 lg:py-24 bg-background">
-      <div className="container mx-auto px-6 sm:px-10 md:px-14 lg:px-20">
+    <section className="py-10 lg:py-16 relative overflow-hidden bg-[#050505]">
+      {/* Darkshell background */}
+      <div className="absolute inset-0">
+        <img
+          src={serviceDarkshellBg[slug] || darkshellBg}
+          alt=""
+          className="w-full h-full object-cover opacity-40"
+          loading="lazy"
+          width={1920}
+          height={1080}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-[#050505]/80" />
+        {/* Subtle top/bottom edge highlights */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 relative z-10">
         <motion.div className="text-center mb-14" {...fadeUp}>
           <p className="text-secondary text-[13px] uppercase tracking-[3px] mb-3 font-display font-semibold">PORTFOLIO</p>
-          <h2 className="font-display text-3xl md:text-4xl text-foreground font-semibold">From Vision to Execution</h2>
-          <p className="text-muted-foreground text-sm mt-3 max-w-2xl mx-auto font-body">
+          <h2 className="font-display text-3xl md:text-4xl text-white font-semibold">From Vision to Execution</h2>
+          <p className="text-white/50 text-sm mt-3 max-w-2xl mx-auto font-body">
             Creating a well-designed space requires a full range of design services including furniture selection, colour coordination, and project management.
           </p>
         </motion.div>
@@ -573,7 +635,7 @@ function SampleWorksCarousel({ gallery, serviceTitle, fadeUp }: { gallery: strin
               {allImages.map((img, i) => (
                 <div key={i} className="min-w-0 shrink-0 grow-0 basis-full sm:basis-1/2 lg:basis-1/3 pl-4">
                   <div className="group">
-                    <div className="relative rounded-xl overflow-hidden h-[220px] md:h-[260px]">
+                    <div className="relative rounded-xl overflow-hidden h-[220px] md:h-[260px] ring-1 ring-white/10">
                       <img
                         src={img}
                         alt={`${serviceTitle} project ${i + 1}`}
@@ -581,7 +643,7 @@ function SampleWorksCarousel({ gallery, serviceTitle, fadeUp }: { gallery: strin
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
                     </div>
-                    <p className="text-center text-foreground font-display font-semibold mt-4 text-sm">{labels[i % labels.length]}</p>
+                    <p className="text-center text-white/80 font-display font-semibold mt-4 text-sm">{labels[i % labels.length]}</p>
                   </div>
                 </div>
               ))}
@@ -591,13 +653,13 @@ function SampleWorksCarousel({ gallery, serviceTitle, fadeUp }: { gallery: strin
           {/* Carousel arrows */}
           <button
             onClick={scrollPrev}
-            className="absolute -left-3 md:-left-5 top-[130px] md:top-[130px] w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-all"
+            className="absolute -left-3 md:-left-5 top-[130px] md:top-[130px] w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 shadow-md flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-all text-white/70"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute -right-3 md:-right-5 top-[130px] md:top-[130px] w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-all"
+            className="absolute -right-3 md:-right-5 top-[130px] md:top-[130px] w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 shadow-md flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-all text-white/70"
           >
             <ArrowRight className="w-4 h-4" />
           </button>
