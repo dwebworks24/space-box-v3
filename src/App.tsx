@@ -17,6 +17,9 @@ import Careers from "./pages/Careers";
 import StartProject from "./pages/StartProject";
 import ClientBrief from "./pages/ClientBrief";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import RefundPolicy from "./pages/RefundPolicy";
 import { useEffect } from "react";
 
 const AdminRedirect = () => {
@@ -47,6 +50,9 @@ const App = () => (
             <Route path="/careers" element={<Careers />} />
             <Route path="/start-project" element={<StartProject />} />
             <Route path="/client-brief" element={<ClientBrief />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
           </Route>
           <Route path="/admin" element={<AdminRedirect />} />
           <Route path="/admin/*" element={<AdminRedirect />} />

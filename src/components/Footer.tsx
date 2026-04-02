@@ -132,7 +132,7 @@ const Footer = () => {
           </motion.div>
 
           {/* Nav links */}
-          <motion.nav variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
+          <motion.nav variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-10 mb-4">
             {[
               { label: "Home", href: "/" },
               { label: "About", href: "/about" },
@@ -145,6 +145,21 @@ const Footer = () => {
                 key={link.label}
                 href={link.href}
                 className="text-white font-body text-sm uppercase tracking-widest hover:text-secondary transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </motion.nav>
+          <motion.nav variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
+            {[
+              { label: "Privacy Policy", href: "/privacy-policy" },
+              { label: "Terms & Conditions", href: "/terms-and-conditions" },
+              { label: "Refund Policy", href: "/refund-policy" },
+            ].map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-white/60 font-body text-xs uppercase tracking-widest hover:text-secondary transition-colors"
               >
                 {link.label}
               </a>
