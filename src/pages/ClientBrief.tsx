@@ -14,7 +14,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 
 const RECAPTCHA_SITE_KEY = '6LfT-YYsAAAAANH5sGA7t-a8BuWMt_F4FMhkTRBh';
-const RAZORPAY_KEY = 'rzp_live_XXXXXXXXXX'; // Replace with your Razorpay key
 
 const PROPERTY_TYPES = [
   "Apartment",
@@ -72,8 +71,12 @@ const ClientBrief = () => {
   const [phoneError, setPhoneError] = useState('');
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [siteReadyDateOpen, setSiteReadyDateOpen] = useState(false);
+  const [completionDateOpen, setCompletionDateOpen] = useState(false);
 
   const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     propertyType: "",
@@ -89,6 +92,7 @@ const ClientBrief = () => {
     budget: "",
     paymentMode: "",
     paymentModeOther: "",
+    professionalCommitment: "" as "" | "proceed" | "consult",
   });
 
   const update = (field: string, value: any) =>
@@ -97,7 +101,7 @@ const ClientBrief = () => {
   const canProceed = () => {
     switch (step) {
       case 1:
-        return form.email.trim() && form.phone.trim() && isValidPhone(form.phone) &&
+        return form.firstName.trim() && form.lastName.trim() && form.email.trim() && form.phone.trim() && isValidPhone(form.phone) &&
           (form.propertyType ? (form.propertyType !== "Other" || form.propertyTypeOther.trim()) : false) &&
           form.locationDetails.trim() && form.propertyArea.trim() &&
           form.siteReadiness &&
@@ -108,9 +112,9 @@ const ClientBrief = () => {
         return form.completionDate && form.budget.trim() &&
           (form.paymentMode ? (form.paymentMode !== "Other" || form.paymentModeOther.trim()) : false);
       case 4:
-        return !!captchaToken;
-      case 5:
         return true;
+      case 5:
+        return !!form.professionalCommitment;
       default: return false;
     }
   };
@@ -126,6 +130,45 @@ const ClientBrief = () => {
     });
   };
 
+  const buildPayload = () => ({
+    ...form,
+    siteReadyDate: form.siteReadyDate ? format(form.siteReadyDate, "yyyy-MM-dd") : null,
+    completionDate: form.completionDate ? format(form.completionDate, "yyyy-MM-dd") : null,
+  });
+
+  const handleSubmitWithoutPayment = async () => {
+    setSubmitting(true);
+    setError(null);
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
+      const res = await fetch(apiUrl(ENDPOINTS.PROJECT_INQUIRY), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...buildPayload(),
+          registrationFee: 0,
+          paymentId: null,
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.detail || `Submission failed (${res.status})`);
+      }
+      setSubmitted(true);
+    } catch (err: any) {
+      if (err.name === "AbortError") {
+        setError("Request timed out. Please check your connection and try again.");
+      } else {
+        setError(err.message || "Submission failed. Please try again.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const handlePayment = async () => {
     setSubmitting(true);
     setError(null);
@@ -137,23 +180,50 @@ const ClientBrief = () => {
       return;
     }
 
+    // Step 1: Create order on the backend
+    let orderData: any;
+    try {
+      const orderRes = await fetch(apiUrl(ENDPOINTS.CREATE_ORDER), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: 5000 }),
+      });
+      if (!orderRes.ok) {
+        const errData = await orderRes.json().catch(() => null);
+        throw new Error(errData?.detail || `Failed to create order (${orderRes.status})`);
+      }
+      orderData = await orderRes.json();
+    } catch (err: any) {
+      setError(err.message || "Failed to initiate payment. Please try again.");
+      setSubmitting(false);
+      return;
+    }
+
+    // Validate that the backend returned a Razorpay key
+    if (!orderData.razorpay_key) {
+      setError("Payment gateway configuration error: Authentication key is missing. Please contact support.");
+      setSubmitting(false);
+      return;
+    }
+
+    // Step 2: Open Razorpay checkout with the order
     const options = {
-      key: RAZORPAY_KEY,
-      amount: 500000, // ₹5,000 in paise
-      currency: "INR",
+      key: orderData.razorpay_key,
+      amount: orderData.amount || 500000,
+      currency: orderData.currency || "INR",
       name: "SpaceBox Concepts",
       description: "Project Registration Fee (₹5,000) — 100% refundable/adjustable",
+      order_id: orderData.order_id,
       handler: async (response: any) => {
         try {
-          // Submit form data along with payment ID
           const res = await fetch(apiUrl(ENDPOINTS.PROJECT_INQUIRY), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              ...form,
-              siteReadyDate: form.siteReadyDate ? format(form.siteReadyDate, "yyyy-MM-dd") : null,
-              completionDate: form.completionDate ? format(form.completionDate, "yyyy-MM-dd") : null,
+              ...buildPayload(),
               paymentId: response.razorpay_payment_id,
+              razorpayOrderId: response.razorpay_order_id,
+              razorpaySignature: response.razorpay_signature,
               registrationFee: 5000,
             }),
           });
@@ -169,6 +239,7 @@ const ClientBrief = () => {
         }
       },
       prefill: {
+        name: `${form.firstName} ${form.lastName}`,
         email: form.email,
         contact: form.phone,
       },
@@ -183,6 +254,10 @@ const ClientBrief = () => {
     };
 
     const rzp = new window.Razorpay(options);
+    rzp.on("payment.failed", (response: any) => {
+      setError(`Payment failed: ${response.error?.description || "Unknown error"}. Please try again.`);
+      setSubmitting(false);
+    });
     rzp.open();
   };
 
@@ -205,13 +280,19 @@ const ClientBrief = () => {
             <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
               <Check className="w-10 h-10 text-secondary" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Registration Complete!</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {form.professionalCommitment === "proceed" ? "Thank You for the Payment!" : "Brief Submitted!"}
+            </h2>
             <p className="text-muted-foreground max-w-md mx-auto mb-8 text-lg">
-              Your project brief and registration fee have been received. Our design team will contact you within 24 hours to schedule your first consultation.
+              {form.professionalCommitment === "proceed"
+                ? "We have received your payment and project brief. Our team will get in touch with you shortly to begin your design journey."
+                : "Your project brief has been submitted successfully. A consultant will reach out to you within 24 hours to discuss your project."}
             </p>
-            <p className="text-sm text-muted-foreground mb-8">
-              Note: The ₹5,000 registration fee is 100% refundable/adjustable against your final project invoice.
-            </p>
+            {form.professionalCommitment === "proceed" && (
+              <p className="text-sm text-muted-foreground mb-8">
+                The ₹5,000 registration fee is 100% refundable/adjustable against your final project invoice.
+              </p>
+            )}
             <Link
               to="/"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-semibold hover:bg-secondary transition-all duration-300"
@@ -287,6 +368,26 @@ const ClientBrief = () => {
                 <div className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
+                      <label className="text-sm font-medium mb-1.5 block">First Name *</label>
+                      <input
+                        value={form.firstName}
+                        onChange={(e) => update("firstName", e.target.value)}
+                        className={inputClass}
+                        placeholder="First name"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-1.5 block">Last Name *</label>
+                      <input
+                        value={form.lastName}
+                        onChange={(e) => update("lastName", e.target.value)}
+                        className={inputClass}
+                        placeholder="Last name"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
                       <label className="text-sm font-medium mb-1.5 block">Email *</label>
                       <input
                         type="email"
@@ -314,7 +415,12 @@ const ClientBrief = () => {
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                       {PROPERTY_TYPES.map((p) => (
                         <button key={p} type="button" onClick={() => update("propertyType", p)} className={radioClass(form.propertyType === p)}>
-                          {p}
+                          <span className="inline-flex items-center gap-2">
+                            <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.propertyType === p ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                              {form.propertyType === p && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                            </span>
+                            {p}
+                          </span>
                         </button>
                       ))}
                     </div>
@@ -363,7 +469,7 @@ const ClientBrief = () => {
                   {form.siteReadiness === "Not yet Ready" && (
                     <div>
                       <label className="text-sm font-medium mb-1.5 block">When will it be ready for Interior? *</label>
-                      <Popover>
+                      <Popover open={siteReadyDateOpen} onOpenChange={setSiteReadyDateOpen}>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
@@ -377,7 +483,7 @@ const ClientBrief = () => {
                           <Calendar
                             mode="single"
                             selected={form.siteReadyDate}
-                            onSelect={(d) => update("siteReadyDate", d)}
+                            onSelect={(d) => { update("siteReadyDate", d); setSiteReadyDateOpen(false); }}
                             disabled={(date) => date < new Date()}
                             initialFocus
                             className={cn("p-3 pointer-events-auto")}
@@ -471,7 +577,7 @@ const ClientBrief = () => {
                     <p className="text-xs text-muted-foreground mb-2">
                       Quality custom interiors typically take 45–90 days depending on the scope.
                     </p>
-                    <Popover>
+                    <Popover open={completionDateOpen} onOpenChange={setCompletionDateOpen}>
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
@@ -485,7 +591,7 @@ const ClientBrief = () => {
                         <Calendar
                           mode="single"
                           selected={form.completionDate}
-                          onSelect={(d) => update("completionDate", d)}
+                          onSelect={(d) => { update("completionDate", d); setCompletionDateOpen(false); }}
                           disabled={(date) => date < new Date()}
                           initialFocus
                           className={cn("p-3 pointer-events-auto")}
@@ -512,11 +618,21 @@ const ClientBrief = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {PAYMENT_MODES.map((p) => (
                         <button key={p} type="button" onClick={() => { update("paymentMode", p); update("paymentModeOther", ""); }} className={radioClass(form.paymentMode === p)}>
-                          {p}
+                          <span className="inline-flex items-center gap-2">
+                            <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.paymentMode === p ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                              {form.paymentMode === p && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                            </span>
+                            {p}
+                          </span>
                         </button>
                       ))}
                       <button type="button" onClick={() => update("paymentMode", "Other")} className={radioClass(form.paymentMode === "Other")}>
-                        Other
+                        <span className="inline-flex items-center gap-2">
+                          <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.paymentMode === "Other" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                            {form.paymentMode === "Other" && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                          </span>
+                          Other
+                        </span>
                       </button>
                     </div>
                     {form.paymentMode === "Other" && (
@@ -561,36 +677,82 @@ const ClientBrief = () => {
                   <ReviewBlock label="Budget" value={form.budget} />
                   <ReviewBlock label="Payment Mode" value={form.paymentMode === "Other" ? form.paymentModeOther : form.paymentMode} />
                 </div>
-                <div className="mt-6">
+                {/* <div className="mt-6">
                   <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={RECAPTCHA_SITE_KEY}
                     onChange={(token) => setCaptchaToken(token)}
                     onExpired={() => setCaptchaToken(null)}
                   />
-                </div>
+                </div> */}
               </div>
             )}
 
-            {/* Step 5: Payment */}
+            {/* Step 5: Professional Commitment */}
             {step === 5 && (
-              <div className="text-center">
-                <h2 className="text-2xl font-bold mb-1">Professional Engagement</h2>
-                <p className="text-muted-foreground text-sm mb-8">Complete your registration with a refundable fee.</p>
+              <div>
+                <div className="bg-muted/50 rounded-xl p-6 md:p-8 mb-6">
+                  <h2 className="text-xl font-bold mb-2">Professional Engagement</h2>
+                  <h3 className="text-lg font-semibold mb-2">9. Professional Commitment:</h3>
 
-                <div className="bg-secondary/5 border border-secondary/20 rounded-xl p-6 md:p-8 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-4">
-                    <CreditCard className="w-8 h-8 text-secondary" />
+                  {/* Summary of key details */}
+                  <div className="bg-background rounded-lg p-4 mb-5 space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Name</span>
+                      <span className="font-medium text-foreground">{form.firstName} {form.lastName}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Mobile</span>
+                      <span className="font-medium text-foreground">{form.phone}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Email</span>
+                      <span className="font-medium text-foreground">{form.email}</span>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Project Registration Fee</h3>
-                  <p className="text-3xl font-bold text-secondary mb-4">₹5,000</p>
-                  <p className="text-muted-foreground text-sm max-w-md mx-auto mb-4">
-                    To provide dedicated designer hours and personalized site measurements, we require a Project Registration Fee of ₹5,000.
+
+                  <p className="text-muted-foreground text-sm mb-4">
+                    To provide dedicated designer hours and personalized site measurements, we require a <strong className="text-foreground">Project Registration Fee of ₹5,000</strong>.
                   </p>
-                  <div className="bg-background/50 border border-border rounded-lg p-3 inline-block">
+                  <div className="bg-background border border-border rounded-lg p-3 mb-6">
                     <p className="text-xs text-muted-foreground">
                       💡 <strong>Note:</strong> This fee is <strong>100% refundable/adjustable</strong> against your final project invoice upon completion.
                     </p>
+                  </div>
+
+                  <div className="space-y-3 text-left">
+                    <button
+                      type="button"
+                      onClick={() => update("professionalCommitment", "proceed")}
+                      className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-all duration-200 ${
+                        form.professionalCommitment === "proceed"
+                          ? "border-secondary bg-secondary/10 text-foreground font-medium"
+                          : "border-border bg-background text-muted-foreground hover:border-secondary/50"
+                      }`}
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.professionalCommitment === "proceed" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                          {form.professionalCommitment === "proceed" && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                        </span>
+                        I understand and am ready to proceed with the registration.
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update("professionalCommitment", "consult")}
+                      className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-all duration-200 ${
+                        form.professionalCommitment === "consult"
+                          ? "border-secondary bg-secondary/10 text-foreground font-medium"
+                          : "border-border bg-background text-muted-foreground hover:border-secondary/50"
+                      }`}
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.professionalCommitment === "consult" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
+                          {form.professionalCommitment === "consult" && <span className="w-2 h-2 rounded-full bg-secondary" />}
+                        </span>
+                        I would like to discuss this with a consultant first.
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -628,16 +790,28 @@ const ClientBrief = () => {
             >
               Next <ArrowRight className="w-4 h-4" />
             </button>
-          ) : (
+          ) : form.professionalCommitment === "proceed" ? (
             <button
               onClick={handlePayment}
-              disabled={submitting}
+              disabled={submitting || !canProceed()}
               className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-3 rounded-lg text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 shadow-md hover:shadow-xl"
             >
               {submitting ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /> Processing…</>
               ) : (
                 <><CreditCard className="w-4 h-4" /> Pay ₹5,000 & Register</>
+              )}
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmitWithoutPayment}
+              disabled={submitting || !canProceed()}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-lg text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 shadow-md hover:shadow-xl"
+            >
+              {submitting ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</>
+              ) : (
+                <><Send className="w-4 h-4" /> Submit Brief</>
               )}
             </button>
           )}
