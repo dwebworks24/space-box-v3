@@ -75,7 +75,7 @@ const AnimatedTitle = forwardRef<HTMLElement, AnimatedTitleProps>(function Anima
   return (
     <Tag className={className} style={{ overflow: "hidden" }}>
       <motion.span
-        className="inline-flex flex-wrap"
+        className="inline-flex flex-wrap pb-2"
         variants={containerVariants}
         custom={delay}
         initial="hidden"

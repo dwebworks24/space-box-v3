@@ -114,7 +114,7 @@ const ServicesSection = () => {
             What We Offer
           </motion.p>
           <AnimatedTitle className="text-4xl md:text-5xl text-white leading-tight">
-            Our Services
+        The Work We Love
           </AnimatedTitle>
         </div>
 

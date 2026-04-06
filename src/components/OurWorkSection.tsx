@@ -96,9 +96,9 @@ const OurWorkSection = () => {
               className=""
             >
               <p className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 mt-8 sm:mt-0 font-body">
-                Our Work
+                Our Works
               </p>
-              <AnimatedTitle className="text-4xl md:text-5xl text-white leading-tight mt-4 sm:mt-0">
+              <AnimatedTitle className="text-4xl md:text-5xl text-white leading-tight mt-4 sm:mt-0 py-3">
                 Spaces We Designed
               </AnimatedTitle>
               <p className="mt-6 text-white/60 font-body max-w-sm leading-relaxed">
