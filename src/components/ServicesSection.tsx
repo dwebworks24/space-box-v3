@@ -111,10 +111,10 @@ const ServicesSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            What We Offer
+            Bespoke Services
           </motion.p>
           <AnimatedTitle className="text-4xl md:text-5xl text-white leading-tight">
-          Spaces We Specialize In
+          Our Design Portfolio
           </AnimatedTitle>
         </div>
 

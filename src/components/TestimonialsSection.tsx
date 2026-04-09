@@ -117,8 +117,9 @@ const TestimonialsSection = () => {
 
           {/* Right - Testimonial content */}
           <div>
+            <p className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body">Client Accolades</p>
             <AnimatedTitle className="text-4xl md:text-5xl text-white mb-8">
-              People Love Us
+              Words of Appreciation
             </AnimatedTitle>
 
             <AnimatePresence mode="wait">

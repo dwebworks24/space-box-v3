@@ -85,7 +85,7 @@ function getGalleryForService(slug: string) {
 // ── Service Highlights (3 per service) ──
 const serviceHighlights: Record<string, { icon: 'sparkles' | 'palette' | 'lightbulb'; title: string; desc: string }[]> = {
   "residential-interior-design": [
-    { icon: 'sparkles', title: "Personalised Spaces", desc: "We understand your lifestyle and design a space that's uniquely yours — no cookie-cutter templates." },
+    { icon: 'sparkles', title: "Personalized Spaces", desc: "We understand your lifestyle and design a space that's uniquely yours — no cookie-cutter templates." },
     { icon: 'palette', title: "Timeless Designs", desc: "Concepts that look beautiful for years, not just a season, blending classic elegance with modern comfort." },
     { icon: 'lightbulb', title: "Aesthetic & Functional", desc: "Craft living spaces with both stunning design and everyday usability for families and individuals." },
   ],
@@ -390,8 +390,8 @@ export default function ServiceDetail() {
 
         <div className="relative z-10 container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           <motion.div className="text-center mb-14" {...fadeUp}>
-            <p className="text-secondary text-[13px] uppercase tracking-[3px] mb-3 font-display font-semibold">Highlights</p>
-            <h2 className="font-display text-3xl md:text-4xl text-white font-semibold">Service Highlights</h2>
+            <p className="text-secondary text-[13px] uppercase tracking-[3px] mb-3 font-display font-semibold">Signature Elements</p>
+            <h2 className="font-display text-3xl md:text-4xl text-white font-semibold">Curated Hallmarks</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -436,9 +436,9 @@ export default function ServiceDetail() {
               <>
                 <div className="text-center mb-8">
                   <h2 className="font-display text-2xl md:text-3xl text-foreground mb-2 font-semibold">
-                    Free Consultation — Talk to Our Expert
+                    Begin Your Design Journey
                   </h2>
-                  <p className="text-muted-foreground text-sm font-body">Let's convert your idea into reality</p>
+                  <p className="text-muted-foreground text-sm font-body">Let us conceptualize your vision into a living masterpiece.</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -526,7 +526,7 @@ export default function ServiceDetail() {
       <section className="py-10 lg:py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           <motion.div className="text-center mb-14" {...fadeUp}>
-            <h2 className="font-display text-3xl md:text-4xl text-foreground font-semibold">Frequently Asked Questions</h2>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground font-semibold">Curated Inquiries</h2>
           </motion.div>
 
           <div className="max-w-3xl mx-auto space-y-3">
@@ -622,8 +622,8 @@ function SampleWorksCarousel({ gallery, serviceTitle, fadeUp, slug }: { gallery:
 
       <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 relative z-10">
         <motion.div className="text-center mb-14" {...fadeUp}>
-          <p className="text-secondary text-[13px] uppercase tracking-[3px] mb-3 font-display font-semibold">PORTFOLIO</p>
-          <h2 className="font-display text-3xl md:text-4xl text-white font-semibold">From Vision to Execution</h2>
+          <p className="text-secondary text-[13px] uppercase tracking-[3px] mb-3 font-display font-semibold">CURATED ARCHIVES</p>
+          <h2 className="font-display text-3xl md:text-4xl text-white font-semibold">Featured Masterpieces</h2>
           <p className="text-white/50 text-sm mt-3 max-w-2xl mx-auto font-body">
             Creating a well-designed space requires a full range of design services including furniture selection, colour coordination, and project management.
           </p>

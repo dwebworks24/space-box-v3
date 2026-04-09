@@ -4,7 +4,9 @@ import {
   MessageSquare, Box, Maximize, Palette, Sofa, Lamp, Frame,
   ClipboardList, HeadphonesIcon,
   Compass, Layers, Shield, Wrench,
+  ChevronLeft, ChevronRight,
 } from 'lucide-react';
+import { useRef } from 'react';
 import aboutHeroSplit from '@/assets/about-hero-split.jpg';
 import projectResidential from '@/assets/project-residential.jpg';
 import AboutCompanySection from '@/components/AboutCompanySection';
@@ -106,6 +108,20 @@ const cardPop = (i: number) => ({
 });
 
 export default function About() {
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -280, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 280, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div>
       <SEO
@@ -135,10 +151,10 @@ export default function About() {
               viewport={{ once: true, margin: '-80px' }}
             >
               <motion.p variants={fadeUp} className="text-secondary text-sm uppercase tracking-[0.3em] mb-3 font-body">
-                Why Choose Us
+                Our Signature Approach
               </motion.p>
               <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-tight mb-5">
-                Why  Choose <br/> SpaceBox Concepts
+                The SpaceBox <br/> Distinction
               </motion.h2>
               <motion.p variants={fadeUp} className="text-muted-foreground font-body leading-relaxed mb-8 max-w-md">
                 We believe every home deserves thoughtful design and meticulous detail. From the first sketch to final styling, our experienced team ensures your space reflects your personality.
@@ -208,30 +224,44 @@ export default function About() {
             viewport={{ once: true }}
           >
             <motion.p variants={fadeUp} className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body">
-              Our Journey
+              A Legacy of Design
             </motion.p>
             <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl text-foreground">
-              From Vision to <span className="text-secondary">Reality</span>
+              The Evolution of <span className="text-secondary">Elegance</span>
             </motion.h2>
           </motion.div>
 
-          {/* Horizontal timeline — no scroll */}
-          <div className="relative">
-            {/* Main connecting line */}
-            <motion.div
-              className="absolute top-[40px] left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-secondary/40 to-transparent origin-left hidden md:block"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 1.4, ease: easeOut }}
-            />
+          {/* Horizontal timeline — flex container for side-by-side arrows on mobile */}
+          <div className="relative mt-8 md:mt-0 flex items-center mb-8 md:mb-0 w-full overflow-hidden md:overflow-visible">
+            {/* Left Box Arrow */}
+            <button 
+              onClick={scrollLeft} 
+              className="md:hidden flex-shrink-0 z-10 w-10 h-10 rounded-full border border-secondary/30 flex items-center justify-center bg-background text-foreground hover:bg-secondary hover:text-primary-foreground shadow-sm transition-all mr-2"
+              aria-label="Previous timeline item"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
 
-            {/* Timeline items */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-0">
+            {/* Slider Container */}
+            <div className="flex-1 w-[calc(100%-96px)] md:w-full overflow-hidden relative">
+              {/* Main connecting line */}
+              <motion.div
+                className="absolute top-[40px] left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-secondary/40 to-transparent origin-left hidden md:block"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 1.4, ease: easeOut }}
+              />
+
+              {/* Timeline items */}
+              <div 
+                ref={sliderRef}
+                className="flex md:grid md:grid-cols-5 gap-6 md:gap-0 overflow-x-auto md:overflow-x-visible pb-8 md:pb-0 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth"
+              >
               {timeline.map((item, i) => (
                 <motion.div
                   key={item.year}
-                  className="relative flex flex-col items-center text-center"
+                  className="relative flex flex-col items-center text-center flex-shrink-0 w-[280px] md:w-auto snap-center"
                   initial={{ opacity: 0, y: 60, scale: 0.85 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, margin: '-40px' }}
@@ -287,7 +317,17 @@ export default function About() {
                   </motion.div>
                 </motion.div>
               ))}
+              </div>
             </div>
+
+            {/* Right Box Arrow */}
+            <button 
+              onClick={scrollRight} 
+              className="md:hidden flex-shrink-0 z-10 w-10 h-10 rounded-full border border-secondary/30 flex items-center justify-center bg-background text-foreground hover:bg-secondary hover:text-primary-foreground shadow-sm transition-all ml-2"
+              aria-label="Next timeline item"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </section>
