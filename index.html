@@ -35,6 +35,15 @@
   <meta property="og:description" content="SpaceBox Concepts">
   <meta name="twitter:description" content="SpaceBox Concepts">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const imgs = document.querySelectorAll("img:not([loading])");
+      imgs.forEach(img => {
+        img.setAttribute("loading", "lazy");
+        img.setAttribute("decoding", "async");
+      });
+    });
+  </script>
 </head>
 
   <body>
