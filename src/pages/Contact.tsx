@@ -17,6 +17,7 @@ export default function Contact() {
   const [error, setError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [streetView, setStreetView] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handlePhoneChange = (value: string) => {
@@ -233,6 +234,7 @@ export default function Contact() {
           </div>
 
           {/* Map */}
+          {/* Map */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -240,18 +242,51 @@ export default function Contact() {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="mt-20"
           >
-            <h3 className="text-2xl font-bold mb-6">Find Us</h3>
-            <div className="rounded-2xl overflow-hidden border border-border h-[400px]">
-              <iframe
-                title="Spacebox Designs Location"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3805.506688235522!2d78.3340557!3d17.4833099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93b2d1a0b0e9%3A0x4c1bb4fd77b5c530!2sspacebox%20concepts%20%7C%20Interior%20Designer!5e0!3m2!1sen!2sin!4v1772433072922!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold">Find Us</h3>
+
+              {/* Toggle Button */}
+              <button
+                onClick={() => setStreetView(!streetView)}
+                className="text-sm px-4 py-2 rounded-lg border border-border bg-background hover:bg-muted transition-all"
+              >
+                {streetView ? "Map View" : "Street View"}
+              </button>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden border border-border h-[400px] relative">
+
+              {/* Map View */}
+              {!streetView && (
+                <iframe
+                  key="map"
+                  title="Spacebox Designs Location Map"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3805.506688235522!2d78.3340557!3d17.4833099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93b2d1a0b0e9%3A0x4c1bb4fd77b5c530!2sspacebox%20concepts%20%7C%20Interior%20Designer!5e0!3m2!1sen!2sin!4v1772433072922!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 w-full h-full"
+                />
+              )}
+
+              {/* Street View */}
+              {streetView && (
+                <iframe
+                  key="street"
+                  title="Spacebox Designs Street View"
+                  src="https://www.google.com/maps/embed?pb=!4v1775806016824!6m8!1m7!1sYmap96k16MpNVz4NnO1NdQ!2m2!1d17.48324790914321!2d78.33662949782403!3f47.28600131069135!4f22.353866753119334!5f0.7820865974627469"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 w-full h-full"
+                />
+              )}
             </div>
           </motion.div>
         </div>

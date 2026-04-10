@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "@/assets/logo.png";
 import { Menu, X, ChevronDown, Download } from "lucide-react";
 import { services } from "@/components/ServicesSection";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -49,6 +50,10 @@ const Navbar = () => {
     setMobileServicesOpen(false);
     setOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+  }, [open]);
 
   return (
     <nav
@@ -132,64 +137,141 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden bg-background border-b border-border px-4 pb-4 max-h-[80vh] overflow-y-auto">
-          <ul className="flex flex-col gap-4">
-            {navLinks.map((link) =>
-              link.hasDropdown ? (
-                <li key={link.href}>
-                  <button
-                    className="text-sm font-medium text-foreground hover:text-secondary transition-colors inline-flex items-center gap-1 w-full"
-                    onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                  >
-                    {link.label}
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`} />
-                  </button>
-                  {mobileServicesOpen && (
-                    <ul className="mt-2 ml-3 flex flex-col gap-2 border-l-2 border-secondary/30 pl-3">
-                      <li>
-                        <Link to="/services" onClick={() => setOpen(false)} className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                          View All Services →
-                        </Link>
-                      </li>
-                      {services.map((s) => (
-                        <li key={s.slug}>
-                          <Link
-                            to={`/services/${s.slug}`}
-                            className="text-sm text-muted-foreground hover:text-secondary transition-colors"
-                            onClick={() => setOpen(false)}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Overlay (NO BLUR) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 bg-black/40 z-40 md:hidden"
+            />
+
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-0 right-0 h-[100dvh] w-[80%] max-w-sm 
+              bg-background/85 backdrop-blur-xl 
+              border-l border-white/10 
+              z-50 md:hidden flex flex-col 
+              shadow-[ -20px_0_60px_rgba(0,0,0,0.7) ]"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-5 border-b border-white/10">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">
+                  Menu
+                </span>
+
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-2 rounded-full hover:bg-white/5 transition"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 overflow-y-auto px-6 py-8 space-y-7">
+                {navLinks.map((link, i) =>
+                  link.hasDropdown ? (
+                    <div key={link.href}>
+                      <button
+                        onClick={() =>
+                          setMobileServicesOpen(!mobileServicesOpen)
+                        }
+                        className="w-full flex items-center justify-between text-base font-medium text-foreground hover:text-secondary transition-all duration-300"
+                      >
+                        {link.label}
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-300 ${
+                            mobileServicesOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {mobileServicesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="mt-3 ml-2 border-l border-white/10 pl-4 space-y-3"
                           >
-                            {s.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ) : (
-                <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className={`text-sm font-medium transition-colors hover:text-secondary ${location.pathname === link.href ? "text-secondary" : "text-foreground"}`}
-                    onClick={() => setOpen(false)}
+                            <Link
+                              to="/services"
+                              onClick={() => setOpen(false)}
+                              className="block text-xs font-semibold uppercase tracking-wider text-secondary"
+                            >
+                              View All Services →
+                            </Link>
+
+                            {services.map((s) => (
+                              <Link
+                                key={s.slug}
+                                to={`/services/${s.slug}`}
+                                onClick={() => setOpen(false)}
+                                className="block text-sm text-muted-foreground hover:text-secondary transition-all duration-300 hover:translate-x-1"
+                              >
+                                {s.title}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.06, duration: 0.35 }}
+                    >
+                      <Link
+                        to={link.href}
+                        onClick={() => setOpen(false)}
+                        className={`block text-base font-medium transition-all duration-300 ${
+                          location.pathname === link.href
+                            ? "text-secondary translate-x-1"
+                            : "text-foreground hover:text-secondary hover:translate-x-1"
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  )
+                )}
+
+                {/* CTA */}
+                <div className="pt-4">
+                  <button
+                    onClick={handleDownloadBrochure}
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl 
+                    bg-primary text-primary-foreground 
+                    hover:bg-secondary 
+                    shadow-lg hover:shadow-2xl 
+                    hover:-translate-y-0.5 
+                    transition-all duration-300"
                   >
-                    {link.label}
-                  </Link>
-                </li>
-              )
-            )}
-            <li>
-              <button
-                onClick={handleDownloadBrochure}
-                className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-secondary shadow-md hover:shadow-xl transition-all duration-300 ease-out"
-              >
-                <Download className="w-4 h-4" />
-                Download Brochure
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
+                    <Download className="w-4 h-4" />
+                    Download Brochure
+                  </button>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="p-5 border-t border-white/5 text-xs text-muted-foreground/60">
+                © {new Date().getFullYear()} Spacebox Concepts
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
