@@ -44,7 +44,7 @@ export default function CTAStrip() {
           transition={{ duration: 0.6, delay: 0.4, ease: easeOut }}
         >
           <Link
-            to="/start-project"
+            to="/client-brief"
             className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-2.5 rounded-lg font-semibold uppercase tracking-wider text-xs hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 shadow-md hover:shadow-xl whitespace-nowrap"
           >
             Get a Quote

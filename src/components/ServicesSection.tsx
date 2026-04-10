@@ -102,8 +102,8 @@ const ServicesSection = () => {
       </div>
       <div className="absolute inset-0 bg-foreground/55 z-0" />
 
-      <div className="container mx-auto px-4 md:px-0 relative z-10">
-        <div className="mb-16">
+      <div className="container mx-auto relative z-10">
+        <div className="mb-16 px-0 md:px-8">
           <motion.p
             className="text-secondary text-sm uppercase tracking-[0.3em] mb-4 font-body"
             initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ const ServicesSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            Bespoke Services
+          Bespoke Services
           </motion.p>
           <AnimatedTitle className="text-4xl md:text-5xl text-white leading-tight">
           Our Design Portfolio
