@@ -202,7 +202,7 @@ export default function Contact() {
                   <Mail className="w-6 h-6 text-secondary mt-0.5" />
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium group-hover:text-primary transition-colors">spaceboxconcepts@gmail.com</p>
+                    <p className="font-medium group-hover:text-primary transition-colors">connect@spaceboxconcepts.com</p>
                   </div>
                 </a>
                 <a href="tel:+917799101433" className="flex items-start gap-4 group">
