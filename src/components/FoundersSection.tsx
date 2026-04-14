@@ -1,28 +1,22 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import teamMockup from '@/assets/team-mockup.jpg';
-
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const founders = [
   {
     name: 'Prathyusha Ravula',
-    role: 'Interior Design Lead & Founder',
+    role: 'Principal Designer & Founder',
     bio: 'Prathyusha Ravula is a passionate interior designer with 8 years of professional experience delivering refined, functional, and timeless interiors. Known for a detail-driven approach and client-focused design philosophy, she specializes in creating spaces that balance aesthetics, comfort, and individuality.',
-    image: teamMockup,
   },
   {
     name: 'Mini Khapekar',
-    role: 'Managing Partner, Spacebox Concepts',
+    role: 'Managing Director, Operations & Execution',
     bio: 'Mini Khapekar is a seasoned technology and operations leader with 19 years of experience in the IT industry and over a decade in management. She drives operations, administration, and execution at Spacebox Concepts with a structured, process-driven approach. She also serves as Director of Engineering at a fast-growing startup, blending operational excellence with innovation-driven thinking.',
-    image: teamMockup,
   },
   {
     name: 'Amruta Desai',
     role: 'Managing Director, Finance & Strategy',
     bio: 'Amruta Desai is a strategic finance and business operations leader with extensive experience in corporate planning, budgeting, and organizational growth. As Managing Director at Spacebox Concepts, she oversees financial strategy, resource allocation, and long-term business development. Her analytical mindset and structured approach to decision-making ensure sustainable growth and operational efficiency across all verticals.',
-    image: teamMockup,
   },
 ];
 
@@ -37,8 +31,6 @@ const stagger = {
 };
 
 export default function FoundersSection() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
       {/* Smooth Gradient Background */}
@@ -63,121 +55,33 @@ export default function FoundersSection() {
           </motion.h2>
         </motion.div>
 
-        {/* Accordion Cards — Desktop */}
-        <div
-          className="hidden md:flex gap-3 h-[420px] lg:h-[480px]"
-          onMouseLeave={() => setActiveIndex(null)}
-        >
-          {founders.map((f, i) => {
-            const isActive = activeIndex === i;
-            const hasActive = activeIndex !== null;
-
-            return (
-              <motion.div
-                key={f.name}
-                className="relative rounded-2xl overflow-hidden cursor-pointer border border-primary-foreground/10 hover:border-secondary/40"
-                style={{
-                  flex: isActive ? 3 : hasActive ? 0.5 : 1,
-                  transition: 'flex 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
-                }}
-                onMouseEnter={() => setActiveIndex(i)}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease: easeOut }}
-              >
-                {/* Image section — takes left side when expanded, full when collapsed */}
-                <div
-                  className="absolute top-0 left-0 h-full transition-all duration-[600ms]"
-                  style={{ width: isActive ? '40%' : '100%', transition: 'width 0.6s cubic-bezier(0.22, 1, 0.36, 1)' }}
-                >
-                  <img
-                    src={f.image}
-                    alt={f.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-700"
-                    style={{ transform: isActive ? 'scale(1.03)' : 'scale(1)' }}
-                  />
-                  {/* Gradient only in collapsed state */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent transition-opacity duration-500"
-                    style={{ opacity: isActive ? 0 : 1 }}
-                  />
-                </div>
-
-                {/* Collapsed state — name & title at bottom */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 p-6 z-10 transition-opacity duration-400"
-                  style={{ opacity: isActive ? 0 : 1 }}
-                >
-                  <h3 className="text-lg font-bold text-primary-foreground leading-tight">{f.name}</h3>
-                  <p className="text-secondary text-xs font-body mt-1">{f.role}</p>
-                </div>
-
-                {/* Expanded state — bio panel on right */}
-                <div
-                  className="absolute top-0 right-0 h-full flex flex-col justify-center px-8 lg:px-10 py-8 bg-primary/95 transition-all duration-[600ms]"
-                  style={{
-                    width: isActive ? '60%' : '0%',
-                    opacity: isActive ? 1 : 0,
-                    transition: 'width 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease',
-                  }}
-                >
-                  <div
-                    style={{
-                      transform: isActive ? 'translateX(0)' : 'translateX(30px)',
-                      opacity: isActive ? 1 : 0,
-                      transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s, opacity 0.4s ease 0.2s',
-                    }}
-                  >
-                    <div className="h-px w-12 bg-secondary mb-4" />
-                    <h3 className="text-xl lg:text-2xl font-bold text-primary-foreground mb-1.5 whitespace-nowrap">{f.name}</h3>
-                    <p className="text-secondary text-xs lg:text-sm font-body mb-4 whitespace-nowrap">{f.role}</p>
-                    <p className="text-primary-foreground/70 text-xs lg:text-sm font-body leading-relaxed">
-                      {f.bio}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Corner accents */}
-                <div
-                  className="absolute top-3 right-3 w-12 h-12 border-t-2 border-r-2 border-secondary/40 rounded-tr-lg z-20 transition-opacity duration-500"
-                  style={{ opacity: isActive ? 1 : 0 }}
-                />
-                <div
-                  className="absolute bottom-3 left-3 w-12 h-12 border-b-2 border-l-2 border-secondary/40 rounded-bl-lg z-20 transition-opacity duration-500"
-                  style={{ opacity: isActive ? 1 : 0 }}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Mobile — stacked cards */}
-        <div className="md:hidden space-y-6">
+        {/* Content Blocks */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {founders.map((f, i) => (
             <motion.div
               key={f.name}
-              className="rounded-2xl overflow-hidden border border-primary-foreground/10 bg-primary/60 backdrop-blur-sm"
+              className="relative p-8 lg:p-10 rounded-2xl border border-primary-foreground/10 bg-primary/40 backdrop-blur-md group hover:border-secondary/40 transition-colors duration-500 h-full flex flex-col"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.15, ease: easeOut }}
             >
-              <div className="overflow-hidden">
-                <img src={f.image} alt={f.name} className="w-full h-auto object-cover object-top" />
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-primary-foreground mb-1">{f.name}</h3>
-                <p className="text-secondary text-xs font-body mb-3">{f.role}</p>
-                <div className="h-px w-10 bg-secondary/40 mb-3" />
-                <p className="text-primary-foreground/70 text-sm font-body leading-relaxed">{f.bio}</p>
-              </div>
+              <div className="h-px w-12 bg-secondary mb-6 transition-all duration-500 group-hover:w-16" />
+              <h3 className="text-2xl lg:text-3xl font-bold text-primary-foreground mb-2">{f.name}</h3>
+              <p className="text-secondary text-sm font-body mb-6">{f.role}</p>
+              <p className="text-primary-foreground/70 text-sm lg:text-base font-body leading-relaxed text-justify flex-grow">
+                {f.bio}
+              </p>
+              
+              {/* Subtle corner accents for a premium feel */}
+              <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-secondary/0 group-hover:border-secondary/40 rounded-tr-lg transition-all duration-500" />
+              <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-secondary/0 group-hover:border-secondary/40 rounded-bl-lg transition-all duration-500" />
             </motion.div>
           ))}
         </div>
 
         <motion.p
-          className="text-center text-primary-foreground/40 font-body mt-16 text-sm"
+          className="text-center text-primary-foreground/40 font-body mt-20 text-sm"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
