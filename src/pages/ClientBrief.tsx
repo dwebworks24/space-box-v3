@@ -186,7 +186,7 @@ const ClientBrief = () => {
       const orderRes = await fetch(apiUrl(ENDPOINTS.CREATE_ORDER), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: 5 }),
+        body: JSON.stringify({ amount: 5000 }),
       });
       if (!orderRes.ok) {
         const errData = await orderRes.json().catch(() => null);
