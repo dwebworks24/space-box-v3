@@ -186,7 +186,7 @@ const ClientBrief = () => {
       const orderRes = await fetch(apiUrl(ENDPOINTS.CREATE_ORDER), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: 5000 }),
+        body: JSON.stringify({ amount: 5 }),
       });
       if (!orderRes.ok) {
         const errData = await orderRes.json().catch(() => null);
@@ -199,12 +199,8 @@ const ClientBrief = () => {
       return;
     }
 
-    // Validate that we have a Razorpay key
-    const razorpayKey = "rzp_test_SaWkDcXOn2TITQ";
-    // Secret Key (For backend usage, keeping it here for reference as requested)
-    // Razorpay Secret Key: Ib0LQ69C6bqc1netFcCg4a7P
-    
-    if (!orderData.razorpay_key && !razorpayKey) {
+    // Validate that we have a Razorpay key (provided by backend)
+    if (!orderData.razorpay_key) {
       setError("Payment gateway configuration error: Authentication key is missing. Please contact support.");
       setSubmitting(false);
       return;
@@ -212,7 +208,7 @@ const ClientBrief = () => {
 
     // Step 2: Open Razorpay checkout with the order
     const options = {
-      key: razorpayKey || orderData.razorpay_key,
+      key: orderData.razorpay_key,
       amount: orderData.amount || 500000,
       currency: orderData.currency || "INR",
       name: "SpaceBox Concepts",
@@ -728,11 +724,10 @@ const ClientBrief = () => {
                       <button
                         type="button"
                         onClick={() => update("professionalCommitment", "proceed")}
-                        className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-all duration-200 ${
-                          form.professionalCommitment === "proceed"
+                        className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-all duration-200 ${form.professionalCommitment === "proceed"
                             ? "border-secondary bg-secondary/10 text-foreground font-medium"
                             : "border-border bg-background text-muted-foreground hover:border-secondary/50"
-                        }`}
+                          }`}
                       >
                         <span className="inline-flex items-center gap-2">
                           <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.professionalCommitment === "proceed" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
@@ -744,11 +739,10 @@ const ClientBrief = () => {
                       <button
                         type="button"
                         onClick={() => update("professionalCommitment", "consult")}
-                        className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-all duration-200 ${
-                          form.professionalCommitment === "consult"
+                        className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-all duration-200 ${form.professionalCommitment === "consult"
                             ? "border-secondary bg-secondary/10 text-foreground font-medium"
                             : "border-border bg-background text-muted-foreground hover:border-secondary/50"
-                        }`}
+                          }`}
                       >
                         <span className="inline-flex items-center gap-2">
                           <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${form.professionalCommitment === "consult" ? 'border-secondary' : 'border-muted-foreground/40'}`}>
