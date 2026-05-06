@@ -22,14 +22,14 @@ function ProjectTile({ project, index }: { project: ApiProject; index: number })
     >
       <Link
         to={`/projects/${project.id}`}
-        className="group relative block w-full overflow-hidden rounded-2xl bg-card border border-border shadow-lg hover:shadow-2xl transition-shadow duration-500"
+        className="group relative block w-full overflow-hidden rounded-2xl bg-card border border-border shadow-lg hover:shadow-2xl transition-shadow duration-500 transform-gpu will-change-transform"
       >
         {/* Image */}
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4 / 3' }}>
           <img
             src={heroSrc}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 transform-gpu will-change-transform"
           />
           {/* Gradient overlay on image */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
@@ -51,7 +51,7 @@ function ProjectTile({ project, index }: { project: ApiProject; index: number })
             <span className="text-xs font-medium uppercase tracking-widest">
               View Project
             </span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-2" />
+            <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-2 transform-gpu will-change-transform" />
           </div>
         </div>
 

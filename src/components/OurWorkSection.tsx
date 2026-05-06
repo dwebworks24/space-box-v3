@@ -16,15 +16,11 @@ import work8 from "@/assets/projects/work-8.png";
 import work9 from "@/assets/projects/work-9.png";
 
 const projects = [
-  { img: work1, title: "Restaurant Lounge", category: "Commercial" },
-  { img: work2, title: "Aviation Dining", category: "Hospitality" },
-  { img: work3, title: "Contemporary Living", category: "Residential" },
-  { img: work4, title: "Modular Kitchen", category: "Residential" },
-  { img: work5, title: "Luxury Lounge", category: "Residential" },
-  { img: work6, title: "Outdoor Seating", category: "Hospitality" },
-  { img: work7, title: "Rooftop Café", category: "Commercial" },
-  { img: work8, title: "Trophy Room", category: "Commercial" },
-  { img: work9, title: "Kids Play Zone", category: "Commercial" },
+  { img: work1, title: "Fly Hyderabad", category: "Commercial" },
+  { img: work2, title: "Sunset Stories", category: "Commercial" },
+  { img: work3, title: "Cozone Coworking Space", category: "Commercial" },
+  { img: work4, title: "Mehbubnagar Play Area", category: "Commercial" },
+  { img: work5, title: "Lodha Play Area", category: "Commercial" },
 ];
 
 const PROJECT_HEIGHT = 420;
@@ -33,7 +29,9 @@ const VISIBLE_CARDS = 2; // how many cards visible at once in the viewport
 
 const OurWorkSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+  const [containerHeight, setContainerHeight] = useState(0);
 
   useEffect(() => {
     const handler = () => setIsMobile(window.innerWidth < 640);
@@ -41,26 +39,41 @@ const OurWorkSection = () => {
     return () => window.removeEventListener("resize", handler);
   }, []);
 
+  useEffect(() => {
+    if (!scrollContainerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setContainerHeight(entry.contentRect.height);
+      }
+    });
+    observer.observe(scrollContainerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const cardHeight = isMobile ? 300 : PROJECT_HEIGHT;
+  const totalCardsHeight = projects.length * cardHeight + (projects.length - 1) * GAP;
+
+  // Use dynamic container height if available, otherwise fallback
+  const maxTranslate = containerHeight > 0 
+    ? Math.max(0, totalCardsHeight - containerHeight + 80) // Added 80px buffer to guarantee visibility of the last card
+    : (projects.length - 2) * (cardHeight + GAP) + 80;
 
   // Scroll height: one viewport + enough to scroll through remaining cards
-  const extraScroll = (projects.length - VISIBLE_CARDS) * (cardHeight + GAP);
-  const totalScrollHeight = window.innerHeight + extraScroll;
-
+  const extraScroll = maxTranslate;
+  
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Translate only enough to reveal hidden cards
-  const maxTranslate = extraScroll;
-  const translateY = useTransform(scrollYProgress, [0, 1], [0, -maxTranslate]);
+  // Calculate the transform directly so it always responds to state changes
+  const translateY = useTransform(scrollYProgress, (pos) => -pos * maxTranslate);
 
   return (
     <section
       ref={sectionRef}
       className="relative bg-foreground"
-      style={{ height: `${totalScrollHeight}px` }}
+      style={{ height: `calc(100vh + ${extraScroll}px)` }}
     >
       {/* Background texture */}
       <img src={sectionShape} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none" />
@@ -121,7 +134,7 @@ const OurWorkSection = () => {
             </motion.div>
 
             {/* Right: Scrolling projects */}
-            <div className="relative h-[80vh] sm:h-[65vh] lg:h-[calc(100vh-120px)] overflow-hidden pt-4 pb-4 sm:pt-6 sm:pb-10">
+            <div ref={scrollContainerRef} className="relative h-[80vh] sm:h-[65vh] lg:h-[calc(100vh-120px)] overflow-hidden pt-4 pb-4 sm:pt-6 sm:pb-10">
               <motion.div
                 style={{ y: translateY }}
                 className="flex flex-col"
