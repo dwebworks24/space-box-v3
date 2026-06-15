@@ -199,14 +199,13 @@ const ClientBrief = () => {
       return;
     }
 
-    // Validate that we have a Razorpay key (provided by backend)
+    
     if (!orderData.razorpay_key) {
       setError("Payment gateway configuration error: Authentication key is missing. Please contact support.");
       setSubmitting(false);
       return;
     }
 
-    // Step 2: Open Razorpay checkout with the order
     const options = {
       key: orderData.razorpay_key,
       amount: orderData.amount || 500000,

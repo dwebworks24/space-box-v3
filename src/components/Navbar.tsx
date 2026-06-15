@@ -116,7 +116,7 @@ const Navbar = () => {
         </ul>
 
         {/* Desktop Book Consultation - opens popup */}
-        <button
+        {/* <button
           onClick={handleDownloadBrochure}
           className={`hidden md:inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-lg shadow-md hover:shadow-xl hover:scale-[1.03] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 ease-out ${alwaysSolid || scrolled
             ? "bg-primary text-primary-foreground hover:bg-secondary"
@@ -125,7 +125,7 @@ const Navbar = () => {
         >
           <Download className="w-4 h-4" />
           Download Brochure
-        </button>
+        </button> */}
 
         {/* Mobile toggle */}
         <button
