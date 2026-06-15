@@ -201,7 +201,7 @@ function GallerySection({
                 <img
                   src={mediaUrl(img.image)}
                   alt={img.label}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu will-change-transform"
                 />
 
                 {/* Hover zoom icon */}
