@@ -205,13 +205,7 @@ export default function Contact() {
                     <p className="font-medium group-hover:text-primary transition-colors">admin@spaceboxconcepts.com</p>
                   </div>
                 </a>
-                <a href="tel:+917799101433" className="flex items-start gap-4 group">
-                  <Phone className="w-5 h-5 text-secondary mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Phone</p>
-                    <p className="font-medium group-hover:text-primary transition-colors">+91 7799101433</p>
-                  </div>
-                </a>
+                <a href="tel:+919701294455" className="flex items-start gap-4 group"> <Phone className="w-5 h-5 text-secondary mt-0.5" /> <div> <p className="text-sm text-muted-foreground">Office</p> <p className="font-medium group-hover:text-primary transition-colors"> +91 9701294455 </p> </div> </a> <a href="tel:+917799101433" className="flex items-start gap-4 group mt-4"> <Phone className="w-5 h-5 text-secondary mt-0.5" /> <div> <p className="text-sm text-muted-foreground">Mobile</p> <p className="font-medium group-hover:text-primary transition-colors"> +91 7799101433 </p> </div> </a>
                 <div className="flex items-start gap-4">
                   <MapPin className="w-5 h-5 text-secondary mt-0.5" />
                   <div>

@@ -119,14 +119,21 @@ const Footer = () => {
                 <p className="text-white/60 font-body text-xs uppercase tracking-wider mb-0.5">
                   Call us Anytime
                 </p>
-                <div className="flex flex-col">
-                  <a
-                    href="tel:+917799101433"
-                    className="text-white font-body text-sm hover:text-secondary transition-colors"
-                  >
-                    +91 77991 01433
-                  </a>
-                </div>
+               <div className="flex flex-col">
+  <a
+    href="tel:+919701294455"
+    className="text-white font-body text-sm hover:text-secondary transition-colors"
+  >
+    Office: +91 9701294455
+  </a>
+
+  <a
+    href="tel:+917799101433"
+    className="text-white font-body text-sm hover:text-secondary transition-colors"
+  >
+    Mobile: +91 77991 01433
+  </a>
+</div>
               </div>
             </motion.div>
           </motion.div>
