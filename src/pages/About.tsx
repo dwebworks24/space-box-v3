@@ -333,7 +333,7 @@ export default function About() {
       </section>
 
       {/* ═══════ MEET THE FOUNDERS ═══════ */}
-      <FoundersSection />
+      {/* <FoundersSection /> */}
       {/* ═══════ TESTIMONIALS (reuse homepage) ═══════ */}
       <TestimonialsSection />
     </div>
